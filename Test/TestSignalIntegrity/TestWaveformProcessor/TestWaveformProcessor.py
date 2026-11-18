@@ -242,7 +242,7 @@ count += 1
 #   ]
 # }
 # </waveform-processor-interface>
-count += 1
+count = min(count + 1, 2)
 measured = sum(input_waveform_1) / len(input_waveform_1)
 noise = input_noise_1.TotalRMS()
 '''
@@ -252,6 +252,8 @@ noise = input_noise_1.TotalRMS()
                 self.assertTrue(app.OpenProjectFile('WaveformProcessorTestTwoProbe_nonlin_source.si',
                                                     writable=True))
                 siapp.Preferences['Cache.CacheResults']=False
+                siapp.Preferences['Calculation.Processing.StopOnConvergence']=False
+                siapp.Preferences['Calculation.Processing.MaximumProcessingIterations']=8
                 siapp.Project['CalculationProperties.EndFrequency']=8.e9
                 siapp.Project['CalculationProperties.FrequencyPoints']=16
                 siapp.Project['CalculationProperties.UserSampleRate']=16.e9
@@ -345,7 +347,7 @@ noise = input_noise_1.TotalRMS()
                         if not visibleProbe:
                             self.assertEqual(matrices[0],[])
                             self.assertEqual(result['noise'],{})
-                self.assertEqual(records,[(0,0),(1,1)])
+                self.assertEqual(records,[(0,0),(1,1),(2,2),(3,2)])
                 self.assertEqual(processor.variablesList[0]['Value'],'=processor_count')
                 self.assertEqual(state['Value'],'2')
                 self.assertAlmostEqual(float(processor.variablesList[1]['Value']),1.)
@@ -907,6 +909,134 @@ optimize = 99
         self.assertEqual(quiet['B_in1'].Frequencies(),list(frequencies))
         self.assertEqual(quiet['B_in1'].Values(),[0.]*17)
 
+    def testProcessorSystemVariableChangesRefreshSimulation(self):
+        from types import SimpleNamespace
+        from unittest.mock import Mock,patch
+        from SignalIntegrity.App.Device import DeviceWaveformProcessorVariable
+        from SignalIntegrity.App.ProjectFile import VariableConfiguration
+        from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
+        from SignalIntegrity.App.Simulator import Simulator
+        from SignalIntegrity.Lib.TimeDomain.Waveform.DependentWaveform import DependentWaveform
+
+        cases=[('changed',1,False),('changed',0,False),('changed',1,True),
+               ('late-change',1,False),('unchanged',1,False),('limit',1,False),
+               ('limit',1,True),('equation-error',1,False)]
+        for gui in [False,True]:
+            for case,outputs,convergence in cases:
+                with self.subTest(gui=gui,case=case,outputs=outputs,convergence=convergence):
+                    app=SignalIntegrityAppHeadless()
+                    self.assertTrue(app.OpenProjectFile('WaveformProcessorTestTwoProbe_nonlin_source.si'))
+                    siapp.Preferences['Cache.CacheResults']=False
+                    siapp.Preferences['Calculation.Processing.StopOnConvergence']=convergence
+                    siapp.Preferences['Calculation.Processing.MaximumProcessingIterations']=3
+                    siapp.Project['CalculationProperties.EndFrequency']=8.e9
+                    siapp.Project['CalculationProperties.FrequencyPoints']=16
+                    siapp.Project['CalculationProperties.UserSampleRate']=16.e9
+                    schematic=app.Drawing.schematic
+                    processor=next(device for device in schematic.deviceList
+                                   if isinstance(device,DeviceWaveformProcessorVariable))
+                    processor['outputports']['Value']=outputs
+                    if not outputs:
+                        schematic.deviceList=[device for device in schematic.deviceList
+                                              if device['ref'].GetValue() != 'VO2']
+                    for name,value,readOnly in [('setting','1',False),('resistance','50',True),
+                                                ('drive','0',True)]:
+                        variable=VariableConfiguration()
+                        variable['Name']=name
+                        variable['Value']=value
+                        variable['ReadOnly']=readOnly
+                        siapp.Project['Variables.Items'].append(variable)
+                    equation=('resistance = 50. / (3. - setting)' if case == 'equation-error'
+                              else 'resistance = 50. * setting')
+                    siapp.Project['Equations'].PutTextString(equation+'\ndrive = (setting - 1.) * 0.25')
+                    if case == 'limit':
+                        siapp.Project['Equations'].PutTextString('resistance = 50.\ndrive = 0.')
+                    linked=VariableConfiguration()
+                    linked['Name']='setting'
+                    linked['ReadOnly']=True
+                    linked['Value']='=setting'
+                    count=VariableConfiguration()
+                    count['Name']='count'
+                    count['Type']='int'
+                    count['ReadOnly']=True
+                    processor.variablesList=[linked,count]
+                    assignment=('setting += 1.' if case == 'limit' else
+                                'setting = 1.' if case == 'unchanged' else
+                                'if iteration == 1: setting = 3.' if case == 'late-change'
+                                else 'setting = 3.')
+                    processor['script']['Value']=('count += 1\n'+assignment+'\n'+
+                        ('output_waveform_1 = input_waveform_1 * 2.\n' if outputs else ''))
+                    source=next(device for device in schematic.deviceList
+                                if device['ref'].GetValue() == 'VS1')
+                    source.SetWaveform(si.td.wf.Waveform(si.td.wf.TimeDescriptor(0.,256,16.e9),1.))
+                    next(device for device in schematic.deviceList
+                         if device['ref'].GetValue() == 'R2')['r']['Value']='=resistance'
+                    next(device for device in schematic.deviceList
+                         if device['ref'].GetValue() == 'VS2')['a']['Value']='=drive'
+                    app.Drawing.DrawSchematic()
+                    records=[]
+                    update=DependentWaveform.UpdateWaveforms
+
+                    def capture(dependents,labels,waveforms,iteration,**kwargs):
+                        records.append((iteration,dict((label,waveforms[index][128])
+                                                       for index,label in enumerate(labels))))
+                        return update(dependents,labels,waveforms,iteration,**kwargs)
+
+                    calculate=si.p.SimulatorNumericParser.TransferMatrices
+                    with patch.object(si.p.SimulatorNumericParser,'TransferMatrices',
+                                      autospec=True,side_effect=calculate) as matrices, \
+                         patch.object(DependentWaveform,'UpdateWaveforms',side_effect=capture), \
+                         patch.object(siapp.Project,'EvaluateEquations',
+                                      wraps=siapp.Project.EvaluateEquations) as equations:
+                        if gui:
+                            app.statusbar=Mock()
+                            app.TransferParametersDoer=Mock(active=True)
+                            app.root=Mock()
+                            app.Drawing.DrawSchematic=Mock()
+                            simulator=Simulator(app)
+                            simulator.SimulatorDialog=Mock()
+                            simulator.NoiseDialog=Mock()
+                            simulator.UpdateWaveforms=Mock()
+                            simulator.UpdateNoise=Mock()
+                            simulator.UpdateEyeDiagrams=Mock()
+                            progress=lambda parent,title,owner,calculate,**kwargs:SimpleNamespace(GetResult=calculate)
+                            with patch('SignalIntegrity.App.Simulator.ProgressDialog',side_effect=progress), \
+                                 patch('SignalIntegrity.App.Simulator.messagebox.showerror') as error:
+                                simulator.Simulate()
+                            if case in ['limit','equation-error']:
+                                self.assertTrue(error.called)
+                                self.assertIn('system',error.call_args.args[1].lower())
+                                simulator.UpdateWaveforms.assert_not_called()
+                                continue
+                            error.assert_not_called()
+                            waveforms,labels=simulator.UpdateWaveforms.call_args.args
+                        else:
+                            if case == 'limit':
+                                with self.assertRaises(si.SignalIntegrityExceptionSimulator) as error:
+                                    app.Simulate()
+                                self.assertIn('system',error.exception.message.lower())
+                                self.assertEqual(len(records),3)
+                                continue
+                            result=app.Simulate()
+                            if case == 'equation-error':
+                                self.assertNotIn('output waveforms',result)
+                                continue
+                            self.assertIn('output waveforms',result)
+                            waveforms=result['output waveforms']
+                            labels=result['output waveform labels']
+                    changed=case != 'unchanged'
+                    self.assertEqual(matrices.call_count,2 if changed else 1)
+                    self.assertEqual([record[0] for record in records],list(range(3 if changed else 2)))
+                    self.assertEqual(count['Value'],'3' if changed else '2')
+                    self.assertEqual(equations.call_count,int(changed))
+                    if changed:
+                        equations.assert_called_once_with(force=True)
+                    self.assertAlmostEqual(waveforms[labels.index('VO3')][128],0.375 if changed else 0.5)
+                    self.assertEqual(linked['Value'],'=setting')
+                    if outputs and case == 'changed':
+                        self.assertAlmostEqual(records[1][1]['VO2'],1.)
+                        self.assertAlmostEqual(waveforms[labels.index('VO2')][128],0.75)
+
     def testProcessorNoiseRecalculatedBeforeEachIteration(self):
         import numpy as np
         from types import SimpleNamespace
@@ -961,10 +1091,6 @@ optimize = 99
                 state=VariableConfiguration()
                 state['Name']='state'
                 state['ReadOnly']=True
-                state['Value']='=processor_state'
-                systemState=VariableConfiguration()
-                systemState['Name']='processor_state'
-                siapp.Project['Variables.Items'].append(systemState)
                 processor.variablesList=[state]
                 processor['script']['Value']=(
                     'state += 0.1\n'
@@ -972,12 +1098,12 @@ optimize = 99
                     'output_waveform_2 = input_waveform_2 * 0 + 4.\n')
                 td=si.td.wf.TimeDescriptor(0.,256,16.e9)
                 inputs=[si.td.wf.Waveform(td,1.)]+processor.Waveforms()+[0.]
-                schematic=Mock()
-                schematic.NetList.return_value=netlist
-                schematic.InputWaveforms.return_value=inputs
+                schematic=app.Drawing.schematic
+                schematic.NetList=Mock(return_value=netlist)
+                schematic.InputWaveforms=Mock(return_value=inputs)
                 schematic.dependentWaveforms=[inputs[1]]
-                schematic.OtherWaveforms.return_value=[]
-                schematic.ProcessingIterationCount.return_value=2
+                schematic.OtherWaveforms=Mock(return_value=[])
+                schematic.ProcessingIterationCount=Mock(return_value=2)
                 schematic.deviceList=[noise,probe,processor]
                 app.Drawing.schematic=schematic
                 app.Drawing.canCalculate=True
@@ -1019,8 +1145,7 @@ optimize = 99
                         self.assertIn('output waveforms',result)
                 self.assertEqual([record[0] for record in records],[0,1])
                 self.assertEqual([record[3] for record in records],[0.,0.1])
-                self.assertEqual(state['Value'],'=processor_state')
-                self.assertEqual(systemState['Value'],'0.2')
+                self.assertEqual(state['Value'],'0.2')
                 self.assertEqual(list(inputs[2]),[4.]*len(inputs[2]))
                 self.assertEqual(records[0][1].Values(),[0.]*len(frequencies))
                 expected=np.sqrt(2.*constants.e*.02)

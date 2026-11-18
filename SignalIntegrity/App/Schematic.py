@@ -80,9 +80,13 @@ class Schematic(CallBacker):
         for page,wires in self.CircuitPages():
             wires.ConsolidateWires(page)
         return NetList(self)
-    def InputWaveforms(self):
+    def InputWaveforms(self,preserveDependentWaveforms=False):
         from SignalIntegrity.App.Device import DeviceWaveformProcessorVariable
         from SignalIntegrity.Lib.TimeDomain.Waveform.DependentWaveform import DependentWaveform
+        from SignalIntegrity.Lib.TimeDomain.Waveform.Waveform import Waveform
+        previousOutputs={(tuple(processor.OutputPortName),output.OutputWaveformName):output
+                         for processor in self.dependentWaveforms
+                         for output in processor.ProcessorOutputs} if preserveDependentWaveforms else {}
         inputWaveformList=[]
         deferredNoiseWaveforms=[]
         self.dependentWaveforms=[]
@@ -92,6 +96,10 @@ class Schematic(CallBacker):
                     if not device.IsProcessingEnabled():
                         continue
                     processor=device.WaveformProcessor(self.callback)
+                    for output in processor.ProcessorOutputs:
+                        previous=previousOutputs.get((tuple(processor.OutputPortName),output.OutputWaveformName))
+                        if previous is not None and previous.td is not None:
+                            Waveform.__init__(output,x=previous)
                     self.dependentWaveforms.append(processor)
                     inputWaveformList.extend(processor.ProcessorOutputs)
                 else:
@@ -105,6 +113,34 @@ class Schematic(CallBacker):
                     self.dependentWaveforms.extend(wf for wf in waveforms
                                                    if isinstance(wf,DependentWaveform))
         return inputWaveformList+deferredNoiseWaveforms
+
+    def UpdateDependentWaveforms(self,transferMatrices,outputWaveformLabels,outputWaveformList,
+                                iteration,otherWaveformLabels):
+        import hashlib
+        from SignalIntegrity.Lib.TimeDomain.Waveform.DependentWaveform import DependentWaveform
+        from SignalIntegrity.Lib.Exception import SignalIntegrityExceptionDependentWaveform
+        from SignalIntegrity.App.StatisticalNoiseAnalysis import StatisticalNoiseAnalysis
+
+        def systemVariablesHash():
+            values=[(variable['Name'],variable['Type'],
+                     DependentWaveform.OutputVariableValue(variable,variable.Value()))
+                    for variable in SignalIntegrity.App.Project['Variables.Items']]
+            return hashlib.sha256(repr(values).encode('utf-8')).digest()
+
+        before=systemVariablesHash()
+        inputNoise=StatisticalNoiseAnalysis.WaveformProcessorInputNoise(
+            self,transferMatrices,outputWaveformList,
+            outputWaveformLabels+otherWaveformLabels,self.dependentWaveforms)
+        DependentWaveform.UpdateWaveforms(self.dependentWaveforms,outputWaveformLabels,
+                                         outputWaveformList,iteration,
+                                         noise_spectral_densities=inputNoise)
+        if systemVariablesHash() == before:
+            return False
+        error=SignalIntegrity.App.Project.EvaluateEquations(force=True)
+        if error is not None:
+            raise SignalIntegrityExceptionDependentWaveform(
+                'system equations failed after waveform processor update: '+str(error)) from error
+        return True
     
     def DependentSourceCount(self):
         from SignalIntegrity.App.Device import DeviceWaveformProcessorVariable
