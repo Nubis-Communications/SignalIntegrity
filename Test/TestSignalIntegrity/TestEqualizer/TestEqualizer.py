@@ -660,6 +660,130 @@ class TestBlindEqualizerScript(unittest.TestCase):
             with self.assertRaises(SignalIntegrityExceptionDependentWaveform):
                 self.equalize(invalid)
 
+    def expectedDecisionNoiseMse(self,waveform,noise,fit,precursors,levels=2):
+        import numpy as np
+        from SignalIntegrity.Lib.SParameters.Devices.EqualizerCTLE import CTLE
+        from SignalIntegrity.Lib.FrequencyDomain.SpectralDensity import SpectralDensity
+
+        baud=25.e9
+        sps=waveform.td.Fs/baud
+        frequency=np.asarray(noise.Frequencies())
+        omega=2*np.pi*frequency/waveform.td.Fs
+        transfer=CTLE([0.],fit['GDC'],fit['GDC2'],.4*baud,baud/80,.4*baud,baud)._Evaluate(frequency)
+        ffe=np.zeros(len(frequency),dtype=complex)
+        for index,tap in enumerate(fit['ffe']):
+            shift=(precursors-index)*sps
+            whole=int(np.floor(shift))
+            fraction=shift-whole
+            ffe+=tap*np.exp(1j*omega*whole)*((1-fraction)+fraction*np.exp(1j*omega))
+        first=128+len(fit['ffe'])-precursors-1+len(fit['dfe'])
+        last=int((len(waveform)-1)/sps)-precursors-1
+        symbols=np.arange(first,last)
+        ntrain=min(8192,len(symbols)//2)
+        positions=(symbols[ntrain:ntrain+min(4096,len(symbols)-ntrain)]+fit['phase_ui'])*sps
+        positions=positions[len(fit['dfe']):]
+        fraction=positions%1
+        interpolation=np.sqrt(np.mean(np.abs(
+            (1-fraction[:,None])+fraction[:,None]*np.exp(1j*omega))**2,axis=0))
+        density=np.asarray(noise.Values())*np.abs(transfer*ffe)*interpolation
+        filtered=SpectralDensity(noise.FrequencyList(),density.tolist(),noise.Keven)
+        alphabet=np.linspace(-1.,1.,levels)
+        alphabet/=np.sqrt(np.mean(alphabet**2))
+        spacing=alphabet[1]-alphabet[0]
+        return (filtered.TotalRMS()/fit['normalization_scale']/spacing)**2
+
+    def testNoiseAwareTrainingCostMatchesFilteredSpectrum(self):
+        import numpy as np
+        from SignalIntegrity.Lib.FrequencyDomain.SpectralDensity import SpectralDensity
+
+        for sps,levels in ((4.,2),(4.3,4)):
+            with self.subTest(sps=sps,levels=levels):
+                symbols=np.random.default_rng(16).choice(np.linspace(-.5,.5,levels),1800)
+                channel=np.convolve(symbols,[.2,1.,.4])
+                samples=np.interp(np.arange(int(len(channel)*sps))/sps,
+                                  np.arange(len(channel)),channel)
+                waveform=si.td.wf.Waveform(
+                    si.td.wf.TimeDescriptor(0.,len(samples),sps*25.e9),samples.tolist())
+                frequency=si.fd.EvenlySpacedFrequencyList(waveform.td.Fs/2,128)
+                noise=SpectralDensity(frequency,(3.e-7*(1+np.asarray(frequency)/frequency[-1])).tolist())
+                result=self.equalize(
+                    waveform,baud_rate=25.e9,levels=levels,amplitude=.4,consider_noise='True',
+                    input_noise_1=noise,GDC_choices='[-7]',GDC2_choices='[-2]',
+                    num_ffe_taps=3,num_precursor_taps=1,num_dfe_taps=1)
+                fit=result['equalizer_result']
+                expected=self.expectedDecisionNoiseMse(waveform,noise,fit,1,levels)
+                self.assertGreater(expected,0.)
+                self.assertAlmostEqual(fit['noise_mse']/expected,1.,places=10)
+                self.assertAlmostEqual(fit['total_mse'],
+                                       fit['validation_mse']+expected,places=12)
+                self.assertAlmostEqual(fit['output_noise_rms'],np.sqrt(expected)*.4/(levels-1),places=12)
+                candidate=fit['ctle_candidates'][0]
+                self.assertEqual(candidate['total_mse'],fit['total_mse'])
+
+    def testNoiseAwareTrainingPreservesDisabledAndZeroNoiseResults(self):
+        import numpy as np
+        from SignalIntegrity.Lib.FrequencyDomain.SpectralDensity import SpectralDensity
+
+        symbols=np.random.default_rng(19).choice([-.5,.5],1500)
+        samples=np.repeat(np.convolve(symbols,[.2,1.,.3]),4)
+        waveform=si.td.wf.Waveform(si.td.wf.TimeDescriptor(0.,len(samples),100.e9),samples.tolist())
+        frequency=si.fd.EvenlySpacedFrequencyList(50.e9,128)
+        parameters=dict(baud_rate=25.e9,levels=2,GDC_choices='[-7]',GDC2_choices='[0]',
+                        num_ffe_taps=3,num_precursor_taps=1,num_dfe_taps=0)
+        baseline=self.equalize(waveform,**parameters)
+        for consider,noise in [(False,object()),(True,SpectralDensity(frequency,[0.]*129))]:
+            with self.subTest(consider_noise=consider):
+                result=self.equalize(waveform,consider_noise=consider,input_noise_1=noise,**parameters)
+                np.testing.assert_array_equal(result['output_waveform_1'],baseline['output_waveform_1'])
+                self.assertEqual(result['output_waveform_1'].td,baseline['output_waveform_1'].td)
+                for name in ('ffe','dfe','GDC','GDC2','sample_time','validation_mse','total_mse'):
+                    self.assertEqual(result['equalizer_result'][name],baseline['equalizer_result'][name])
+                self.assertEqual(result['equalizer_result']['noise_mse'],0.)
+
+    def testNoiseAwareTrainingReducesTotalError(self):
+        import numpy as np
+        from SignalIntegrity.Lib.FrequencyDomain.SpectralDensity import SpectralDensity
+
+        symbols=np.random.default_rng(21).choice([-.5,.5],1800)
+        samples=np.repeat(np.convolve(symbols,[.2,1.,.65]),4)
+        waveform=si.td.wf.Waveform(si.td.wf.TimeDescriptor(0.,len(samples),100.e9),samples.tolist())
+        frequency=si.fd.EvenlySpacedFrequencyList(50.e9,128)
+        noise=SpectralDensity(frequency,[1.e-6]*129)
+        parameters=dict(baud_rate=25.e9,levels=2,amplitude=.4,input_noise_1=noise,
+                        GDC_choices='[-10, 0]',GDC2_choices='[0]',num_ffe_taps=5,
+                        num_precursor_taps=2,num_dfe_taps=0)
+        signal=self.equalize(waveform,consider_noise=False,**parameters)['equalizer_result']
+        aware=self.equalize(waveform,consider_noise=True,**parameters)['equalizer_result']
+        previousNoise=self.expectedDecisionNoiseMse(waveform,noise,signal,2)
+        self.assertLess(aware['total_mse'],.8*(signal['validation_mse']+previousNoise))
+        self.assertLess(aware['noise_mse'],.5*previousNoise)
+        self.assertGreater(aware['validation_mse'],signal['validation_mse'])
+        winner=min(aware['ctle_candidates'],key=lambda candidate:candidate['total_mse'])
+        self.assertEqual((aware['GDC'],aware['GDC2']),(winner['GDC'],winner['GDC2']))
+
+    def testNoiseAwareTrainingRejectsInvalidInputs(self):
+        import numpy as np
+        from SignalIntegrity.Lib.FrequencyDomain.SpectralDensity import SpectralDensity
+        from SignalIntegrity.Lib.Exception import SignalIntegrityExceptionDependentWaveform
+
+        samples=np.repeat(np.random.default_rng(9).choice([-.5,.5],1500),4)
+        waveform=si.td.wf.Waveform(si.td.wf.TimeDescriptor(0.,len(samples),100.e9),samples.tolist())
+        for parameters in [
+                {'consider_noise':'maybe'}, {'consider_noise':1},
+                {}, {'input_noise_1':None},
+                {'input_noise_1':SpectralDensity([0.,25.e9,50.e9],[0.,-1.,0.])},
+                {'input_noise_1':SpectralDensity([0.,25.e9,50.e9],[0.,np.nan,0.])},
+                {'input_noise_1':SpectralDensity([0.,25.e9,50.e9],[0.,1.j,0.])},
+                {'input_noise_1':SpectralDensity([0.,1.e9,50.e9],[0.,0.,0.])},
+                {'input_noise_1':SpectralDensity([0.,60.e9],[0.,0.])}]:
+            with self.subTest(parameters=parameters):
+                settings=dict(baud_rate=25.e9,levels=2,consider_noise=True,
+                              GDC_choices='[0]',GDC2_choices='[0]',num_ffe_taps=3,
+                              num_precursor_taps=1,num_dfe_taps=0)
+                settings.update(parameters)
+                with self.assertRaises(SignalIntegrityExceptionDependentWaveform):
+                    self.equalize(waveform,**settings)
+
 
 if __name__ == "__main__":
     unittest.main()
