@@ -26,7 +26,6 @@ from SignalIntegrity.App.EyeDiagramDialog import EyeDiagramDialog
 
 from SignalIntegrity.App.SimulatorDialog import SimulatorDialog
 from SignalIntegrity.App.StatisticalNoiseDialog import StatisticalNoiseDialog
-from SignalIntegrity.Lib.TimeDomain.Waveform.DependentWaveform import DependentWaveform
 
 import SignalIntegrity.App.Project
 
@@ -120,60 +119,48 @@ class Simulator(object):
     def Simulate(self,TransferMatricesOnly=False):
         self.parent.statusbar.set('Simulating')
         netList=self.parent.Drawing.schematic.NetList()
-        netListText=netList.Text()
         import SignalIntegrity.Lib as si
-        fd=SignalIntegrity.App.Project['CalculationProperties'].FrequencyList()
         cacheFileName=None
         if SignalIntegrity.App.Preferences['Cache.CacheResults']:
             cacheFileName=self.parent.fileparts.FileNameTitle()
             SignalIntegrity.App.Preferences['Cache'].ApplyPreferences()
         SignalIntegrity.App.Preferences['Calculation'].ApplyPreferences()
-        snp=si.p.SimulatorNumericParser(fd,cacheFileName=cacheFileName,Z0=SignalIntegrity.App.Project['CalculationProperties.ReferenceImpedance'],allowParallel=self.parent.AllowParallelization())
-        snp.AddLines(netListText)
         # if the schematic can generate transfer parameters, let it run, otherwise, if it can't and there are no other
         # waveforms (i.e. eye waveforms or waveforms), then let it run through and fail.  If it can't generate transfer
         # parameters and there are eye waveforms, just skip over the transfer parameter generation.
-        if TransferMatricesOnly or self.parent.TransferParametersDoer.active or len(self.parent.Drawing.schematic.OtherWaveforms()) == 0:
+        def prepareSimulation(preserveDependentWaveforms=False):
+            nonlocal netList
+            netList=self.parent.Drawing.schematic.NetList()
+            fd=SignalIntegrity.App.Project['CalculationProperties'].FrequencyList()
+            snp=si.p.SimulatorNumericParser(fd,
+                cacheFileName=None if preserveDependentWaveforms else cacheFileName,
+                Z0=SignalIntegrity.App.Project['CalculationProperties.ReferenceImpedance'],
+                allowParallel=self.parent.AllowParallelization())
+            snp.AddLines(netList.Text())
             progressDialog=ProgressDialog(self.parent,"Transfer Parameters",snp,snp.TransferMatrices, granularity=1.0)
             try:
                 self.transferMatrices=progressDialog.GetResult()
             except si.SignalIntegrityException as e:
                 self.parent.statusbar.set('Calculation Failed')
                 messagebox.showerror('Simulator',e.parameter+': '+e.message)
-                return
+                return False
 
             self.outputWaveformLabels = netList.OutputNames()
             self.sourceNames = netList.SourceNames()
             self.noiseSourceNames = netList.NoiseSourceNames()
 
             if TransferMatricesOnly:
-                self.outputWaveformLabels,self.sourceNames,self.transferMatrices = netList.LinearizeWaveformProcessorTransferMatrices(
-                    self.transferMatrices)
+                return True
 
-                self.outputWaveformLabels,self.sourceNames,self.transferMatrices = self.transferMatrices.Remove(
-                    self.outputWaveformLabels,  # outputs
-                    self.sourceNames,           # sources
-                    [],                         # outputs_to_remove
-                    self.noiseSourceNames       # sources_to_remove
-                    )
-
-                buttonLabelList=[[out+' due to '+inp for inp in self.sourceNames] for out in self.outputWaveformLabels]
-                maxLength=len(max([item for sublist in buttonLabelList for item in sublist],key=len))
-                buttonLabelList=[[item.ljust(maxLength) for item in sublist] for sublist in buttonLabelList]
-                sp=self.transferMatrices.SParameters()
-                SParametersDialog(self.parent,sp,
-                                  self.parent.fileparts.FullFilePathExtension('s'+str(sp.m_P)+'p'),
-                                  'Transfer Parameters',buttonLabelList,time_before_0=SignalIntegrity.App.Project['CalculationProperties'].TimeBeforeZero())
-                self.parent.statusbar.set('Calculation Complete')
-                return
-
-            progressDialog=ProgressDialog(self.parent,"Input Waveforms",self.parent.Drawing.schematic,self.parent.Drawing.schematic.InputWaveforms, granularity=1.0)
+            calculateInputs=lambda:self.parent.Drawing.schematic.InputWaveforms(
+                preserveDependentWaveforms=preserveDependentWaveforms)
+            progressDialog=ProgressDialog(self.parent,"Input Waveforms",self.parent.Drawing.schematic,calculateInputs, granularity=1.0)
             try:
                 self.inputWaveformList=progressDialog.GetResult()
             except si.SignalIntegrityException as e:
                 self.parent.statusbar.set('Calculation Failed')
                 messagebox.showerror('Simulator',e.parameter+': '+e.message)
-                return
+                return False
 
             diresp=None
             for r in range(len(self.outputWaveformLabels)):
@@ -200,7 +187,7 @@ class Simulator(object):
             except:
                 self.parent.statusbar.set('Calculation Failed')
                 messagebox.showerror('Simulator','Frequency responses were not calculated')
-                return
+                return False
 
             def _PrecalculateImpulseReseponses():
                 from SignalIntegrity.Lib.TimeDomain.Waveform.Waveform import Waveform
@@ -215,17 +202,43 @@ class Simulator(object):
             except:
                 self.parent.statusbar.set('Calculation Failed')
                 messagebox.showerror('Simulator','Impulse responses were not calculated')
+                return False
+            return True
+
+        if TransferMatricesOnly or self.parent.TransferParametersDoer.active or len(self.parent.Drawing.schematic.OtherWaveforms()) == 0:
+            if not prepareSimulation():
+                return
+            if TransferMatricesOnly:
+                self.outputWaveformLabels,self.sourceNames,self.transferMatrices = netList.LinearizeWaveformProcessorTransferMatrices(
+                    self.transferMatrices)
+                self.outputWaveformLabels,self.sourceNames,self.transferMatrices = self.transferMatrices.Remove(
+                    self.outputWaveformLabels,self.sourceNames,[],self.noiseSourceNames)
+                buttonLabelList=[[out+' due to '+inp for inp in self.sourceNames] for out in self.outputWaveformLabels]
+                maxLength=len(max([item for sublist in buttonLabelList for item in sublist],key=len))
+                buttonLabelList=[[item.ljust(maxLength) for item in sublist] for sublist in buttonLabelList]
+                sp=self.transferMatrices.SParameters()
+                SParametersDialog(self.parent,sp,
+                                  self.parent.fileparts.FullFilePathExtension('s'+str(sp.m_P)+'p'),
+                                  'Transfer Parameters',buttonLabelList,time_before_0=SignalIntegrity.App.Project['CalculationProperties'].TimeBeforeZero())
+                self.parent.statusbar.set('Calculation Complete')
                 return
         #Outer iterations loop for iterative nonlinear solutions - repeats the processing of waveforms on each
         #iteration and updates the values of the dependent waveforms.
         stopOnConvergence = SignalIntegrity.App.Preferences['Calculation.Processing.StopOnConvergence']
         maximumProcessingIterations = SignalIntegrity.App.Preferences['Calculation.Processing.MaximumProcessingIterations']
         iterations = self.parent.Drawing.schematic.ProcessingIterationCount(stopOnConvergence,maximumProcessingIterations)
+        iterationLimit = self.parent.Drawing.schematic.ProcessingIterationCount(True,maximumProcessingIterations)
 
         AutoShutoff = stopOnConvergence and iterations > 1
         lastOutputWaveformList = None
 
-        for i in range(int(iterations)):
+        systemChanged=False
+        i=0
+        while i < int(iterations):
+            if systemChanged:
+                if not prepareSimulation(True):
+                    return
+                systemChanged=False
             iterationStatus = 'Waveform Processing iteration {0} of {1}'.format(i+1,iterations)
             self.parent.statusbar.set(iterationStatus)
             if TransferMatricesOnly or self.parent.TransferParametersDoer.active or len(self.parent.Drawing.schematic.OtherWaveforms()) == 0:
@@ -305,17 +318,23 @@ class Simulator(object):
                         messagebox.showerror('Simulator', 'Output waveforms empty: Decrease impulse response or increase waveform duration')
                         return
                     #Now if that is fine - update the dependent waveforms
-                    from SignalIntegrity.App.StatisticalNoiseAnalysis import StatisticalNoiseAnalysis
-                    dependentWaveforms=self.parent.Drawing.schematic.dependentWaveforms
-                    inputNoise=StatisticalNoiseAnalysis.WaveformProcessorInputNoise(
-                        self.parent.Drawing.schematic,self.transferMatrices,outputWaveformList,
-                        self.outputWaveformLabels+otherWaveformLabels,dependentWaveforms)
-                    DependentWaveform.UpdateWaveforms(dependentWaveforms,self.outputWaveformLabels,
-                                                     outputWaveformList,i,
-                                                     noise_spectral_densities=inputNoise)
+                    systemChanged=self.parent.Drawing.schematic.UpdateDependentWaveforms(
+                        self.transferMatrices,self.outputWaveformLabels,outputWaveformList,i,otherWaveformLabels)
             except si.SignalIntegrityException as e:
                 messagebox.showerror('Simulator',e.parameter+': '+e.message)
                 return
+
+            if systemChanged:
+                if i+1 >= iterationLimit:
+                    self.parent.statusbar.set('Calculation Failed')
+                    messagebox.showerror('Simulator',
+                        'System variables still changing after maximum waveform processing iterations ('+
+                        str(iterationLimit)+')')
+                    return
+                iterations=min(iterations+1,iterationLimit)
+                lastOutputWaveformList=None
+                i+=1
+                continue
 
             if AutoShutoff and lastOutputWaveformList is not None:
                 converged = True
@@ -344,6 +363,7 @@ class Simulator(object):
                     break
 
             lastOutputWaveformList = outputWaveformList
+            i+=1
 
         #Resampling happens outside of iterative solver, to keep dependent waveforms in most native time base and avoid unnecessary conversions
         userSampleRate=SignalIntegrity.App.Project['CalculationProperties.UserSampleRate']
