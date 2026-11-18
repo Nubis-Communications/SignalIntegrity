@@ -44,6 +44,8 @@ class StatisticalNoiseAnalysis(dict):
                 transfer_source_names=netlist.SourceNames()
             if noise_output_names is None:
                 noise_output_names=netlist.NoiseOutputNames()
+            if not noise_output_names:
+                return
 
             outputWaveformLabels,sourceNames,transferMatrices = transferMatrices.Keep(
                 transfer_output_names,        # outputs

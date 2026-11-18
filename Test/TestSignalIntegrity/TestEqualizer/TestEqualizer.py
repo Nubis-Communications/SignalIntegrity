@@ -68,6 +68,12 @@ class TestBlindEqualizerScript(unittest.TestCase):
         self.assertLessEqual(abs((output.td.H-inputDescriptor.H-delay)*inputDescriptor.Fs),
                              .5+1.e-7)
 
+    def disableSchematicTraining(self,schematic):
+        for device in schematic.deviceList:
+            for variable in device.variablesList:
+                if variable['Name'] == 'train_equalizer':
+                    variable['Value']='False'
+
     def testStandaloneDfeCorrectsKnownIsiWithSamplingDelay(self):
         import numpy as np
 
@@ -210,7 +216,7 @@ class TestBlindEqualizerScript(unittest.TestCase):
 
         def capture(script,args,outputs):
             result=evaluate(script,args,outputs)
-            if script == self.script:
+            if script == self.script and 'WFP1_in1' in args:
                 origins.append(args['input_waveform_1'].td.H)
                 clocks.append(result['sample_time_output'])
                 self.assertEqual(result['sample_time_output'],args['sample_time_input'])
@@ -232,8 +238,7 @@ class TestBlindEqualizerScript(unittest.TestCase):
             for ref in ('Vo2','Vo3'):
                 self.assertFalse(byRef[ref].configuration['Alignment.AutoAlign'])
             siapp.Project['CalculationProperties.FrequencyPoints']=212
-            next(variable for variable in byRef['WFP1'].variablesList
-                 if variable['Name'] == 'train_equalizer')['Value']='False'
+            self.disableSchematicTraining(app.Drawing.schematic)
             text=app.Drawing.schematic.NetList().Text()
             connections=[set(zip(line.split()[1::2],line.split()[2::2]))
                          for line in text if line.startswith('connect ')]
@@ -243,7 +248,7 @@ class TestBlindEqualizerScript(unittest.TestCase):
             with patch.object(DependentWaveform,'EvaluateTransformFunctionSafely',side_effect=capture):
                 result=app.Simulate()
             self.assertIn('output waveforms',result)
-            self.assertEqual(len(records),3)
+            self.assertEqual(len(records),app.Drawing.schematic.DependentSourceCount()+1)
             self.assertEqual(len(origins),len(records))
             original=si.td.wf.Waveform().ReadFromFile('Vo.txt')
             self.assertNotAlmostEqual((origins[-1]-original.td.H)*self.defaults['baud_rate'],0.)
@@ -447,9 +452,10 @@ class TestBlindEqualizerScript(unittest.TestCase):
             self.assertTrue(app.OpenProjectFile(
                 os.path.join(self.projectDirectory,'TestEqualizer.si')))
             processor=next(device for device in app.Drawing.schematic.deviceList
-                           if isinstance(device,DeviceWaveformProcessorVariable))
+                           if isinstance(device,DeviceWaveformProcessorVariable)
+                           and device['ref'].GetValue() == 'WFP1')
             byName={variable['Name']:variable for variable in processor.variablesList}
-            byName['train_equalizer']['Value']='False'
+            self.disableSchematicTraining(app.Drawing.schematic)
             with patch('scipy.optimize.minimize',side_effect=AssertionError('training called')), \
                  patch('scipy.optimize.lsq_linear',side_effect=AssertionError('training called')):
                 result=app.Simulate()
@@ -597,7 +603,7 @@ class TestBlindEqualizerScript(unittest.TestCase):
         evaluate=DependentWaveform.EvaluateTransformFunctionSafely
 
         def capture(equations,sendargs,returnargs):
-            if equations != self.script:
+            if equations != self.script or 'WFP1_in1' not in sendargs:
                 return evaluate(equations,sendargs,returnargs)
             waveform=sendargs['input_waveform_1']
             inputs.append(si.td.wf.Waveform(waveform))
@@ -616,6 +622,7 @@ class TestBlindEqualizerScript(unittest.TestCase):
             siapp.Preferences['Calculation.Processing.StopOnConvergence']=False
             self.assertTrue(app.OpenProjectFile(
                 os.path.join(self.projectDirectory,'TestEqualizer.si')))
+            self.disableSchematicTraining(app.Drawing.schematic)
             with patch.object(DependentWaveform,'EvaluateTransformFunctionSafely',
                               side_effect=capture):
                 result=app.Simulate()

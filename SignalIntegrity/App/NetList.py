@@ -96,7 +96,7 @@ class NetList(object):
                         variablePorts=inputPortsProperty is not None and outputPortsProperty is not None
                         if variablePorts:
                             inputCount=max(1,int(inputPortsProperty.GetValue()))
-                            outputCount=max(1,int(outputPortsProperty.GetValue()))
+                            outputCount=max(0,int(outputPortsProperty.GetValue()))
                             processorSources=[ref_name+'_out'+str(i+1) for i in range(outputCount)]
                             processorInputs=[ref_name+'_in'+str(i+1) for i in range(inputCount)]
                         else:
@@ -107,9 +107,10 @@ class NetList(object):
                                              for i in range(inputCount)]
                         self.waveformProcessorPortCounts[ref_name]=(inputCount,outputCount,variablePorts)
                         self.waveformProcessorSourceNames.extend(processorSources)
-                        self.waveformProcessorLinearSourceNames.append(processorSources[0])
                         self.waveformProcessorOutputNames.extend(processorInputs)
-                        self.waveformProcessorInputMappings.append((processorSources[0],processorInputs[0]))
+                        if processorSources:
+                            self.waveformProcessorLinearSourceNames.append(processorSources[0])
+                            self.waveformProcessorInputMappings.append((processorSources[0],processorInputs[0]))
                         self.sourceNames.extend(processorSources)
                         if device['show'] is not None and device['show'].GetValue() == 'true':
                             self.waveformProcessorSourceNamesToShow.extend(processorSources)
@@ -518,7 +519,7 @@ class NetList(object):
         """Replace processors by unity gain from input 1 to output.
         @param includeProcessorInputs bool retain internal input probes for noise analysis.
         """
-        if not self.waveformProcessorSourceNames:
+        if not self.waveformProcessorOutputNames:
             return self.outputNames,self.sourceNames,transferMatrices
         if not transferMatrices:
             return [],[],transferMatrices
@@ -553,7 +554,8 @@ class NetList(object):
 
         outputNames=[self.outputNames[i] for i in outputIndices]
         sourceNames=[self.sourceNames[i] for i in sourceIndices]
-        return outputNames,sourceNames,TransferMatrices(transferMatrices.f,linearizedMatrices)
+        return outputNames,sourceNames,TransferMatrices(transferMatrices.f,linearizedMatrices,
+                                                       inputs=len(sourceNames))
 
     def _IncludeInNoise(self,device):
         # Determines whether a probe's output is kept in the transfer matrices

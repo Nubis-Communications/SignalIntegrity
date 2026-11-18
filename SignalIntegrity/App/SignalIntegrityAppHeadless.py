@@ -95,6 +95,8 @@ class DrawingHeadless(object):
             if id(device) in visible:
                 device.DrawDevice(canvas,grid,originx,originy,visible[id(device)])
             deviceType = device['partname'].GetValue()
+            if deviceType == 'WaveformProcessorVariable' and device['outputports'].GetValue() == 0:
+                foundAnOutput = True
             if  deviceType == 'Port':
                 foundAPort = True
             elif deviceType in ['Output','DifferentialVoltageOutput','CurrentOutput','EyeProbe','DifferentialEyeProbe']:
@@ -460,7 +462,7 @@ class SignalIntegrityAppHeadless(object):
                         raise si.SignalIntegrityExceptionSimulator('Output waveforms empty: Decrease impulse response or increase waveform duration')
 
                     from SignalIntegrity.App.StatisticalNoiseAnalysis import StatisticalNoiseAnalysis
-                    dependentWaveforms=[wf for wf in inputWaveformList if isinstance(wf,DependentWaveform)]
+                    dependentWaveforms=self.Drawing.schematic.dependentWaveforms
                     inputNoise=StatisticalNoiseAnalysis.WaveformProcessorInputNoise(
                         self.Drawing.schematic,transferMatrices,outputWaveformList,
                         outputWaveformLabels+otherWaveformLabels,dependentWaveforms)

@@ -63,6 +63,7 @@ class DependentWaveform(Waveform):
                 continue
             waveform.UpdateWaveform(OutputWaveformLabels,OutputWaveformList,iteration,
                                     noise_spectral_densities=noise_spectral_densities)
+            updated.add(id(waveform))
             updated.update(id(output) for output in waveform.ProcessorOutputs)
 
     def UpdateWaveform(self, OutputWaveformLabels, OutputWaveformList, iteration=None,

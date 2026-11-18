@@ -306,7 +306,7 @@ class Simulator(object):
                         return
                     #Now if that is fine - update the dependent waveforms
                     from SignalIntegrity.App.StatisticalNoiseAnalysis import StatisticalNoiseAnalysis
-                    dependentWaveforms=[wf for wf in self.inputWaveformList if isinstance(wf,DependentWaveform)]
+                    dependentWaveforms=self.parent.Drawing.schematic.dependentWaveforms
                     inputNoise=StatisticalNoiseAnalysis.WaveformProcessorInputNoise(
                         self.parent.Drawing.schematic,self.transferMatrices,outputWaveformList,
                         self.outputWaveformLabels+otherWaveformLabels,dependentWaveforms)
@@ -410,8 +410,8 @@ class Simulator(object):
             self.NoiseDialog().ExamineTransferMatricesDoer.Activate(True)
             self.NoiseDialog().SimulateDoer.Activate(True)
             self.UpdateNoise(sna)
-        if any(variable['ReadOnly'] for waveform in self.inputWaveformList
-               if isinstance(waveform,DependentWaveform) for variable in waveform.VariablesList):
+        if any(variable['ReadOnly'] for waveform in self.parent.Drawing.schematic.dependentWaveforms
+               for variable in waveform.VariablesList):
             self.parent.Drawing.DrawSchematic(evaluateEquations=False)
         self.parent.root.update()
         self.parent.statusbar.set('Calculation Complete')

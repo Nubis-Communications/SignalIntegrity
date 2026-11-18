@@ -1,9 +1,9 @@
 class TransferMatrices(list,CallBacker):
-    def __init__(self,f,d):
+    def __init__(self,f,d,inputs=0):
         self.f=FrequencyList(f)
         list.__init__(self,d)
         CallBacker.__init__(self)
-        self.Inputs=len(d[0][0])
+        self.Inputs=len(d[0][0]) if len(d[0]) else inputs
         self.Outputs=len(d[0])
         self.fr=None
         self.ir=None

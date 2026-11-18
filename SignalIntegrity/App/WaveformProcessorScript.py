@@ -43,8 +43,8 @@ def ParseWaveformProcessorInterface(script):
     outputPorts=ports['outputs']
     if type(inputPorts) is not int or inputPorts < 1:
         raise ValueError('ports.inputs must be a positive integer')
-    if type(outputPorts) is not int or outputPorts < 1:
-        raise ValueError('ports.outputs must be a positive integer')
+    if type(outputPorts) is not int or outputPorts < 0:
+        raise ValueError('ports.outputs must be a nonnegative integer')
 
     variables=metadata['variables']
     if not isinstance(variables,list):
