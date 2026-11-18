@@ -7,7 +7,7 @@
 	</CalculationProperties>
 	<Drawing>
 		<DrawingProperties>
-			<Geometry>1067x1011+286+286</Geometry>
+			<Geometry>1812x1011+78+78</Geometry>
 			<Grid>16.0</Grid>
 			<Originx>0</Originx>
 			<Originy>7</Originy>
@@ -297,7 +297,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>270</Orientation>
-						<Origin>(52, 13)</Origin>
+						<Origin>(79, 13)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -318,7 +318,7 @@
 					<ClassName>DeviceEyeProbe</ClassName>
 					<EyeDiagram>
 						<Alignment>
-							<AutoAlign>True</AutoAlign>
+							<AutoAlign>False</AutoAlign>
 							<BERForAlignment>-3</BERForAlignment>
 							<Horizontal>Middle</Horizontal>
 							<Levels>4</Levels>
@@ -393,7 +393,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(54, 13)</Origin>
+						<Origin>(81, 13)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -538,7 +538,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(36, 42)</Origin>
+						<Origin>(67, 42)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -550,7 +550,7 @@
 						<PartProperty>
 							<Keyword>script</Keyword>
 							<KeywordVisible>True</KeywordVisible>
-							<Value># Blind, offline PAM equalizer; no transmitted data or reference waveform is used.&#10;# &lt;waveform-processor-interface&gt;&#10;# {&#10;#   &quot;version&quot;: 1,&#10;#   &quot;ports&quot;: {&quot;inputs&quot;: 1, &quot;outputs&quot;: 1},&#10;#   &quot;variables&quot;: [&#10;#     {&quot;name&quot;: &quot;baud_rate&quot;, &quot;description&quot;: &quot;baud rate&quot;, &quot;type&quot;: &quot;float&quot;, &quot;default&quot;: 106.25e9, &quot;units&quot;: &quot;Baud&quot;},&#10;#     {&quot;name&quot;: &quot;levels&quot;, &quot;description&quot;: &quot;equally spaced PAM levels&quot;, &quot;type&quot;: &quot;int&quot;, &quot;default&quot;: 4},&#10;#     {&quot;name&quot;: &quot;amplitude&quot;, &quot;description&quot;: &quot;target outer-level peak-to-peak amplitude&quot;, &quot;type&quot;: &quot;float&quot;, &quot;default&quot;: 1.0, &quot;units&quot;: &quot;V&quot;},&#10;#     {&quot;name&quot;: &quot;train_equalizer&quot;, &quot;description&quot;: &quot;True trains; False applies the input settings without optimization&quot;, &quot;type&quot;: &quot;string&quot;, &quot;default&quot;: &quot;False&quot;},&#10;#     {&quot;name&quot;: &quot;GDC_choices&quot;, &quot;description&quot;: &quot;CTLE DC gain candidates (Python list)&quot;, &quot;type&quot;: &quot;string&quot;, &quot;default&quot;: &quot;[0, -1, -2, -3, -4, -5, -6, -7, -8, -9, -10]&quot;, &quot;units&quot;: &quot;dB&quot;},&#10;#     {&quot;name&quot;: &quot;GDC2_choices&quot;, &quot;description&quot;: &quot;CTLE low-frequency gain candidates (Python list)&quot;, &quot;type&quot;: &quot;string&quot;, &quot;default&quot;: &quot;[0, -1, -2, -3]&quot;, &quot;units&quot;: &quot;dB&quot;},&#10;#     {&quot;name&quot;: &quot;GDC_input&quot;, &quot;description&quot;: &quot;Fixed CTLE DC gain&quot;, &quot;type&quot;: &quot;float&quot;, &quot;default&quot;: 0, &quot;units&quot;: &quot;dB&quot;},&#10;#     {&quot;name&quot;: &quot;GDC2_input&quot;, &quot;description&quot;: &quot;Fixed CTLE low-frequency gain&quot;, &quot;type&quot;: &quot;float&quot;, &quot;default&quot;: 0, &quot;units&quot;: &quot;dB&quot;},&#10;#     {&quot;name&quot;: &quot;ffe_taps_input&quot;, &quot;description&quot;: &quot;Fixed FFE coefficients (Python list or scalar)&quot;, &quot;type&quot;: &quot;string&quot;, &quot;default&quot;: &quot;[1]&quot;},&#10;#     {&quot;name&quot;: &quot;dfe_taps_input&quot;, &quot;description&quot;: &quot;Fixed normalized DFE coefficients (Python list or scalar)&quot;, &quot;type&quot;: &quot;string&quot;, &quot;default&quot;: &quot;[0]&quot;},&#10;#     {&quot;name&quot;: &quot;normalization_offset_input&quot;, &quot;description&quot;: &quot;Saved CTLE normalization offset&quot;, &quot;type&quot;: &quot;float&quot;, &quot;default&quot;: 0, &quot;units&quot;: &quot;V&quot;},&#10;#     {&quot;name&quot;: &quot;normalization_scale_input&quot;, &quot;description&quot;: &quot;Saved CTLE normalization scale&quot;, &quot;type&quot;: &quot;float&quot;, &quot;default&quot;: 1, &quot;units&quot;: &quot;V&quot;},&#10;#     {&quot;name&quot;: &quot;bias_input&quot;, &quot;description&quot;: &quot;Saved normalized equalizer bias&quot;, &quot;type&quot;: &quot;float&quot;, &quot;default&quot;: 0},&#10;#     {&quot;name&quot;: &quot;phase_ui_input&quot;, &quot;description&quot;: &quot;Saved sampling phase&quot;, &quot;type&quot;: &quot;float&quot;, &quot;default&quot;: 0, &quot;units&quot;: &quot;UI&quot;},&#10;#     {&quot;name&quot;: &quot;num_ffe_taps&quot;, &quot;description&quot;: &quot;total baud-spaced FFE taps including main tap&quot;, &quot;type&quot;: &quot;int&quot;, &quot;default&quot;: 11},&#10;#     {&quot;name&quot;: &quot;num_precursor_taps&quot;, &quot;description&quot;: &quot;FFE taps before main tap&quot;, &quot;type&quot;: &quot;int&quot;, &quot;default&quot;: 3},&#10;#     {&quot;name&quot;: &quot;num_dfe_taps&quot;, &quot;description&quot;: &quot;baud-spaced DFE taps (0 disables feedback)&quot;, &quot;type&quot;: &quot;int&quot;, &quot;default&quot;: 5},&#10;#     {&quot;name&quot;: &quot;max_dfe_tap&quot;, &quot;description&quot;: &quot;maximum absolute normalized DFE coefficient during training&quot;, &quot;type&quot;: &quot;float&quot;, &quot;default&quot;: 0.3},&#10;#     {&quot;name&quot;: &quot;ffe_taps_output&quot;, &quot;description&quot;: &quot;Applied or fitted FFE coefficients&quot;, &quot;type&quot;: &quot;string&quot;, &quot;default&quot;: &quot;[1]&quot;, &quot;read_only&quot;: true},&#10;#     {&quot;name&quot;: &quot;dfe_taps_output&quot;, &quot;description&quot;: &quot;Applied or fitted normalized DFE coefficients&quot;, &quot;type&quot;: &quot;string&quot;, &quot;default&quot;: &quot;[0]&quot;, &quot;read_only&quot;: true},&#10;#     {&quot;name&quot;: &quot;GDC_output&quot;, &quot;description&quot;: &quot;Applied or fitted CTLE DC gain&quot;, &quot;type&quot;: &quot;float&quot;, &quot;default&quot;: 0, &quot;units&quot;: &quot;dB&quot;, &quot;read_only&quot;: true},&#10;#     {&quot;name&quot;: &quot;GDC2_output&quot;, &quot;description&quot;: &quot;Applied or fitted CTLE low-frequency gain&quot;, &quot;type&quot;: &quot;float&quot;, &quot;default&quot;: 0, &quot;units&quot;: &quot;dB&quot;, &quot;read_only&quot;: true},&#10;#     {&quot;name&quot;: &quot;normalization_offset_output&quot;, &quot;description&quot;: &quot;CTLE normalization offset&quot;, &quot;type&quot;: &quot;float&quot;, &quot;default&quot;: 0, &quot;units&quot;: &quot;V&quot;, &quot;read_only&quot;: true},&#10;#     {&quot;name&quot;: &quot;normalization_scale_output&quot;, &quot;description&quot;: &quot;CTLE normalization scale&quot;, &quot;type&quot;: &quot;float&quot;, &quot;default&quot;: 1, &quot;units&quot;: &quot;V&quot;, &quot;read_only&quot;: true},&#10;#     {&quot;name&quot;: &quot;bias_output&quot;, &quot;description&quot;: &quot;Normalized equalizer bias&quot;, &quot;type&quot;: &quot;float&quot;, &quot;default&quot;: 0, &quot;read_only&quot;: true},&#10;#     {&quot;name&quot;: &quot;phase_ui_output&quot;, &quot;description&quot;: &quot;Sampling phase&quot;, &quot;type&quot;: &quot;float&quot;, &quot;default&quot;: 0, &quot;units&quot;: &quot;UI&quot;, &quot;read_only&quot;: true}&#10;#   ]&#10;# }&#10;# &lt;/waveform-processor-interface&gt;&#10;# GDC_choices/GDC2_choices list nonpositive signed CTLE gains, e.g. [-10, -9].&#10;# train_equalizer must be True or False (as a string or boolean).&#10;# True fits every CTLE pair on the same held-out segment.&#10;# False applies GDC_input/GDC2_input and the supplied coefficients without fitting.&#10;# Scalar taps (including numeric strings) become one-element list strings.&#10;# For exact replay, copy all *_output settings to matching *_input settings,&#10;# keeping baud_rate, levels, amplitude and num_precursor_taps unchanged.&#10;# Fixed mode uses the supplied list lengths; a single FFE tap has no precursors.&#10;# Otherwise num_precursor_taps locates the main tap in the supplied FFE list.&#10;# Fixed mode never clips DFE coefficients to the training-only max_dfe_tap limit.&#10;# The fixed CTLE profile follows the existing schematic:&#10;# fz = fp1 = 0.4*baud, fp2 = baud, flf = baud/80.&#10;# CMA acquisition precedes decision-directed ridge fitting. Phase/model selection&#10;# uses a disjoint validation segment. Assumes stationary, scrambled, uniform PAM&#10;# and a known baud rate (phase recovery only, not frequency-offset tracking).&#10;# Output retains the input time descriptor and every sample. Unavailable FFE&#10;# edges and the first 128 UI of CTLE settling are excluded only from adaptation&#10;# and scoring; output boundary samples are approximate. DFE subtracts held feedback per UI,&#10;# not sliced output levels. amplitude sets the target scale, not a hard limiter.&#10;# The objective measures sample error, not BER; separate statistical-noise sources&#10;# are not present in the script input and are not included in this adaptation.&#10;# max_dfe_tap bounds each normalized feedback coefficient during joint fitting.&#10;# equalizer_result includes selected signed gains, taps,&#10;# phase, validation errors and ctle_candidates (one score per gain pair).&#10;&#10;import ast&#10;import numpy as np&#10;from SignalIntegrity.Lib.SParameters.Devices.EqualizerCTLE import CTLE&#10;from SignalIntegrity.Lib.TimeDomain.Waveform.Waveform import Waveform&#10;&#10;if not np.isfinite(baud_rate) or baud_rate &lt;= 0:&#10;    raise ValueError('baud_rate must be finite and positive')&#10;if levels &lt; 2 or levels != int(levels):&#10;    raise ValueError('levels must be an integer &gt;= 2')&#10;if not np.isfinite(amplitude) or amplitude &lt;= 0:&#10;    raise ValueError('amplitude must be finite and positive')&#10;if isinstance(train_equalizer, str):&#10;    if train_equalizer.strip().lower() not in ('true', 'false'):&#10;        raise ValueError('train_equalizer must be True or False')&#10;    train_equalizer = train_equalizer.strip().lower() == 'true'&#10;if not isinstance(train_equalizer, bool):&#10;    raise ValueError('train_equalizer must be True or False')&#10;&#10;def tap_list(value, name, allow_empty=False):&#10;    if isinstance(value, str):&#10;        value = ast.literal_eval(value)&#10;    if isinstance(value, (int, float, np.integer, np.floating)) and not isinstance(value, bool):&#10;        value = [value]&#10;    if not isinstance(value, (list, tuple, np.ndarray)):&#10;        raise ValueError(name + ' must be a numeric scalar or list')&#10;    if any(isinstance(item, bool) or not isinstance(item, (int, float, np.integer, np.floating)) for item in value):&#10;        raise ValueError(name + ' must contain only real numbers')&#10;    values = np.asarray(value, dtype=float)&#10;    if values.ndim != 1 or (not allow_empty and values.size == 0) or not np.all(np.isfinite(values)):&#10;        raise ValueError(name + ' must contain finite real coefficients')&#10;    return values&#10;&#10;input_taps = tap_list(ffe_taps_input, 'ffe_taps_input')&#10;input_feedback = tap_list(dfe_taps_input, 'dfe_taps_input', allow_empty=True)&#10;ffe_taps_input = str(input_taps.tolist())&#10;dfe_taps_input = str(input_feedback.tolist())&#10;&#10;def gain_candidates(value, name):&#10;    if isinstance(value, str):&#10;        value = ast.literal_eval(value)&#10;    if not isinstance(value, (list, tuple)) or not value:&#10;        raise ValueError(name + ' must be a nonempty list of nonpositive finite dB gains')&#10;    if any(isinstance(item, bool) or not isinstance(item, (int, float)) for item in value):&#10;        raise ValueError(name + ' must contain only numbers')&#10;    values = np.asarray(value, dtype=float)&#10;    if not np.all(np.isfinite(values)) or np.any(values &gt; 0):&#10;        raise ValueError(name + ' must contain nonpositive finite dB gains')&#10;    return list(dict.fromkeys(values.tolist()))&#10;&#10;if train_equalizer:&#10;    from scipy.optimize import minimize, lsq_linear&#10;    gdc_values = gain_candidates(GDC_choices, 'GDC_choices')&#10;    gdc2_values = gain_candidates(GDC2_choices, 'GDC2_choices')&#10;    if not np.isfinite(max_dfe_tap) or max_dfe_tap &lt; 0:&#10;        raise ValueError('max_dfe_tap must be finite and nonnegative')&#10;else:&#10;    num_ffe_taps = len(input_taps)&#10;    num_dfe_taps = len(input_feedback)&#10;    if num_ffe_taps == 1:&#10;        num_precursor_taps = 0&#10;    for name, value in [('GDC_input', GDC_input), ('GDC2_input', GDC2_input),&#10;                        ('normalization_offset_input', normalization_offset_input),&#10;                        ('normalization_scale_input', normalization_scale_input),&#10;                        ('bias_input', bias_input), ('phase_ui_input', phase_ui_input)]:&#10;        if not np.isfinite(value):&#10;            raise ValueError(name + ' must be finite')&#10;    if GDC_input &gt; 0 or GDC2_input &gt; 0:&#10;        raise ValueError('fixed CTLE gains must be nonpositive dB values')&#10;    if normalization_scale_input &lt;= 0 or not 0 &lt;= phase_ui_input &lt; 1:&#10;        raise ValueError('require normalization_scale_input &gt; 0 and 0 &lt;= phase_ui_input &lt; 1')&#10;if (num_ffe_taps &lt; 1 or not 0 &lt;= num_precursor_taps &lt; num_ffe_taps or num_dfe_taps &lt; 0&#10;        or any(value != int(value) for value in (num_ffe_taps, num_precursor_taps, num_dfe_taps))):&#10;    raise ValueError('require integer tap counts, num_ffe_taps &gt;= 1, 0 &lt;= num_precursor_taps &lt; num_ffe_taps, num_dfe_taps &gt;= 0')&#10;&#10;td = input_waveform_1.td&#10;samples = np.asarray(input_waveform_1.Values(), dtype=float)&#10;if td is None or not np.isfinite(td.Fs) or td.Fs &lt; 2 * baud_rate:&#10;    raise ValueError('input sample rate must be at least twice baud_rate')&#10;if len(samples) != td.K or not np.all(np.isfinite(samples)):&#10;    raise ValueError('input must contain finite real samples matching its time descriptor')&#10;if len(samples) == 0:&#10;    raise ValueError('input waveform is empty')&#10;if train_equalizer and np.std(samples) &lt;= np.finfo(float).eps * max(1., np.max(np.abs(samples))):&#10;    raise ValueError('input has no usable signal variation')&#10;sps = td.Fs / baud_rate&#10;postcursor_taps = num_ffe_taps - num_precursor_taps - 1&#10;first_symbol = 128 + postcursor_taps + num_dfe_taps&#10;last_symbol = int((len(samples) - 1) / sps) - num_precursor_taps - 1&#10;if train_equalizer and last_symbol - first_symbol &lt; max(512, 16 * (num_ffe_taps + num_dfe_taps)):&#10;    raise ValueError('input too short: need CTLE settling plus at least 512 usable symbols and 16 symbols per tap')&#10;&#10;# Zero padding prevents the end of the record wrapping into the CTLE startup.&#10;fft_size = 1 &lt;&lt; (len(samples) + int(np.ceil(256 * sps)) - 1).bit_length()&#10;frequencies = np.fft.rfftfreq(fft_size, 1 / td.Fs)&#10;spectrum = np.fft.rfft(samples, fft_size)&#10;alphabet = np.linspace(-1., 1., levels)&#10;alphabet /= np.sqrt(np.mean(alphabet ** 2))&#10;spacing = alphabet[1] - alphabet[0]&#10;modulus = np.mean(alphabet ** 4)&#10;sample_indices = np.arange(len(samples))&#10;symbol_indices = np.arange(first_symbol, last_symbol)&#10;ntrain = min(8192, len(symbol_indices) // 2)&#10;nvalid = min(4096, len(symbol_indices) - ntrain)&#10;regularization = 1.e-3&#10;&#10;def slice_pam(values):&#10;    indices = np.clip(np.rint((values - alphabet[0]) / spacing), 0, levels - 1).astype(int)&#10;    return alphabet[indices]&#10;&#10;def feedback_pass(values, taps):&#10;    corrected = np.empty(len(values))&#10;    decisions = np.zeros(len(values) + len(taps))&#10;    for n, value in enumerate(values):&#10;        corrected[n] = value - np.dot(taps, decisions[n:n + len(taps)][::-1])&#10;        index = min(levels - 1, max(0, round((corrected[n] - alphabet[0]) / spacing)))&#10;        decisions[n + len(taps)] = alphabet[index]&#10;    return corrected&#10;&#10;def validation_score(values):&#10;    decisions = slice_pam(values)&#10;    counts = np.array([np.count_nonzero(decisions == level) for level in alphabet])&#10;    # Reject collapsed or badly imbalanced solutions that merely land on one level.&#10;    if np.min(counts) &lt; len(values) / (20 * levels):&#10;        return np.inf&#10;    return np.mean((values - decisions) ** 2) / spacing ** 2&#10;&#10;def filter_ctle(gdc, gdc2):&#10;    ctle = CTLE([0.], gdc, gdc2, .4 * baud_rate, baud_rate / 80,&#10;                .4 * baud_rate, baud_rate)&#10;    response = ctle._Evaluate(frequencies)&#10;    response[-1] = response[-1].real&#10;    return np.fft.irfft(spectrum * response, fft_size)[:len(samples)]&#10;&#10;def ffe_columns(filtered):&#10;    return np.column_stack([&#10;        np.interp(sample_indices + (num_precursor_taps - k) * sps, sample_indices, filtered)&#10;        for k in range(num_ffe_taps)])&#10;&#10;def fit_ctle(gdc, gdc2):&#10;    filtered = filter_ctle(gdc, gdc2)&#10;    offset = np.mean(filtered[int(first_symbol * sps):int(last_symbol * sps)])&#10;    scale = np.std(filtered[int(first_symbol * sps):int(last_symbol * sps)])&#10;    if not np.isfinite(scale) or scale &lt;= np.finfo(float).eps * max(1., np.max(np.abs(samples))):&#10;        raise ValueError('input has no usable signal variation after CTLE')&#10;    filtered = (filtered - offset) / scale&#10;    bank = ffe_columns(filtered)&#10;    best = None&#10;    baseline_score = np.inf&#10;    for phase in np.arange(16) / 16:&#10;        positions = (symbol_indices + phase) * sps&#10;        x = np.column_stack([&#10;            np.interp(positions, sample_indices, bank[:, k])&#10;            for k in range(num_ffe_taps)])&#10;        train = x[:ntrain]&#10;        valid = x[ntrain:ntrain + nvalid]&#10;        initial = np.zeros(num_ffe_taps)&#10;        initial[num_precursor_taps] = 1.&#10;        baseline_score = min(baseline_score, validation_score(valid @ initial))&#10;        candidates = [(initial, np.zeros(num_dfe_taps), 0.)]&#10;&#10;        def cma_objective(taps):&#10;            values = train @ taps&#10;            error = values ** 2 - modulus&#10;            loss = np.mean(error ** 2) + regularization * np.sum(taps ** 2)&#10;            gradient = 4 * (train.T @ (values * error)) / ntrain + 2 * regularization * taps&#10;            return loss, gradient&#10;&#10;        acquired = minimize(cma_objective, initial, jac=True, method='L-BFGS-B',&#10;                            bounds=[(-8., 8.)] * num_ffe_taps, options={'maxiter': 100})&#10;        if not np.all(np.isfinite(acquired.x)) or not np.isfinite(acquired.fun):&#10;            raise ValueError('blind FFE acquisition produced nonfinite coefficients')&#10;        if not acquired.success and acquired.status != 1:&#10;            raise ValueError('blind FFE acquisition failed: ' + acquired.message)&#10;        taps = acquired.x&#10;        feedback = np.zeros(num_dfe_taps)&#10;        bias = 0.&#10;        candidates.append((taps.copy(), feedback.copy(), bias))&#10;        for adaptation_pass in range(12):&#10;            values = feedback_pass(train @ taps + bias, feedback)&#10;            decisions = slice_pam(values)&#10;            history = np.column_stack([&#10;                np.concatenate((np.zeros(k), decisions[:-k]))&#10;                for k in range(1, num_dfe_taps + 1)]) if num_dfe_taps else np.empty((ntrain, 0))&#10;            design = np.column_stack((train, -history, np.ones(ntrain)))[num_dfe_taps:]&#10;            targets = decisions[num_dfe_taps:]&#10;            # Solve the regularized joint fit with bounds on feedback only.&#10;            active = np.ones(design.shape[1], dtype=bool)&#10;            if max_dfe_tap == 0:&#10;                active[num_ffe_taps:-1] = False&#10;            reduced = design[:, active]&#10;            gram = reduced.T @ reduced + regularization * len(targets) * np.eye(reduced.shape[1])&#10;            factor = np.linalg.cholesky(gram)&#10;            rhs = np.linalg.solve(factor, reduced.T @ targets)&#10;            lower = np.full(design.shape[1], -np.inf)&#10;            upper = np.full(design.shape[1], np.inf)&#10;            lower[num_ffe_taps:-1] = -max_dfe_tap&#10;            upper[num_ffe_taps:-1] = max_dfe_tap&#10;            fitted = lsq_linear(factor.T, rhs, bounds=(lower[active], upper[active]),&#10;                                method='bvls', tol=1.e-10)&#10;            if not fitted.success or not np.all(np.isfinite(fitted.x)):&#10;                raise ValueError('bounded equalizer fit failed: ' + fitted.message)&#10;            solution = np.zeros(design.shape[1])&#10;            solution[active] = fitted.x&#10;            taps, feedback, bias = solution[:num_ffe_taps], solution[num_ffe_taps:-1], solution[-1]&#10;            candidates.append((taps.copy(), feedback.copy(), bias))&#10;&#10;        for taps, feedback, bias in candidates:&#10;            corrected = feedback_pass(valid @ taps + bias, feedback)&#10;            score = validation_score(corrected[num_dfe_taps:])&#10;            if np.isfinite(score) and (best is None or score &lt; best[0]):&#10;                best = (score, phase, taps.copy(), feedback.copy(), bias)&#10;    return best, baseline_score, bank, offset, scale&#10;&#10;ctle_candidates = []&#10;if train_equalizer:&#10;    best = None&#10;    for gdc in gdc_values:&#10;        for gdc2 in gdc2_values:&#10;            candidate, baseline, bank, offset, scale = fit_ctle(gdc, gdc2)&#10;            ctle_candidates.append({'GDC': gdc, 'GDC2': gdc2,&#10;                                    'validation_mse': float(candidate[0]) if candidate else np.inf})&#10;            if candidate is not None and (best is None or candidate[0] &lt; best[0]):&#10;                best = candidate&#10;                baseline_score = baseline&#10;                ffe_bank = bank&#10;                chosen_offset, chosen_scale = offset, scale&#10;                chosen_gdc, chosen_gdc2 = gdc, gdc2&#10;    if best is None:&#10;        raise ValueError('blind equalizer could not resolve all PAM levels; check baud_rate, levels and CTLE gains')&#10;    score, phase, taps, feedback, bias = best&#10;else:&#10;    chosen_gdc, chosen_gdc2 = float(GDC_input), float(GDC2_input)&#10;    chosen_offset, chosen_scale = float(normalization_offset_input), float(normalization_scale_input)&#10;    phase, bias = float(phase_ui_input), float(bias_input)&#10;    taps, feedback = input_taps, input_feedback&#10;    filtered = (filter_ctle(chosen_gdc, chosen_gdc2) - chosen_offset) / chosen_scale&#10;    ffe_bank = ffe_columns(filtered)&#10;    score, baseline_score = None, None&#10;ffe_output = ffe_bank @ taps + bias&#10;&#10;corrected = ffe_output&#10;if np.any(feedback):&#10;    decision_symbols = np.arange(postcursor_taps + num_dfe_taps + 1, last_symbol + 1)&#10;    if len(decision_symbols) == 0:&#10;        raise ValueError('input too short for the supplied FFE/DFE history')&#10;    decision_positions = (decision_symbols + phase) * sps&#10;    decision_input = np.interp(decision_positions, sample_indices, ffe_output)&#10;    decision_output = feedback_pass(decision_input, feedback)&#10;    corrections = decision_input - decision_output&#10;    symbol_for_sample = np.floor(sample_indices / sps - phase + .5).astype(int)&#10;    correction_indices = np.clip(symbol_for_sample - decision_symbols[0], 0, len(corrections) - 1)&#10;    corrected = ffe_output - corrections[correction_indices]&#10;equalized = corrected * amplitude / (2 * alphabet[-1])&#10;if not np.all(np.isfinite(equalized)):&#10;    raise ValueError('equalizer output contains nonfinite samples')&#10;output_waveform_1 = Waveform(td, equalized.tolist())&#10;equalizer_result = {'ffe': taps.tolist(), 'dfe': feedback.tolist(), 'bias': float(bias),&#10;                    'GDC': chosen_gdc, 'GDC2': chosen_gdc2,&#10;                    'gdc_db': chosen_gdc, 'gdc2_db': chosen_gdc2,&#10;                    'max_dfe_tap': float(max_dfe_tap), 'ctle_candidates': ctle_candidates,&#10;                    'phase_ui': float(phase), 'validation_mse': float(score) if score is not None else None,&#10;                    'unequalized_mse': float(baseline_score) if baseline_score is not None else None,&#10;                    'normalization_offset': float(chosen_offset), 'normalization_scale': float(chosen_scale),&#10;                    'trained': train_equalizer}&#10;&#10;ffe_taps_output = str(equalizer_result['ffe'])&#10;dfe_taps_output = str(equalizer_result['dfe'])&#10;GDC_output = float(equalizer_result['GDC'])&#10;GDC2_output = float(equalizer_result['GDC2'])&#10;normalization_offset_output = float(chosen_offset)&#10;normalization_scale_output = float(chosen_scale)&#10;bias_output = float(bias)&#10;phase_ui_output = float(phase)&#10;</Value>
+							<Value># Blind, offline PAM equalizer; no transmitted data or reference waveform is used.&#10;# &lt;waveform-processor-interface&gt;&#10;# {&#10;#   &quot;version&quot;: 1,&#10;#   &quot;ports&quot;: {&quot;inputs&quot;: 1, &quot;outputs&quot;: 1},&#10;#   &quot;variables&quot;: [&#10;#     {&quot;name&quot;: &quot;baud_rate&quot;, &quot;description&quot;: &quot;baud rate&quot;, &quot;type&quot;: &quot;float&quot;, &quot;default&quot;: 106.25e9, &quot;units&quot;: &quot;Baud&quot;},&#10;#     {&quot;name&quot;: &quot;levels&quot;, &quot;description&quot;: &quot;equally spaced PAM levels&quot;, &quot;type&quot;: &quot;int&quot;, &quot;default&quot;: 4},&#10;#     {&quot;name&quot;: &quot;amplitude&quot;, &quot;description&quot;: &quot;target outer-level peak-to-peak amplitude&quot;, &quot;type&quot;: &quot;float&quot;, &quot;default&quot;: 1.0, &quot;units&quot;: &quot;V&quot;},&#10;#     {&quot;name&quot;: &quot;train_equalizer&quot;, &quot;description&quot;: &quot;True trains; False applies the input settings without optimization&quot;, &quot;type&quot;: &quot;string&quot;, &quot;default&quot;: &quot;False&quot;},&#10;#     {&quot;name&quot;: &quot;GDC_choices&quot;, &quot;description&quot;: &quot;CTLE DC gain candidates (Python list)&quot;, &quot;type&quot;: &quot;string&quot;, &quot;default&quot;: &quot;[0, -1, -2, -3, -4, -5, -6, -7, -8, -9, -10]&quot;, &quot;units&quot;: &quot;dB&quot;},&#10;#     {&quot;name&quot;: &quot;GDC2_choices&quot;, &quot;description&quot;: &quot;CTLE low-frequency gain candidates (Python list)&quot;, &quot;type&quot;: &quot;string&quot;, &quot;default&quot;: &quot;[0, -1, -2, -3]&quot;, &quot;units&quot;: &quot;dB&quot;},&#10;#     {&quot;name&quot;: &quot;GDC_input&quot;, &quot;description&quot;: &quot;Fixed CTLE DC gain&quot;, &quot;type&quot;: &quot;float&quot;, &quot;default&quot;: 0, &quot;units&quot;: &quot;dB&quot;},&#10;#     {&quot;name&quot;: &quot;GDC2_input&quot;, &quot;description&quot;: &quot;Fixed CTLE low-frequency gain&quot;, &quot;type&quot;: &quot;float&quot;, &quot;default&quot;: 0, &quot;units&quot;: &quot;dB&quot;},&#10;#     {&quot;name&quot;: &quot;ffe_taps_input&quot;, &quot;description&quot;: &quot;Fixed FFE coefficients (Python list or scalar)&quot;, &quot;type&quot;: &quot;string&quot;, &quot;default&quot;: &quot;[1]&quot;},&#10;#     {&quot;name&quot;: &quot;dfe_taps_input&quot;, &quot;description&quot;: &quot;Fixed normalized DFE coefficients (Python list or scalar)&quot;, &quot;type&quot;: &quot;string&quot;, &quot;default&quot;: &quot;[0]&quot;},&#10;#     {&quot;name&quot;: &quot;normalization_offset_input&quot;, &quot;description&quot;: &quot;Saved CTLE normalization offset&quot;, &quot;type&quot;: &quot;float&quot;, &quot;default&quot;: 0, &quot;units&quot;: &quot;V&quot;},&#10;#     {&quot;name&quot;: &quot;normalization_scale_input&quot;, &quot;description&quot;: &quot;Saved CTLE normalization scale&quot;, &quot;type&quot;: &quot;float&quot;, &quot;default&quot;: 1, &quot;units&quot;: &quot;V&quot;},&#10;#     {&quot;name&quot;: &quot;bias_input&quot;, &quot;description&quot;: &quot;Saved normalized equalizer bias&quot;, &quot;type&quot;: &quot;float&quot;, &quot;default&quot;: 0},&#10;#     {&quot;name&quot;: &quot;sample_time_input&quot;, &quot;description&quot;: &quot;Waveform delay for centered decisions (normalized to one UI)&quot;, &quot;type&quot;: &quot;float&quot;, &quot;default&quot;: 0, &quot;units&quot;: &quot;s&quot;},&#10;#     {&quot;name&quot;: &quot;num_ffe_taps&quot;, &quot;description&quot;: &quot;total baud-spaced FFE taps including main tap&quot;, &quot;type&quot;: &quot;int&quot;, &quot;default&quot;: 11},&#10;#     {&quot;name&quot;: &quot;num_precursor_taps&quot;, &quot;description&quot;: &quot;FFE taps before main tap&quot;, &quot;type&quot;: &quot;int&quot;, &quot;default&quot;: 3},&#10;#     {&quot;name&quot;: &quot;num_dfe_taps&quot;, &quot;description&quot;: &quot;baud-spaced DFE taps (0 disables feedback)&quot;, &quot;type&quot;: &quot;int&quot;, &quot;default&quot;: 5},&#10;#     {&quot;name&quot;: &quot;max_dfe_tap&quot;, &quot;description&quot;: &quot;maximum absolute normalized DFE coefficient during training&quot;, &quot;type&quot;: &quot;float&quot;, &quot;default&quot;: 0.3},&#10;#     {&quot;name&quot;: &quot;ffe_taps_output&quot;, &quot;description&quot;: &quot;Applied or fitted FFE coefficients&quot;, &quot;type&quot;: &quot;string&quot;, &quot;default&quot;: &quot;[1]&quot;, &quot;read_only&quot;: true},&#10;#     {&quot;name&quot;: &quot;dfe_taps_output&quot;, &quot;description&quot;: &quot;Applied or fitted normalized DFE coefficients&quot;, &quot;type&quot;: &quot;string&quot;, &quot;default&quot;: &quot;[0]&quot;, &quot;read_only&quot;: true},&#10;#     {&quot;name&quot;: &quot;GDC_output&quot;, &quot;description&quot;: &quot;Applied or fitted CTLE DC gain&quot;, &quot;type&quot;: &quot;float&quot;, &quot;default&quot;: 0, &quot;units&quot;: &quot;dB&quot;, &quot;read_only&quot;: true},&#10;#     {&quot;name&quot;: &quot;GDC2_output&quot;, &quot;description&quot;: &quot;Applied or fitted CTLE low-frequency gain&quot;, &quot;type&quot;: &quot;float&quot;, &quot;default&quot;: 0, &quot;units&quot;: &quot;dB&quot;, &quot;read_only&quot;: true},&#10;#     {&quot;name&quot;: &quot;normalization_offset_output&quot;, &quot;description&quot;: &quot;CTLE normalization offset&quot;, &quot;type&quot;: &quot;float&quot;, &quot;default&quot;: 0, &quot;units&quot;: &quot;V&quot;, &quot;read_only&quot;: true},&#10;#     {&quot;name&quot;: &quot;normalization_scale_output&quot;, &quot;description&quot;: &quot;CTLE normalization scale&quot;, &quot;type&quot;: &quot;float&quot;, &quot;default&quot;: 1, &quot;units&quot;: &quot;V&quot;, &quot;read_only&quot;: true},&#10;#     {&quot;name&quot;: &quot;bias_output&quot;, &quot;description&quot;: &quot;Normalized equalizer bias&quot;, &quot;type&quot;: &quot;float&quot;, &quot;default&quot;: 0, &quot;read_only&quot;: true},&#10;#     {&quot;name&quot;: &quot;sample_time_output&quot;, &quot;description&quot;: &quot;Waveform delay for centered decisions (normalized to one UI)&quot;, &quot;type&quot;: &quot;float&quot;, &quot;default&quot;: 0, &quot;units&quot;: &quot;s&quot;, &quot;read_only&quot;: true}&#10;#   ]&#10;# }&#10;# &lt;/waveform-processor-interface&gt;&#10;# GDC_choices/GDC2_choices list nonpositive signed CTLE gains, e.g. [-10, -9].&#10;# train_equalizer must be True or False (as a string or boolean).&#10;# True fits every CTLE pair on the same held-out segment.&#10;# False applies GDC_input/GDC2_input and the supplied coefficients without fitting.&#10;# Scalar taps (including numeric strings) become one-element list strings.&#10;# For exact replay, copy the fitted *_output settings to matching *_input settings,&#10;# keeping baud_rate, levels, amplitude and num_precursor_taps unchanged.&#10;# sample_time_input/output is a waveform DELAY in seconds, normalized to&#10;# 0 &lt;= delay &lt; 1/baud_rate. Input decisions occur at n/baud_rate - delay.&#10;# Both processors delay their output by this amount, so output decisions occur&#10;# at n/baud_rate and eye diagrams need neither auto alignment nor clock recovery.&#10;# Training exports the fitted delay; fixed mode reuses it regardless of input H.&#10;# Link these settings and WFP2's sample_time_input to the same system variable.&#10;# Fixed mode uses the supplied list lengths; a single FFE tap has no precursors.&#10;# Otherwise num_precursor_taps locates the main tap in the supplied FFE list.&#10;# Fixed mode never clips DFE coefficients to the training-only max_dfe_tap limit.&#10;# The fixed CTLE profile follows the existing schematic:&#10;# fz = fp1 = 0.4*baud, fp2 = baud, flf = baud/80.&#10;# CMA acquisition precedes decision-directed ridge fitting. Phase/model selection&#10;# uses a disjoint validation segment. Assumes stationary, scrambled, uniform PAM&#10;# and a known baud rate (phase recovery only, not frequency-offset tracking).&#10;# Before DFE, the analog FFE output is sinc-resampled onto a common clock-referenced&#10;# sample grid. Otherwise fractional input grids place held feedback edges differently.&#10;# Output retains the sample count and rate. Its sample grid is referenced to zero&#10;# after sample_time is applied; rephasing moves the first sample by at most half a sample.&#10;# Unavailable FFE&#10;# edges and the first 128 UI of CTLE settling are excluded only from adaptation&#10;# and scoring; output boundary samples are approximate. DFE subtracts held feedback per UI,&#10;# not sliced output levels. amplitude sets the target scale, not a hard limiter.&#10;# The objective measures sample error, not BER; separate statistical-noise sources&#10;# are not present in the script input and are not included in this adaptation.&#10;# max_dfe_tap bounds each normalized feedback coefficient during joint fitting.&#10;# equalizer_result includes selected signed gains, taps,&#10;# phase, validation errors and ctle_candidates (one score per gain pair).&#10;&#10;import ast&#10;import numpy as np&#10;from SignalIntegrity.Lib.SParameters.Devices.EqualizerCTLE import CTLE&#10;from SignalIntegrity.Lib.TimeDomain.Waveform.Waveform import Waveform&#10;from SignalIntegrity.Lib.TimeDomain.Waveform.TimeDescriptor import TimeDescriptor&#10;from SignalIntegrity.Lib.TimeDomain.Filters.InterpolatorSinX import FractionalDelayFilterSinX&#10;&#10;if not np.isfinite(baud_rate) or baud_rate &lt;= 0:&#10;    raise ValueError('baud_rate must be finite and positive')&#10;if levels &lt; 2 or levels != int(levels):&#10;    raise ValueError('levels must be an integer &gt;= 2')&#10;if not np.isfinite(amplitude) or amplitude &lt;= 0:&#10;    raise ValueError('amplitude must be finite and positive')&#10;if isinstance(train_equalizer, str):&#10;    if train_equalizer.strip().lower() not in ('true', 'false'):&#10;        raise ValueError('train_equalizer must be True or False')&#10;    train_equalizer = train_equalizer.strip().lower() == 'true'&#10;if not isinstance(train_equalizer, bool):&#10;    raise ValueError('train_equalizer must be True or False')&#10;&#10;def tap_list(value, name, allow_empty=False):&#10;    if isinstance(value, str):&#10;        value = ast.literal_eval(value)&#10;    if isinstance(value, (int, float, np.integer, np.floating)) and not isinstance(value, bool):&#10;        value = [value]&#10;    if not isinstance(value, (list, tuple, np.ndarray)):&#10;        raise ValueError(name + ' must be a numeric scalar or list')&#10;    if any(isinstance(item, bool) or not isinstance(item, (int, float, np.integer, np.floating)) for item in value):&#10;        raise ValueError(name + ' must contain only real numbers')&#10;    values = np.asarray(value, dtype=float)&#10;    if values.ndim != 1 or (not allow_empty and values.size == 0) or not np.all(np.isfinite(values)):&#10;        raise ValueError(name + ' must contain finite real coefficients')&#10;    return values&#10;&#10;input_taps = tap_list(ffe_taps_input, 'ffe_taps_input')&#10;input_feedback = tap_list(dfe_taps_input, 'dfe_taps_input', allow_empty=True)&#10;ffe_taps_input = str(input_taps.tolist())&#10;dfe_taps_input = str(input_feedback.tolist())&#10;&#10;def gain_candidates(value, name):&#10;    if isinstance(value, str):&#10;        value = ast.literal_eval(value)&#10;    if not isinstance(value, (list, tuple)) or not value:&#10;        raise ValueError(name + ' must be a nonempty list of nonpositive finite dB gains')&#10;    if any(isinstance(item, bool) or not isinstance(item, (int, float)) for item in value):&#10;        raise ValueError(name + ' must contain only numbers')&#10;    values = np.asarray(value, dtype=float)&#10;    if not np.all(np.isfinite(values)) or np.any(values &gt; 0):&#10;        raise ValueError(name + ' must contain nonpositive finite dB gains')&#10;    return list(dict.fromkeys(values.tolist()))&#10;&#10;if train_equalizer:&#10;    from scipy.optimize import minimize, lsq_linear&#10;    gdc_values = gain_candidates(GDC_choices, 'GDC_choices')&#10;    gdc2_values = gain_candidates(GDC2_choices, 'GDC2_choices')&#10;    if not np.isfinite(max_dfe_tap) or max_dfe_tap &lt; 0:&#10;        raise ValueError('max_dfe_tap must be finite and nonnegative')&#10;else:&#10;    num_ffe_taps = len(input_taps)&#10;    num_dfe_taps = len(input_feedback)&#10;    if num_ffe_taps == 1:&#10;        num_precursor_taps = 0&#10;    for name, value in [('GDC_input', GDC_input), ('GDC2_input', GDC2_input),&#10;                        ('normalization_offset_input', normalization_offset_input),&#10;                        ('normalization_scale_input', normalization_scale_input),&#10;                        ('bias_input', bias_input), ('sample_time_input', sample_time_input)]:&#10;        if not np.isfinite(value):&#10;            raise ValueError(name + ' must be finite')&#10;    if GDC_input &gt; 0 or GDC2_input &gt; 0:&#10;        raise ValueError('fixed CTLE gains must be nonpositive dB values')&#10;    if normalization_scale_input &lt;= 0:&#10;        raise ValueError('require normalization_scale_input &gt; 0')&#10;if (num_ffe_taps &lt; 1 or not 0 &lt;= num_precursor_taps &lt; num_ffe_taps or num_dfe_taps &lt; 0&#10;        or any(value != int(value) for value in (num_ffe_taps, num_precursor_taps, num_dfe_taps))):&#10;    raise ValueError('require integer tap counts, num_ffe_taps &gt;= 1, 0 &lt;= num_precursor_taps &lt; num_ffe_taps, num_dfe_taps &gt;= 0')&#10;&#10;td = input_waveform_1.td&#10;samples = np.asarray(input_waveform_1.Values(), dtype=float)&#10;if td is None or not np.isfinite(td.H) or not np.isfinite(td.Fs) or td.Fs &lt; 2 * baud_rate:&#10;    raise ValueError('input must have a finite start time and sample rate at least twice baud_rate')&#10;if len(samples) != td.K or not np.all(np.isfinite(samples)):&#10;    raise ValueError('input must contain finite real samples matching its time descriptor')&#10;if len(samples) == 0:&#10;    raise ValueError('input waveform is empty')&#10;if train_equalizer and np.std(samples) &lt;= np.finfo(float).eps * max(1., np.max(np.abs(samples))):&#10;    raise ValueError('input has no usable signal variation')&#10;sps = td.Fs / baud_rate&#10;postcursor_taps = num_ffe_taps - num_precursor_taps - 1&#10;first_symbol = 128 + postcursor_taps + num_dfe_taps&#10;last_symbol = int((len(samples) - 1) / sps) - num_precursor_taps - 1&#10;if train_equalizer and last_symbol - first_symbol &lt; max(512, 16 * (num_ffe_taps + num_dfe_taps)):&#10;    raise ValueError('input too short: need CTLE settling plus at least 512 usable symbols and 16 symbols per tap')&#10;&#10;# Zero padding prevents the end of the record wrapping into the CTLE startup.&#10;fft_size = 1 &lt;&lt; (len(samples) + int(np.ceil(256 * sps)) - 1).bit_length()&#10;frequencies = np.fft.rfftfreq(fft_size, 1 / td.Fs)&#10;spectrum = np.fft.rfft(samples, fft_size)&#10;alphabet = np.linspace(-1., 1., levels)&#10;alphabet /= np.sqrt(np.mean(alphabet ** 2))&#10;spacing = alphabet[1] - alphabet[0]&#10;modulus = np.mean(alphabet ** 4)&#10;sample_indices = np.arange(len(samples))&#10;symbol_indices = np.arange(first_symbol, last_symbol)&#10;ntrain = min(8192, len(symbol_indices) // 2)&#10;nvalid = min(4096, len(symbol_indices) - ntrain)&#10;regularization = 1.e-3&#10;&#10;def slice_pam(values):&#10;    indices = np.clip(np.rint((values - alphabet[0]) / spacing), 0, levels - 1).astype(int)&#10;    return alphabet[indices]&#10;&#10;def feedback_pass(values, taps):&#10;    corrected = np.empty(len(values))&#10;    decisions = np.zeros(len(values) + len(taps))&#10;    for n, value in enumerate(values):&#10;        corrected[n] = value - np.dot(taps, decisions[n:n + len(taps)][::-1])&#10;        index = min(levels - 1, max(0, round((corrected[n] - alphabet[0]) / spacing)))&#10;        decisions[n + len(taps)] = alphabet[index]&#10;    return corrected&#10;&#10;def validation_score(values):&#10;    decisions = slice_pam(values)&#10;    counts = np.array([np.count_nonzero(decisions == level) for level in alphabet])&#10;    # Reject collapsed or badly imbalanced solutions that merely land on one level.&#10;    if np.min(counts) &lt; len(values) / (20 * levels):&#10;        return np.inf&#10;    return np.mean((values - decisions) ** 2) / spacing ** 2&#10;&#10;def filter_ctle(gdc, gdc2):&#10;    ctle = CTLE([0.], gdc, gdc2, .4 * baud_rate, baud_rate / 80,&#10;                .4 * baud_rate, baud_rate)&#10;    response = ctle._Evaluate(frequencies)&#10;    response[-1] = response[-1].real&#10;    return np.fft.irfft(spectrum * response, fft_size)[:len(samples)]&#10;&#10;def ffe_columns(filtered):&#10;    return np.column_stack([&#10;        np.interp(sample_indices + (num_precursor_taps - k) * sps, sample_indices, filtered)&#10;        for k in range(num_ffe_taps)])&#10;&#10;def fit_ctle(gdc, gdc2):&#10;    filtered = filter_ctle(gdc, gdc2)&#10;    offset = np.mean(filtered[int(first_symbol * sps):int(last_symbol * sps)])&#10;    scale = np.std(filtered[int(first_symbol * sps):int(last_symbol * sps)])&#10;    if not np.isfinite(scale) or scale &lt;= np.finfo(float).eps * max(1., np.max(np.abs(samples))):&#10;        raise ValueError('input has no usable signal variation after CTLE')&#10;    filtered = (filtered - offset) / scale&#10;    bank = ffe_columns(filtered)&#10;    best = None&#10;    baseline_score = np.inf&#10;    for phase in np.arange(16) / 16:&#10;        positions = (symbol_indices + phase) * sps&#10;        x = np.column_stack([&#10;            np.interp(positions, sample_indices, bank[:, k])&#10;            for k in range(num_ffe_taps)])&#10;        train = x[:ntrain]&#10;        valid = x[ntrain:ntrain + nvalid]&#10;        initial = np.zeros(num_ffe_taps)&#10;        initial[num_precursor_taps] = 1.&#10;        baseline_score = min(baseline_score, validation_score(valid @ initial))&#10;        candidates = [(initial, np.zeros(num_dfe_taps), 0.)]&#10;&#10;        def cma_objective(taps):&#10;            values = train @ taps&#10;            error = values ** 2 - modulus&#10;            loss = np.mean(error ** 2) + regularization * np.sum(taps ** 2)&#10;            gradient = 4 * (train.T @ (values * error)) / ntrain + 2 * regularization * taps&#10;            return loss, gradient&#10;&#10;        acquired = minimize(cma_objective, initial, jac=True, method='L-BFGS-B',&#10;                            bounds=[(-8., 8.)] * num_ffe_taps, options={'maxiter': 100})&#10;        if not np.all(np.isfinite(acquired.x)) or not np.isfinite(acquired.fun):&#10;            raise ValueError('blind FFE acquisition produced nonfinite coefficients')&#10;        if not acquired.success and acquired.status != 1:&#10;            raise ValueError('blind FFE acquisition failed: ' + acquired.message)&#10;        taps = acquired.x&#10;        feedback = np.zeros(num_dfe_taps)&#10;        bias = 0.&#10;        candidates.append((taps.copy(), feedback.copy(), bias))&#10;        for adaptation_pass in range(12):&#10;            values = feedback_pass(train @ taps + bias, feedback)&#10;            decisions = slice_pam(values)&#10;            history = np.column_stack([&#10;                np.concatenate((np.zeros(k), decisions[:-k]))&#10;                for k in range(1, num_dfe_taps + 1)]) if num_dfe_taps else np.empty((ntrain, 0))&#10;            design = np.column_stack((train, -history, np.ones(ntrain)))[num_dfe_taps:]&#10;            targets = decisions[num_dfe_taps:]&#10;            # Solve the regularized joint fit with bounds on feedback only.&#10;            active = np.ones(design.shape[1], dtype=bool)&#10;            if max_dfe_tap == 0:&#10;                active[num_ffe_taps:-1] = False&#10;            reduced = design[:, active]&#10;            gram = reduced.T @ reduced + regularization * len(targets) * np.eye(reduced.shape[1])&#10;            factor = np.linalg.cholesky(gram)&#10;            rhs = np.linalg.solve(factor, reduced.T @ targets)&#10;            lower = np.full(design.shape[1], -np.inf)&#10;            upper = np.full(design.shape[1], np.inf)&#10;            lower[num_ffe_taps:-1] = -max_dfe_tap&#10;            upper[num_ffe_taps:-1] = max_dfe_tap&#10;            fitted = lsq_linear(factor.T, rhs, bounds=(lower[active], upper[active]),&#10;                                method='bvls', tol=1.e-10)&#10;            if not fitted.success or not np.all(np.isfinite(fitted.x)):&#10;                raise ValueError('bounded equalizer fit failed: ' + fitted.message)&#10;            solution = np.zeros(design.shape[1])&#10;            solution[active] = fitted.x&#10;            taps, feedback, bias = solution[:num_ffe_taps], solution[num_ffe_taps:-1], solution[-1]&#10;            candidates.append((taps.copy(), feedback.copy(), bias))&#10;&#10;        for taps, feedback, bias in candidates:&#10;            corrected = feedback_pass(valid @ taps + bias, feedback)&#10;            score = validation_score(corrected[num_dfe_taps:])&#10;            if np.isfinite(score) and (best is None or score &lt; best[0]):&#10;                best = (score, phase, taps.copy(), feedback.copy(), bias)&#10;    return best, baseline_score, bank, offset, scale&#10;&#10;ctle_candidates = []&#10;if train_equalizer:&#10;    best = None&#10;    for gdc in gdc_values:&#10;        for gdc2 in gdc2_values:&#10;            candidate, baseline, bank, offset, scale = fit_ctle(gdc, gdc2)&#10;            ctle_candidates.append({'GDC': gdc, 'GDC2': gdc2,&#10;                                    'validation_mse': float(candidate[0]) if candidate else np.inf})&#10;            if candidate is not None and (best is None or candidate[0] &lt; best[0]):&#10;                best = candidate&#10;                baseline_score = baseline&#10;                ffe_bank = bank&#10;                chosen_offset, chosen_scale = offset, scale&#10;                chosen_gdc, chosen_gdc2 = gdc, gdc2&#10;    if best is None:&#10;        raise ValueError('blind equalizer could not resolve all PAM levels; check baud_rate, levels and CTLE gains')&#10;    score, phase, taps, feedback, bias = best&#10;else:&#10;    chosen_gdc, chosen_gdc2 = float(GDC_input), float(GDC2_input)&#10;    chosen_offset, chosen_scale = float(normalization_offset_input), float(normalization_scale_input)&#10;    bias = float(bias_input)&#10;    taps, feedback = input_taps, input_feedback&#10;    filtered = (filter_ctle(chosen_gdc, chosen_gdc2) - chosen_offset) / chosen_scale&#10;    ffe_bank = ffe_columns(filtered)&#10;    score, baseline_score = None, None&#10;ffe_output = ffe_bank @ taps + bias&#10;&#10;def normalized_delay(value):&#10;    cycles = value * baud_rate&#10;    fraction = cycles % 1&#10;    tolerance = 8 * np.finfo(float).eps * max(1., abs(cycles))&#10;    if min(fraction, 1 - fraction) &lt;= tolerance:&#10;        return 0.&#10;    return float(value) if 0 &lt;= value &lt; 1 / baud_rate else float(fraction / baud_rate)&#10;&#10;sample_time = normalized_delay(-td.H - phase / baud_rate if train_equalizer else sample_time_input)&#10;phase = float((-(td.H + sample_time) * baud_rate) % 1)&#10;output_start = round((td.H + sample_time) * td.Fs) / td.Fs&#10;dfe_td = TimeDescriptor(output_start - sample_time, td.K, td.Fs)&#10;if abs((dfe_td.H - td.H) * td.Fs) &gt; Waveform.epsilon:&#10;    padding = FractionalDelayFilterSinX.S + 1&#10;    padded = Waveform(&#10;        TimeDescriptor(td.H - padding / td.Fs, td.K + 2 * padding, td.Fs),&#10;        np.pad(ffe_output, padding, mode='edge').tolist())&#10;    padded.adaptionStrategy = 'SinX'&#10;    rephased = padded.Adapt(dfe_td)&#10;    if len(rephased) != td.K:&#10;        raise ValueError('DFE sample-grid alignment changed the sample count')&#10;    ffe_output = np.asarray(rephased.Values(), dtype=float)&#10;td = dfe_td&#10;start_ui = (td.H + sample_time) * baud_rate&#10;# Absolute times can lose a few ulps when converted to symbol coordinates.&#10;clock_tolerance = 8 * np.finfo(float).eps * max(&#10;    1., abs(td.H * baud_rate),&#10;    0. if train_equalizer else abs(sample_time_input * baud_rate), len(samples) / sps)&#10;&#10;def clock_coordinate(value):&#10;    nearest = np.rint(value)&#10;    return np.where(np.abs(value - nearest) &lt;= clock_tolerance, nearest, value)&#10;&#10;corrected = ffe_output&#10;if np.any(feedback):&#10;    first_decision = int(np.ceil(clock_coordinate(start_ui + postcursor_taps + num_dfe_taps + 1)))&#10;    last_decision = int(np.floor(clock_coordinate(start_ui + (len(samples) - 1) / sps))) - num_precursor_taps - 1&#10;    decision_symbols = np.arange(first_decision, last_decision + 1)&#10;    if len(decision_symbols) == 0:&#10;        raise ValueError('input too short for the supplied FFE/DFE history')&#10;    decision_positions = (decision_symbols - start_ui) * sps&#10;    decision_input = np.interp(decision_positions, sample_indices, ffe_output)&#10;    decision_output = feedback_pass(decision_input, feedback)&#10;    corrections = decision_input - decision_output&#10;    symbol_for_sample = np.floor(clock_coordinate(start_ui + sample_indices / sps + .5)).astype(int)&#10;    correction_indices = np.clip(symbol_for_sample - decision_symbols[0], 0, len(corrections) - 1)&#10;    corrected = ffe_output - corrections[correction_indices]&#10;equalized = corrected * amplitude / (2 * alphabet[-1])&#10;if not np.all(np.isfinite(equalized)):&#10;    raise ValueError('equalizer output contains nonfinite samples')&#10;output_waveform_1 = Waveform(td, equalized.tolist()).DelayBy(sample_time)&#10;equalizer_result = {'ffe': taps.tolist(), 'dfe': feedback.tolist(), 'bias': float(bias),&#10;                    'GDC': chosen_gdc, 'GDC2': chosen_gdc2,&#10;                    'gdc_db': chosen_gdc, 'gdc2_db': chosen_gdc2,&#10;                    'max_dfe_tap': float(max_dfe_tap), 'ctle_candidates': ctle_candidates,&#10;                    'phase_ui': float(phase), 'sample_time': sample_time,&#10;                    'validation_mse': float(score) if score is not None else None,&#10;                    'unequalized_mse': float(baseline_score) if baseline_score is not None else None,&#10;                    'normalization_offset': float(chosen_offset), 'normalization_scale': float(chosen_scale),&#10;                    'trained': train_equalizer}&#10;&#10;ffe_taps_output = str(equalizer_result['ffe'])&#10;dfe_taps_output = str(equalizer_result['dfe'])&#10;GDC_output = float(equalizer_result['GDC'])&#10;GDC2_output = float(equalizer_result['GDC2'])&#10;normalization_offset_output = float(chosen_offset)&#10;normalization_scale_output = float(chosen_scale)&#10;bias_output = float(bias)&#10;sample_time_output = sample_time&#10;</Value>
 							<Visible>False</Visible>
 						</PartProperty>
 						<PartProperty>
@@ -710,12 +710,12 @@
 								<Visible>True</Visible>
 							</Variable>
 							<Variable>
-								<Description>Saved sampling phase</Description>
-								<Name>phase_ui_input</Name>
+								<Description>Waveform delay for centered decisions (normalized to one UI)</Description>
+								<Name>sample_time_input</Name>
 								<ReadOnly>False</ReadOnly>
 								<Type>float</Type>
-								<Units>UI</Units>
-								<Value>=phase_ui</Value>
+								<Units>s</Units>
+								<Value>=sample_time</Value>
 								<Visible>True</Visible>
 							</Variable>
 							<Variable>
@@ -742,7 +742,7 @@
 								<ReadOnly>False</ReadOnly>
 								<Type>int</Type>
 								<Units></Units>
-								<Value>0</Value>
+								<Value>2</Value>
 								<Visible>True</Visible>
 							</Variable>
 							<Variable>
@@ -818,12 +818,12 @@
 								<Visible>True</Visible>
 							</Variable>
 							<Variable>
-								<Description>Sampling phase</Description>
-								<Name>phase_ui_output</Name>
+								<Description>Waveform delay for centered decisions (normalized to one UI)</Description>
+								<Name>sample_time_output</Name>
 								<ReadOnly>True</ReadOnly>
 								<Type>float</Type>
-								<Units>UI</Units>
-								<Value>=phase_ui</Value>
+								<Units>s</Units>
+								<Value>=sample_time</Value>
 								<Visible>True</Visible>
 							</Variable>
 						</Items>
@@ -836,7 +836,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(20, 13)</Origin>
+						<Origin>(33, 13)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -866,7 +866,7 @@
 						<PartProperty>
 							<Keyword>flf</Keyword>
 							<KeywordVisible>True</KeywordVisible>
-							<Value>1328000000.0</Value>
+							<Value>1328125000.0</Value>
 							<Visible>True</Visible>
 						</PartProperty>
 						<PartProperty>
@@ -890,55 +890,13 @@
 					</PartProperties>
 				</Device>
 				<Device>
-					<ClassName>DeviceVoltageAmplifierTwoPort</ClassName>
-					<PartPicture>
-						<Index>0</Index>
-						<MirroredHorizontally>False</MirroredHorizontally>
-						<MirroredVertically>False</MirroredVertically>
-						<Orientation>0</Orientation>
-						<Origin>(11, 12)</Origin>
-					</PartPicture>
-					<PartProperties>
-						<PartProperty>
-							<Keyword>gain</Keyword>
-							<KeywordVisible>True</KeywordVisible>
-							<Value>18.0</Value>
-							<Visible>True</Visible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>zi</Keyword>
-							<KeywordVisible>True</KeywordVisible>
-							<Value>100000000.0</Value>
-							<Visible>True</Visible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>zo</Keyword>
-							<KeywordVisible>True</KeywordVisible>
-							<Value>0.0</Value>
-							<Visible>True</Visible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>ports</Keyword>
-							<KeywordVisible>True</KeywordVisible>
-							<Value>2</Value>
-							<Visible>False</Visible>
-						</PartProperty>
-						<PartProperty>
-							<Keyword>ref</Keyword>
-							<KeywordVisible>False</KeywordVisible>
-							<Value>D1</Value>
-							<Visible>False</Visible>
-						</PartProperty>
-					</PartProperties>
-				</Device>
-				<Device>
 					<ClassName>DeviceFFE</ClassName>
 					<PartPicture>
 						<Index>0</Index>
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(36, 13)</Origin>
+						<Origin>(49, 13)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -962,7 +920,7 @@
 						<PartProperty>
 							<Keyword>td</Keyword>
 							<KeywordVisible>True</KeywordVisible>
-							<Value>9.4125e-12</Value>
+							<Value>9.411764705882353e-12</Value>
 							<Visible>True</Visible>
 						</PartProperty>
 						<PartProperty>
@@ -980,7 +938,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(5, 47)</Origin>
+						<Origin>(5, 48)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -1034,7 +992,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>270</Orientation>
-						<Origin>(52, 42)</Origin>
+						<Origin>(83, 42)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -1055,7 +1013,7 @@
 					<ClassName>DeviceEyeProbe</ClassName>
 					<EyeDiagram>
 						<Alignment>
-							<AutoAlign>True</AutoAlign>
+							<AutoAlign>False</AutoAlign>
 							<BERForAlignment>-3</BERForAlignment>
 							<Horizontal>Middle</Horizontal>
 							<Levels>4</Levels>
@@ -1113,7 +1071,7 @@
 							<TxInputPowerW>0</TxInputPowerW>
 							<WaveformType>V</WaveformType>
 						</Measure>
-						<Mode>JitterNoise</Mode>
+						<Mode>ISI</Mode>
 						<Rows>200</Rows>
 						<Saturation>20</Saturation>
 						<ScaleX>75.0</ScaleX>
@@ -1130,7 +1088,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(54, 42)</Origin>
+						<Origin>(85, 42)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -1202,7 +1160,7 @@
 						<MirroredHorizontally>False</MirroredHorizontally>
 						<MirroredVertically>False</MirroredVertically>
 						<Orientation>0</Orientation>
-						<Origin>(5, 43)</Origin>
+						<Origin>(5, 44)</Origin>
 					</PartPicture>
 					<PartProperties>
 						<PartProperty>
@@ -1268,6 +1226,400 @@
 						</WhiteNoise>
 					</VoltageNoise>
 				</Device>
+				<Device>
+					<ClassName>DeviceWaveformProcessorVariable</ClassName>
+					<PartPicture>
+						<Index>0</Index>
+						<MirroredHorizontally>False</MirroredHorizontally>
+						<MirroredVertically>False</MirroredVertically>
+						<Orientation>0</Orientation>
+						<Origin>(68, 13)</Origin>
+					</PartPicture>
+					<PartProperties>
+						<PartProperty>
+							<Keyword>calcprop</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>false</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>script</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value># Apply saved DFE settings after the schematic CTLE and FFE (no training).&#10;# &lt;waveform-processor-interface&gt;&#10;# {&#10;#   &quot;version&quot;: 1,&#10;#   &quot;ports&quot;: {&quot;inputs&quot;: 1, &quot;outputs&quot;: 1},&#10;#   &quot;variables&quot;: [&#10;#     {&quot;name&quot;: &quot;baud_rate&quot;, &quot;description&quot;: &quot;Symbol rate&quot;, &quot;type&quot;: &quot;float&quot;, &quot;default&quot;: 106.25e9, &quot;units&quot;: &quot;Baud&quot;},&#10;#     {&quot;name&quot;: &quot;levels&quot;, &quot;description&quot;: &quot;Number of equally spaced PAM levels&quot;, &quot;type&quot;: &quot;int&quot;, &quot;default&quot;: 4},&#10;#     {&quot;name&quot;: &quot;amplitude&quot;, &quot;description&quot;: &quot;Output outer-level peak-to-peak amplitude&quot;, &quot;type&quot;: &quot;float&quot;, &quot;default&quot;: 0.4, &quot;units&quot;: &quot;V&quot;},&#10;#     {&quot;name&quot;: &quot;dfe_taps_input&quot;, &quot;description&quot;: &quot;Saved normalized DFE coefficients (list or scalar)&quot;, &quot;type&quot;: &quot;string&quot;, &quot;default&quot;: &quot;[0]&quot;},&#10;#     {&quot;name&quot;: &quot;ffe_taps_input&quot;, &quot;description&quot;: &quot;Upstream FFE coefficients for normalization and history&quot;, &quot;type&quot;: &quot;string&quot;, &quot;default&quot;: &quot;[1]&quot;, &quot;visible&quot;: false},&#10;#     {&quot;name&quot;: &quot;num_precursor_taps&quot;, &quot;description&quot;: &quot;Upstream FFE precursor count&quot;, &quot;type&quot;: &quot;int&quot;, &quot;default&quot;: 0, &quot;visible&quot;: false},&#10;#     {&quot;name&quot;: &quot;normalization_offset_input&quot;, &quot;description&quot;: &quot;Saved offset before the FFE&quot;, &quot;type&quot;: &quot;float&quot;, &quot;default&quot;: 0, &quot;units&quot;: &quot;V&quot;, &quot;visible&quot;: false},&#10;#     {&quot;name&quot;: &quot;normalization_scale_input&quot;, &quot;description&quot;: &quot;Saved scale before the FFE&quot;, &quot;type&quot;: &quot;float&quot;, &quot;default&quot;: 1, &quot;units&quot;: &quot;V&quot;, &quot;visible&quot;: false},&#10;#     {&quot;name&quot;: &quot;bias_input&quot;, &quot;description&quot;: &quot;Saved normalized equalizer bias&quot;, &quot;type&quot;: &quot;float&quot;, &quot;default&quot;: 0, &quot;visible&quot;: false},&#10;#     {&quot;name&quot;: &quot;sample_time_input&quot;, &quot;description&quot;: &quot;Waveform delay for centered decisions (normalized to one UI)&quot;, &quot;type&quot;: &quot;float&quot;, &quot;default&quot;: 0, &quot;units&quot;: &quot;s&quot;}&#10;#   ]&#10;# }&#10;# &lt;/waveform-processor-interface&gt;&#10;# Input is the voltage AFTER F2, with no additional voltage amplifier.&#10;# FFE((CTLE - offset) / scale) = (FFE(CTLE) - offset * sum(FFE taps)) / scale.&#10;# This applies WFP1's saved normalization/bias, then its normalized PAM decisions.&#10;# Copy levels, amplitude and precursor count from WFP1/F2 if those are changed.&#10;# Link sample_time_input to the system variable written by WFP1's sample_time_output.&#10;# sample_time_input is a waveform DELAY in seconds, normalized to one UI.&#10;# Input decisions occur at n/baud_rate - delay, independent of waveform start.&#10;# The output is delayed by this amount, placing decisions at n/baud_rate and&#10;# centering the eye with auto alignment and clock recovery both disabled.&#10;# Delays separated by an integer number of UI are equivalent.&#10;# Feedback history starts at zero at the first available decision after FFE/DFE&#10;# startup. Hold the feedback correction per UI; do not replace samples by decisions.&#10;# Empty or all-zero DFE taps disable feedback, but normalization/bias still apply.&#10;# Before DFE, sinc-resample the analog FFE output onto a common clock-referenced&#10;# sample grid. Regridding after feedback would smear its edges differently.&#10;# Output retains the sample count and rate. Its sample grid is referenced to zero&#10;# after the delay; rephasing moves the first sample by at most half a sample.&#10;&#10;import ast&#10;import numpy as np&#10;from SignalIntegrity.Lib.TimeDomain.Waveform.Waveform import Waveform&#10;from SignalIntegrity.Lib.TimeDomain.Waveform.TimeDescriptor import TimeDescriptor&#10;from SignalIntegrity.Lib.TimeDomain.Filters.InterpolatorSinX import FractionalDelayFilterSinX&#10;&#10;def coefficients(value, name, allow_empty=False):&#10;    if isinstance(value, str):&#10;        value = ast.literal_eval(value)&#10;    if isinstance(value, (int, float, np.integer, np.floating)) and not isinstance(value, bool):&#10;        value = [value]&#10;    if not isinstance(value, (list, tuple, np.ndarray)):&#10;        raise ValueError(name + ' must be a real scalar or coefficient list')&#10;    if any(isinstance(item, bool) or not isinstance(item, (int, float, np.integer, np.floating))&#10;           for item in value):&#10;        raise ValueError(name + ' must contain only real coefficients')&#10;    result = np.asarray(value, dtype=float)&#10;    if result.ndim != 1 or (not allow_empty and result.size == 0) or not np.all(np.isfinite(result)):&#10;        raise ValueError(name + ' must contain finite real coefficients')&#10;    return result&#10;&#10;feedback = coefficients(dfe_taps_input, 'dfe_taps_input', allow_empty=True)&#10;ffe = coefficients(ffe_taps_input, 'ffe_taps_input')&#10;if not np.isfinite(baud_rate) or baud_rate &lt;= 0:&#10;    raise ValueError('baud_rate must be finite and positive')&#10;if not np.isfinite(levels) or levels != int(levels) or levels &lt; 2:&#10;    raise ValueError('levels must be an integer &gt;= 2')&#10;if not np.isfinite(amplitude) or amplitude &lt;= 0:&#10;    raise ValueError('amplitude must be finite and positive')&#10;if len(ffe) == 1:&#10;    num_precursor_taps = 0&#10;if (not np.isfinite(num_precursor_taps) or num_precursor_taps != int(num_precursor_taps)&#10;        or not 0 &lt;= num_precursor_taps &lt; len(ffe)):&#10;    raise ValueError('num_precursor_taps must index the main FFE tap')&#10;for name, value in [('normalization_offset_input', normalization_offset_input),&#10;                    ('normalization_scale_input', normalization_scale_input),&#10;                    ('bias_input', bias_input), ('sample_time_input', sample_time_input)]:&#10;    if not np.isfinite(value):&#10;        raise ValueError(name + ' must be finite')&#10;if normalization_scale_input &lt;= 0:&#10;    raise ValueError('require normalization_scale_input &gt; 0')&#10;&#10;td = input_waveform_1.td&#10;samples = np.asarray(input_waveform_1.Values(), dtype=float)&#10;if td is None or not np.isfinite(td.H) or not np.isfinite(td.Fs) or td.Fs &lt; 2 * baud_rate:&#10;    raise ValueError('input must have a finite start time and sample rate at least twice baud_rate')&#10;if len(samples) != td.K or len(samples) == 0 or not np.all(np.isfinite(samples)):&#10;    raise ValueError('input must contain finite samples matching its time descriptor')&#10;normalized = (samples - normalization_offset_input * np.sum(ffe)) / normalization_scale_input + bias_input&#10;cycles = sample_time_input * baud_rate&#10;fraction = cycles % 1&#10;tolerance = 8 * np.finfo(float).eps * max(1., abs(cycles))&#10;if min(fraction, 1 - fraction) &lt;= tolerance:&#10;    sample_time = 0.&#10;else:&#10;    sample_time = float(sample_time_input) if 0 &lt;= sample_time_input &lt; 1 / baud_rate else float(fraction / baud_rate)&#10;output_start = round((td.H + sample_time) * td.Fs) / td.Fs&#10;dfe_td = TimeDescriptor(output_start - sample_time, td.K, td.Fs)&#10;if abs((dfe_td.H - td.H) * td.Fs) &gt; Waveform.epsilon:&#10;    padding = FractionalDelayFilterSinX.S + 1&#10;    padded = Waveform(&#10;        TimeDescriptor(td.H - padding / td.Fs, td.K + 2 * padding, td.Fs),&#10;        np.pad(normalized, padding, mode='edge').tolist())&#10;    padded.adaptionStrategy = 'SinX'&#10;    rephased = padded.Adapt(dfe_td)&#10;    if len(rephased) != td.K:&#10;        raise ValueError('DFE sample-grid alignment changed the sample count')&#10;    normalized = np.asarray(rephased.Values(), dtype=float)&#10;td = dfe_td&#10;alphabet = np.linspace(-1., 1., int(levels))&#10;alphabet /= np.sqrt(np.mean(alphabet ** 2))&#10;spacing = alphabet[1] - alphabet[0]&#10;corrected = normalized&#10;if np.any(feedback):&#10;    sps = td.Fs / baud_rate&#10;    start_ui = (td.H + sample_time) * baud_rate&#10;    # Absolute times can lose a few ulps when converted to symbol coordinates.&#10;    clock_tolerance = 8 * np.finfo(float).eps * max(&#10;        1., abs(td.H * baud_rate), abs(sample_time_input * baud_rate), len(samples) / sps)&#10;&#10;    def clock_coordinate(value):&#10;        nearest = np.rint(value)&#10;        return np.where(np.abs(value - nearest) &lt;= clock_tolerance, nearest, value)&#10;&#10;    postcursor_taps = len(ffe) - num_precursor_taps - 1&#10;    first_symbol = int(np.ceil(clock_coordinate(start_ui + postcursor_taps + len(feedback) + 1)))&#10;    last_symbol = int(np.floor(clock_coordinate(start_ui + (len(samples) - 1) / sps))) - num_precursor_taps - 1&#10;    symbols = np.arange(first_symbol, last_symbol + 1)&#10;    if len(symbols) == 0:&#10;        raise ValueError('input too short for the supplied FFE/DFE history and clock origin')&#10;    positions = (symbols - start_ui) * sps&#10;    decision_input = np.interp(positions, np.arange(len(samples)), normalized)&#10;    corrections = np.empty(len(symbols))&#10;    decisions = np.zeros(len(symbols) + len(feedback))&#10;    for n, value in enumerate(decision_input):&#10;        corrections[n] = np.dot(feedback, decisions[n:n + len(feedback)][::-1])&#10;        sliced = value - corrections[n]&#10;        index = min(int(levels) - 1, max(0, round((sliced - alphabet[0]) / spacing)))&#10;        decisions[n + len(feedback)] = alphabet[index]&#10;    symbol_for_sample = np.floor(clock_coordinate(start_ui + np.arange(len(samples)) / sps + .5)).astype(int)&#10;    correction_indices = np.clip(symbol_for_sample - first_symbol, 0, len(corrections) - 1)&#10;    corrected = normalized - corrections[correction_indices]&#10;output = corrected * amplitude / (2 * alphabet[-1])&#10;if not np.all(np.isfinite(output)):&#10;    raise ValueError('DFE output contains nonfinite samples')&#10;output_waveform_1 = Waveform(td, output.tolist()).DelayBy(sample_time)&#10;</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>show</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>false</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>wftype</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>Dependent</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>inputports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>1</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>outputports</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>1</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ports</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>2</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>WFP2</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+					</PartProperties>
+					<Variables>
+						<Items>
+							<Variable>
+								<Description>Symbol rate</Description>
+								<Name>baud_rate</Name>
+								<ReadOnly>False</ReadOnly>
+								<Type>float</Type>
+								<Units>Baud</Units>
+								<Value>=baud_rate</Value>
+								<Visible>True</Visible>
+							</Variable>
+							<Variable>
+								<Description>Number of equally spaced PAM levels</Description>
+								<Name>levels</Name>
+								<ReadOnly>False</ReadOnly>
+								<Type>int</Type>
+								<Units></Units>
+								<Value>4</Value>
+								<Visible>True</Visible>
+							</Variable>
+							<Variable>
+								<Description>Output outer-level peak-to-peak amplitude</Description>
+								<Name>amplitude</Name>
+								<ReadOnly>False</ReadOnly>
+								<Type>float</Type>
+								<Units>V</Units>
+								<Value>0.4</Value>
+								<Visible>True</Visible>
+							</Variable>
+							<Variable>
+								<Description>Saved normalized DFE coefficients (list or scalar)</Description>
+								<Name>dfe_taps_input</Name>
+								<ReadOnly>False</ReadOnly>
+								<Type>string</Type>
+								<Units></Units>
+								<Value>=dfe_taps</Value>
+								<Visible>True</Visible>
+							</Variable>
+							<Variable>
+								<Description>Upstream FFE coefficients for normalization and history</Description>
+								<Name>ffe_taps_input</Name>
+								<ReadOnly>False</ReadOnly>
+								<Type>string</Type>
+								<Units></Units>
+								<Value>=ffe_taps</Value>
+								<Visible>False</Visible>
+							</Variable>
+							<Variable>
+								<Description>Upstream FFE precursor count</Description>
+								<Name>num_precursor_taps</Name>
+								<ReadOnly>False</ReadOnly>
+								<Type>int</Type>
+								<Units></Units>
+								<Value>20</Value>
+								<Visible>False</Visible>
+							</Variable>
+							<Variable>
+								<Description>Saved offset before the FFE</Description>
+								<Name>normalization_offset_input</Name>
+								<ReadOnly>False</ReadOnly>
+								<Type>float</Type>
+								<Units>V</Units>
+								<Value>=normalization_offset</Value>
+								<Visible>False</Visible>
+							</Variable>
+							<Variable>
+								<Description>Saved scale before the FFE</Description>
+								<Name>normalization_scale_input</Name>
+								<ReadOnly>False</ReadOnly>
+								<Type>float</Type>
+								<Units>V</Units>
+								<Value>=normalization_scale</Value>
+								<Visible>False</Visible>
+							</Variable>
+							<Variable>
+								<Description>Saved normalized equalizer bias</Description>
+								<Name>bias_input</Name>
+								<ReadOnly>False</ReadOnly>
+								<Type>float</Type>
+								<Units></Units>
+								<Value>=bias</Value>
+								<Visible>False</Visible>
+							</Variable>
+							<Variable>
+								<Description>Waveform delay for centered decisions (normalized to one UI)</Description>
+								<Name>sample_time_input</Name>
+								<ReadOnly>False</ReadOnly>
+								<Type>float</Type>
+								<Units>s</Units>
+								<Value>=sample_time</Value>
+								<Visible>True</Visible>
+							</Variable>
+						</Items>
+					</Variables>
+				</Device>
+				<Device>
+					<ClassName>DeviceVoltageAmplifierTwoPort</ClassName>
+					<PartPicture>
+						<Index>0</Index>
+						<MirroredHorizontally>False</MirroredHorizontally>
+						<MirroredVertically>False</MirroredVertically>
+						<Orientation>0</Orientation>
+						<Origin>(9, 12)</Origin>
+					</PartPicture>
+					<PartProperties>
+						<PartProperty>
+							<Keyword>gain</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>1.0</Value>
+							<Visible>True</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>zi</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>100000000.0</Value>
+							<Visible>True</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>zo</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>50.0</Value>
+							<Visible>True</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ports</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>2</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>D1</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+					</PartProperties>
+				</Device>
+				<Device>
+					<ClassName>DeviceVoltageAmplifierTwoPort</ClassName>
+					<PartPicture>
+						<Index>0</Index>
+						<MirroredHorizontally>False</MirroredHorizontally>
+						<MirroredVertically>False</MirroredVertically>
+						<Orientation>0</Orientation>
+						<Origin>(21, 12)</Origin>
+					</PartPicture>
+					<PartProperties>
+						<PartProperty>
+							<Keyword>gain</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>2.0</Value>
+							<Visible>True</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>zi</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>50.0</Value>
+							<Visible>True</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>zo</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>0.0</Value>
+							<Visible>True</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ports</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>2</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>D2</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+					</PartProperties>
+				</Device>
+				<Device>
+					<ClassName>DeviceTransmissionLine</ClassName>
+					<PartPicture>
+						<Index>0</Index>
+						<MirroredHorizontally>False</MirroredHorizontally>
+						<MirroredVertically>False</MirroredVertically>
+						<Orientation>0</Orientation>
+						<Origin>(15, 13)</Origin>
+					</PartPicture>
+					<PartProperties>
+						<PartProperty>
+							<Keyword>td</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>3e-12</Value>
+							<Visible>True</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>zc</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>50.0</Value>
+							<Visible>True</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ports</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>2</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>T1</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+					</PartProperties>
+				</Device>
+				<Device>
+					<ClassName>DeviceVoltageAmplifierTwoPort</ClassName>
+					<PartPicture>
+						<Index>0</Index>
+						<MirroredHorizontally>False</MirroredHorizontally>
+						<MirroredVertically>False</MirroredVertically>
+						<Orientation>0</Orientation>
+						<Origin>(9, 41)</Origin>
+					</PartPicture>
+					<PartProperties>
+						<PartProperty>
+							<Keyword>gain</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>1.0</Value>
+							<Visible>True</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>zi</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>100000000.0</Value>
+							<Visible>True</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>zo</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>50.0</Value>
+							<Visible>True</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ports</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>2</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>D3</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+					</PartProperties>
+				</Device>
+				<Device>
+					<ClassName>DeviceVoltageAmplifierTwoPort</ClassName>
+					<PartPicture>
+						<Index>0</Index>
+						<MirroredHorizontally>False</MirroredHorizontally>
+						<MirroredVertically>False</MirroredVertically>
+						<Orientation>0</Orientation>
+						<Origin>(21, 41)</Origin>
+					</PartPicture>
+					<PartProperties>
+						<PartProperty>
+							<Keyword>gain</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>2.0</Value>
+							<Visible>True</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>zi</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>50.0</Value>
+							<Visible>True</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>zo</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>0.0</Value>
+							<Visible>True</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ports</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>2</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>D4</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+					</PartProperties>
+				</Device>
+				<Device>
+					<ClassName>DeviceTransmissionLine</ClassName>
+					<PartPicture>
+						<Index>0</Index>
+						<MirroredHorizontally>False</MirroredHorizontally>
+						<MirroredVertically>False</MirroredVertically>
+						<Orientation>0</Orientation>
+						<Origin>(15, 42)</Origin>
+					</PartPicture>
+					<PartProperties>
+						<PartProperty>
+							<Keyword>td</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>3e-12</Value>
+							<Visible>True</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>zc</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>50.0</Value>
+							<Visible>True</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ports</Keyword>
+							<KeywordVisible>True</KeywordVisible>
+							<Value>2</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+						<PartProperty>
+							<Keyword>ref</Keyword>
+							<KeywordVisible>False</KeywordVisible>
+							<Value>T2</Value>
+							<Visible>False</Visible>
+						</PartProperty>
+					</PartProperties>
+				</Device>
 			</Devices>
 			<Wires>
 				<Wire>
@@ -1283,60 +1635,123 @@
 				<Wire>
 					<Vertices>
 						<Vertex>
-							<Coord>(54, 14)</Coord>
+							<Coord>(53, 14)</Coord>
 						</Vertex>
 						<Vertex>
-							<Coord>(40, 14)</Coord>
+							<Coord>(68, 14)</Coord>
 						</Vertex>
 					</Vertices>
 				</Wire>
 				<Wire>
 					<Vertices>
 						<Vertex>
-							<Coord>(20, 14)</Coord>
+							<Coord>(72, 14)</Coord>
 						</Vertex>
 						<Vertex>
-							<Coord>(16, 14)</Coord>
+							<Coord>(81, 14)</Coord>
 						</Vertex>
 					</Vertices>
 				</Wire>
 				<Wire>
 					<Vertices>
-						<Vertex>
-							<Coord>(11, 14)</Coord>
-						</Vertex>
 						<Vertex>
 							<Coord>(6, 14)</Coord>
 						</Vertex>
-					</Vertices>
-				</Wire>
-				<Wire>
-					<Vertices>
 						<Vertex>
-							<Coord>(36, 14)</Coord>
-						</Vertex>
-						<Vertex>
-							<Coord>(24, 14)</Coord>
+							<Coord>(9, 14)</Coord>
 						</Vertex>
 					</Vertices>
 				</Wire>
 				<Wire>
 					<Vertices>
 						<Vertex>
-							<Coord>(54, 43)</Coord>
+							<Coord>(49, 14)</Coord>
 						</Vertex>
 						<Vertex>
-							<Coord>(40, 43)</Coord>
+							<Coord>(37, 14)</Coord>
 						</Vertex>
 					</Vertices>
 				</Wire>
 				<Wire>
 					<Vertices>
 						<Vertex>
-							<Coord>(36, 43)</Coord>
+							<Coord>(85, 43)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(71, 43)</Coord>
+						</Vertex>
+					</Vertices>
+				</Wire>
+				<Wire>
+					<Vertices>
+						<Vertex>
+							<Coord>(14, 14)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(15, 14)</Coord>
+						</Vertex>
+					</Vertices>
+				</Wire>
+				<Wire>
+					<Vertices>
+						<Vertex>
+							<Coord>(26, 14)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(33, 14)</Coord>
+						</Vertex>
+					</Vertices>
+				</Wire>
+				<Wire>
+					<Vertices>
+						<Vertex>
+							<Coord>(19, 14)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(21, 14)</Coord>
+						</Vertex>
+					</Vertices>
+				</Wire>
+				<Wire>
+					<Vertices>
+						<Vertex>
+							<Coord>(14, 43)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(15, 43)</Coord>
+						</Vertex>
+					</Vertices>
+				</Wire>
+				<Wire>
+					<Vertices>
+						<Vertex>
+							<Coord>(19, 43)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(21, 43)</Coord>
+						</Vertex>
+					</Vertices>
+				</Wire>
+				<Wire>
+					<Vertices>
+						<Vertex>
+							<Coord>(6, 44)</Coord>
 						</Vertex>
 						<Vertex>
 							<Coord>(6, 43)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(9, 43)</Coord>
+						</Vertex>
+					</Vertices>
+				</Wire>
+				<Wire>
+					<Vertices>
+						<Vertex>
+							<Coord>(26, 43)</Coord>
+						</Vertex>
+						<Vertex>
+							<Coord>(67, 43)</Coord>
 						</Vertex>
 					</Vertices>
 				</Wire>
@@ -1363,7 +1778,7 @@
 				<ReadOnly>True</ReadOnly>
 				<Type>string</Type>
 				<Units></Units>
-				<Value>[-0.011176541086514155, 0.007905140042300491, -0.020712959046601972, 0.012995287616467508, -0.02601688860573752, 0.011783201850783614, -0.021822146300020592, 0.007341059502969899, -0.018803494391409818, 0.0009464378897164136, -0.003038301773249463, -0.03148716415410292, 0.05701982411007437, -0.14662378805499876, 0.25535285362588067, -0.4725602580878559, 0.7664343620619262, -1.2635951351921568, 1.8718366102288935, -2.4903933759904002, 2.172297660769803, -0.41768999208160074, 0.22429567733455608, 0.453306168886604, 0.038528320631852284, 0.10510169715098847, 0.27443341023433815, -0.06905038406592726, 0.17223362411861767, 0.015477689043813482, 0.054269143652186595, 0.04639175178303479, 0.029809712264360126, 0.0014285873468050025, 0.0604110344139157, -0.025404881414458604, 0.055692572900768046, 0.0063136721965169045, -0.009377361301726853, 0.03858397466971272, 0.04460437724495236, -0.06058974889034061, 0.10653114976179928, -0.08320712937797828, 0.08441791566714164, -0.02233960573792408, -0.015253431691808763, 0.0741188125740893, -0.06393671224795344, 0.06397437195170189]</Value>
+				<Value>[-0.00970073934384615, 0.004856725964213026, -0.01579986645275067, 0.006715465311682897, -0.018432514487092353, 0.0025370732559473605, -0.012096197560264161, -0.001541471093885443, -0.011033940213182773, -0.005770030185107774, 0.0021670759239225765, -0.032167718380970114, 0.04749028186298666, -0.11906256959772847, 0.1939343349598737, -0.3518899599995744, 0.5476598666283263, -0.8910832959786447, 1.2623961314443235, -1.550418069185552, 0.8658140116247677, 0.9780324236179037, -0.5505940030035811, 0.6451603370658223, 0.10707040538449283, -0.018954236392854974, 0.29381792631687514, -0.017863632433651293, 0.06935305839545979, 0.08709909746607439, 0.007464437601166278, 0.058866657115648334, 0.025481882066022435, -0.0012058101329628095, 0.04963924014298962, -0.00568776959667598, 0.028341433663671107, 0.03180986384842101, -0.025882794745473073, 0.03705430404107171, 0.05372453571241676, -0.05195159694895117, 0.06724911354310403, -0.02509991854562269, 0.01945298713808421, 0.03902944468153471, -0.06601018832487572, 0.10634871874408654, -0.07820547090148222, 0.06920164500996426]</Value>
 				<Visible>True</Visible>
 			</Variable>
 			<Variable>
@@ -1390,7 +1805,7 @@
 				<ReadOnly>False</ReadOnly>
 				<Type>string</Type>
 				<Units></Units>
-				<Value>False</Value>
+				<Value>True</Value>
 				<Visible>True</Visible>
 			</Variable>
 			<Variable>
@@ -1399,7 +1814,7 @@
 				<ReadOnly>False</ReadOnly>
 				<Type>float</Type>
 				<Units>V</Units>
-				<Value>0.00013222496813926476</Value>
+				<Value>0.000130512265282933</Value>
 				<Visible>True</Visible>
 			</Variable>
 			<Variable>
@@ -1408,7 +1823,7 @@
 				<ReadOnly>False</ReadOnly>
 				<Type>float</Type>
 				<Units>V</Units>
-				<Value>0.00827349493928144</Value>
+				<Value>0.008273861228156848</Value>
 				<Visible>True</Visible>
 			</Variable>
 			<Variable>
@@ -1417,16 +1832,16 @@
 				<ReadOnly>False</ReadOnly>
 				<Type>float</Type>
 				<Units></Units>
-				<Value>0.027985805950692572</Value>
+				<Value>0.02777590211861159</Value>
 				<Visible>True</Visible>
 			</Variable>
 			<Variable>
-				<Description>Sampling phase</Description>
-				<Name>phase_ui</Name>
+				<Description>Waveform delay for centered decisions (normalized to one UI)</Description>
+				<Name>sample_time</Name>
 				<ReadOnly>False</ReadOnly>
 				<Type>float</Type>
-				<Units>UI</Units>
-				<Value>0.75</Value>
+				<Units>s</Units>
+				<Value>6.411764705887489e-12</Value>
 				<Visible>True</Visible>
 			</Variable>
 			<Variable>
@@ -1435,7 +1850,7 @@
 				<ReadOnly>False</ReadOnly>
 				<Type>string</Type>
 				<Units></Units>
-				<Value>[]</Value>
+				<Value>[0.3, -0.3]</Value>
 				<Visible>True</Visible>
 			</Variable>
 		</Items>
