@@ -123,6 +123,7 @@ class EyeConfiguration(XMLConfiguration):
         self.Add(XMLPropertyDefaultFloat('ScaleY',150.))
         self.Add(XMLPropertyDefaultString('Mode','ISI'))
         self.Add(XMLPropertyDefaultBool('Invert',True))
+        self.Add(XMLPropertyDefaultString('UpsampleMethod','SinX'))
         self.SubDir(ClockRecoveryConfiguration())
         self.SubDir(EyeYAxisConfiguration())
         self.SubDir(EyeJitterNoiseConfiguration())

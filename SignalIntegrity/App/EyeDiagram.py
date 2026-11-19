@@ -63,7 +63,8 @@ class EyeDiagram(object):
                 EnhancementSteps=self.config['EnhancedPrecision.FixedEnhancement'],
                 Levels=self.config['Alignment.Levels'], # PAM
                 recover_clock=self.config['ClockRecovery.Recover'],
-                clock_recovery_trim_left_right=self.config['ClockRecovery.TrimLeftRight']
+                clock_recovery_trim_left_right=self.config['ClockRecovery.TrimLeftRight'],
+                UpsampleMethod=self.config['UpsampleMethod']
                 )
         except Exception as e:
             raise SignalIntegrityExceptionEyeDiagram('Eye Diagram Creation Failed.')

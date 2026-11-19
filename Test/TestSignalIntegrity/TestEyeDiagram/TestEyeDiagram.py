@@ -64,6 +64,102 @@ class TestEyeDiagramTest(unittest.TestCase,
         si.test.SParameterCompareHelper.__init__(self)
         unittest.TestCase.__init__(self,methodName)
         si.test.SignalIntegrityAppTestHelper.__init__(self,os.path.dirname(os.path.realpath(__file__)))
+    def testEyeUpsampleMethodControlsInterpolation(self):
+        from unittest.mock import patch
+        from SignalIntegrity.Lib.Eye.EyeDiagramBitmap import EyeDiagramBitmap
+        from SignalIntegrity.Lib.Exception import SignalIntegrityExceptionEyeDiagram
+
+        waveform=si.td.wf.Waveform(si.td.wf.TimeDescriptor(-.13e-9,1024,4.e9),
+                                 np.repeat(np.random.default_rng(42).choice([-1.,1.],256),4).tolist())
+        waveform.adaptionStrategy='Linear'
+        original=si.td.wf.Waveform(waveform)
+        def makeEye(method):
+            return EyeDiagramBitmap(Rows=64,Cols=30,BaudRate=1.e9,prbswf=waveform,
+                                    YAxisMode='Fixed',YMin=-1.5,YMax=1.5,
+                                    EnhancementMode='None',UpsampleMethod=method)
+
+        bitmaps={}
+        for globalMethod in ['SinX','Linear']:
+            with self.subTest(globalMethod=globalMethod), \
+                 patch.object(si.td.wf.Waveform,'adaptionStrategy',globalMethod):
+                default=EyeDiagramBitmap(Rows=64,Cols=30,BaudRate=1.e9,prbswf=waveform,
+                                         YAxisMode='Fixed',YMin=-1.5,YMax=1.5,EnhancementMode='None')
+                sinx=makeEye('SinX')
+                linear=makeEye('Linear')
+                np.testing.assert_array_equal(default.Bitmap(),sinx.Bitmap())
+                self.assertGreater(max(abs(value) for value in sinx.aprbswf),1.05)
+                self.assertLessEqual(max(abs(value) for value in linear.aprbswf),1.+1.e-14)
+                expected=np.interp(np.asarray(linear.aprbswf.Times())+.5e-9,
+                                   waveform.Times(),waveform)
+                np.testing.assert_allclose(linear.aprbswf,expected,rtol=0.,atol=2.e-12)
+                self.assertGreater(np.max(np.abs(sinx.Bitmap()-linear.Bitmap())),.01)
+                if bitmaps:
+                    np.testing.assert_array_equal(sinx.Bitmap(),bitmaps['SinX'])
+                    np.testing.assert_array_equal(linear.Bitmap(),bitmaps['Linear'])
+                bitmaps={'SinX':sinx.Bitmap(),'Linear':linear.Bitmap()}
+                self.assertEqual(si.td.wf.Waveform.adaptionStrategy,globalMethod)
+                self.assertEqual(waveform.adaptionStrategy,'Linear')
+                self.assertEqual(waveform.td,original.td)
+                self.assertEqual(waveform,original)
+        with self.assertRaises(SignalIntegrityExceptionEyeDiagram):
+            makeEye('invalid')
+
+    def testEyeUpsampleMethodInvalidatesCache(self):
+        import tempfile
+        from unittest.mock import patch
+        from SignalIntegrity.Lib.Eye.EyeDiagramBitmap import EyeDiagramBitmap
+        from SignalIntegrity.Lib.ResultsCache import ResultsCache
+
+        waveform=si.td.wf.Waveform(si.td.wf.TimeDescriptor(0.,512,4.e9),
+                                 np.tile([-1.,-1.,1.,1.],128).tolist())
+        with tempfile.TemporaryDirectory() as directory,patch.object(ResultsCache,'enabled',True):
+            def makeEye(method):
+                return EyeDiagramBitmap(cacheFileName=os.path.join(directory,'eye'),Rows=32,Cols=16,
+                                        BaudRate=1.e9,prbswf=waveform,EnhancementMode='None',
+                                        UpsampleMethod=method)
+
+            sinx=makeEye('SinX')
+            linear=makeEye('Linear')
+            self.assertNotEqual(sinx.hash,linear.hash)
+            with patch.object(si.td.wf.Waveform,'Adapt',
+                              side_effect=AssertionError('unchanged eye should use cached bitmap')):
+                cached=makeEye('Linear')
+            np.testing.assert_array_equal(cached.Bitmap(),linear.Bitmap())
+            self.assertEqual(cached.aprbswf,linear.aprbswf)
+
+    def testEyeUpsampleMethodConfigurationAndGeneration(self):
+        import xml.etree.ElementTree as ET
+        from unittest.mock import patch
+        from SignalIntegrity.App.EyeDiagramConfiguration import EyeDiagramConfiguration
+        from SignalIntegrity.App.EyeDiagram import EyeDiagram
+        from SignalIntegrity.Lib.Eye.EyeDiagramBitmap import EyeDiagramBitmap
+        import SignalIntegrity.App as siapp
+
+        config=EyeDiagramConfiguration().InitFromXML(ET.fromstring(
+            '<EyeDiagram><Rows>32</Rows><Columns>16</Columns></EyeDiagram>'))
+        waveform=si.td.wf.Waveform(si.td.wf.TimeDescriptor(0.,512,4.e9),
+                                 np.tile([-1.,-1.,1.,1.],128).tolist())
+        for method in ['SinX','Linear']:
+            with self.subTest(method=method):
+                if method == 'Linear':
+                    config['UpsampleMethod']=method
+                    config=EyeDiagramConfiguration().InitFromXML(
+                        ET.fromstring('\n'.join(config.OutputXML(''))))
+                eye=EyeDiagram(None,'eye',headless=True)
+                eye.config=config
+                eye.prbswf=waveform
+                eye.baudrate=1.e9
+                with patch('SignalIntegrity.App.EyeDiagram.EyeDiagramBitmap',
+                           wraps=EyeDiagramBitmap) as bitmap:
+                    cacheEnabled=siapp.Preferences['Cache.CacheResults']
+                    try:
+                        siapp.Preferences['Cache.CacheResults']=False
+                        eye.CalculateEyeDiagram('eye')
+                    finally:
+                        siapp.Preferences['Cache.CacheResults']=cacheEnabled
+                self.assertEqual(bitmap.call_args.kwargs['UpsampleMethod'],method)
+                self.assertEqual(eye.BitMap().shape,(32,16))
+
     def testEyeDiagram(self):
         self.SimulationEyeDiagramResultsChecker('EyeDiagramTest.si')
     def testEyeDiagramTransferMatrices(self):

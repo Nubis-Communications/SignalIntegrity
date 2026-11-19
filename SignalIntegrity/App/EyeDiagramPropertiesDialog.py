@@ -36,6 +36,7 @@ class EyeDiagramPropertiesDialog(PropertiesDialog):
     DecisionChoices=[('Midpoint of Eye','Mid'),('Best Decision Point','Best')]
     WaveformTypeChoices=[('Voltage','V'),('Current','A'),('Power','W'),('Fractional Power','FW'),('Current proportional to Power','AW'),('Voltage proportional to Power','VW')]
     RxTxChoices=[('Receiver','Rx'),('Transmitter','Tx'),('Not Applicable','N/A')]
+    UpsampleMethodChoices=[('sinx','SinX'),('linear','Linear')]
     def __init__(self,project,parent):
         PropertiesDialog.__init__(self,parent,project,parent.parent,'Eye Diagram Properties')
         self.transient(parent)
@@ -71,6 +72,7 @@ class EyeDiagramPropertiesDialog(PropertiesDialog):
         self.SaturationFrame=CalculationPropertySI(self.GeneralFrame,'Saturation',self.onUpdateFromChanges,None,self.project,'Saturation','%')
         self.ScaleXFrame=CalculationPropertySI(self.GeneralFrame,'Scale X',self.onUpdateScaleX,None,self.project,'ScaleX','%')
         self.ScaleYFrame=CalculationPropertySI(self.GeneralFrame,'Scale Y',self.onUpdateScaleY,None,self.project,'ScaleY','%')
+        self.UpsampleMethod=CalculationPropertyChoices(self.ClockRecoveryFrame,'Upsample Method',self.onUpdateFromChanges,None,self.UpsampleMethodChoices,self.project,'UpsampleMethod')
         self.RecoverClock=CalculationPropertyTrueFalseButton(self.ClockRecoveryFrame,'Recover Clock',self.onUpdateFromChanges,None,self.project,'ClockRecovery.Recover')
         self.RecoverClockTrimLeftRight=CalculationProperty(self.ClockRecoveryFrame,'Points to Trim From Both Sides',self.onUpdateFromChanges,None,self.project,'ClockRecovery.TrimLeftRight')
         self.AutoAlign=CalculationPropertyTrueFalseButton(self.AutoAlignFrame,'Auto Align Eye',self.onUpdateFromChanges,None,self.project,'Alignment.AutoAlign')
