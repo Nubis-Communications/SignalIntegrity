@@ -106,7 +106,7 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
                     repr(self.RowsSpecified)+repr(self.Cols)+repr(Waveform.adaptionStrategy)+\
                     repr(self.BaudRate)+repr(self.prbswf)+repr(self.EnhancementMode)+\
                     repr(self.EnhancementSteps)+repr(self.Levels)+repr(self.recover_clock)+\
-                    repr(self.clock_recovery_trim_left_right)
+                    repr(self.clock_recovery_trim_left_right)+repr(self.UpsampleMethod)
         return hashlib.sha256(stuffToHash.encode()).hexdigest()
 
     def __init__(self,callback=None,
@@ -122,7 +122,8 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
                  EnhancementSteps=10, # ignored unless EnhancementMode is Fixed
                  Levels=2, # PAM
                  recover_clock=False, # whether to recover the clock
-                 clock_recovery_trim_left_right=20 # points to trim from left and right
+                 clock_recovery_trim_left_right=20, # points to trim from left and right
+                 UpsampleMethod='SinX' # 'SinX' or 'Linear'
                  ):
         """Constructor
         Attempts to generate an eye diagram bitmap from the definition provided.  The bitmap generated here is
@@ -164,6 +165,8 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
         @param clock_recovery_trim_left_right int, defaults to 20, number of points to trim from the two samples per
         UI waveform that determines the time error for the clock recovery.  This must be enough points so that when
         interpolating, the timing error does not try to interpolate beyond the boundaries of the input waveform.
+        @param UpsampleMethod string, defaults to 'SinX', interpolation method used to resample the waveform
+        onto the eye bitmap grid. Can be 'SinX' or 'Linear', independently of the global waveform preference.
 
         At the end of construction, the bitmap can be accessed through a call to Bitmap.  
         The construction initializes several member variables that contain computed or partially computed results
@@ -186,7 +189,11 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
         7.  CreateImage
         """
         from SignalIntegrity.Lib.TimeDomain.Filters.WaveformTrimmer import WaveformTrimmer
-        from SignalIntegrity.Lib.TimeDomain.Waveform import TimeDescriptor
+        from SignalIntegrity.Lib.TimeDomain.Waveform import TimeDescriptor,Waveform
+        from SignalIntegrity.Lib.Exception import SignalIntegrityExceptionEyeDiagram
+        if UpsampleMethod not in ['SinX','Linear']:
+            raise SignalIntegrityExceptionEyeDiagram('Upsample Method must be SinX or Linear')
+        self.UpsampleMethod=UpsampleMethod
         self.YAxisMode=YAxisMode
         self.YMax=YMax
         self.YMin=YMin
@@ -230,7 +237,9 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
         # The waveform is adapted to the new sample rate.  This puts it on the same sample frame as the original waveform, such that there
         # is the assumption that there is a point at exactly time zero, and that is the center of the unit interval.
         # the amount of points to remove is trimmed from the left to make the very first sample at the center of a unit interval.
-        self.aprbswf=prbswf.Adapt(TimeDescriptor(prbswf.td.H,prbswf.td.K*UpsampleFactor,Fs))
+        upsampleWaveform=Waveform(prbswf)
+        upsampleWaveform.adaptionStrategy=self.UpsampleMethod
+        self.aprbswf=upsampleWaveform.Adapt(TimeDescriptor(prbswf.td.H,prbswf.td.K*UpsampleFactor,Fs))
         self.aprbswf=WaveformTrimmer(C-int(round((self.aprbswf.td.H-math.floor(self.aprbswf.td.H/UI)*UI)*self.aprbswf.td.Fs)),0).TrimWaveform(self.aprbswf)
 
         if YAxisMode=='Auto':

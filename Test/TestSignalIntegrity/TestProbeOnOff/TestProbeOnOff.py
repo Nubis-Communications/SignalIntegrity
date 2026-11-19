@@ -145,10 +145,27 @@ class TestProbeOnOffTest(unittest.TestCase,
         app.Device('Waveform')['state']['Value'] = 'off'
         app.Device('Eye')['state']['Value'] = 'off'
         app.SaveProject()
-        self.SimulationEyeDiagramResultsChecker('ProbeCircuit')
-        app.Device('Waveform')['state']['Value'] = 'on'
-        app.Device('Eye')['state']['Value'] = 'on'
-        app.SaveProject()
+        try:
+            self.SimulationEyeDiagramResultsChecker('ProbeCircuit')
+        finally:
+            app.Device('Waveform')['state']['Value'] = 'on'
+            app.Device('Eye')['state']['Value'] = 'on'
+            app.SaveProject()
+
+    def testAAAProbeRestoresStateOnFailure(self):
+        from unittest.mock import patch
+
+        devices={name:{'state':{'Value':'on'}} for name in ('Waveform','Eye')}
+        with patch(__name__+'.SignalIntegrityAppHeadless') as constructor, \
+             patch.object(self,'SimulationEyeDiagramResultsChecker',
+                          side_effect=AssertionError('eye regression failed')):
+            app=constructor.return_value
+            app.Device.side_effect=devices.__getitem__
+            with self.assertRaisesRegex(AssertionError,'eye regression failed'):
+                self.testAAAProbe()
+            for device in devices.values():
+                self.assertEqual(device['state']['Value'],'on')
+            self.assertEqual(app.SaveProject.call_count,2)
 
     def testProbeOnOff_0(self):
         self.RunTest()

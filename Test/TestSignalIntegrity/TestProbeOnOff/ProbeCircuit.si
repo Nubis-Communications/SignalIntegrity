@@ -592,6 +592,7 @@
 						<ScaleX>150.0</ScaleX>
 						<ScaleY>300.0</ScaleY>
 						<UI>3</UI>
+						<UpsampleMethod>Linear</UpsampleMethod>
 						<YAxis>
 							<Max>1.0</Max>
 							<Min>0.0</Min>
@@ -736,6 +737,7 @@
 						<ScaleX>150.0</ScaleX>
 						<ScaleY>300.0</ScaleY>
 						<UI>3</UI>
+						<UpsampleMethod>Linear</UpsampleMethod>
 						<YAxis>
 							<Max>1.0</Max>
 							<Min>0.0</Min>
@@ -880,6 +882,7 @@
 						<ScaleX>75.0</ScaleX>
 						<ScaleY>150.0</ScaleY>
 						<UI>3</UI>
+						<UpsampleMethod>Linear</UpsampleMethod>
 						<YAxis>
 							<Max>1.0</Max>
 							<Min>0.0</Min>
