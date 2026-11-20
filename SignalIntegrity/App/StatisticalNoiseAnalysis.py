@@ -61,6 +61,7 @@ class StatisticalNoiseAnalysis(dict):
 
             from SignalIntegrity.Lib.FrequencyDomain.FrequencyList import EvenlySpacedFrequencyList
             fl = EvenlySpacedFrequencyList(transferMatrices.f[-1], len(transferMatrices.f)-1)
+            devices = schematic.CircuitDevices()
 
             # determine the 'type' (voltage or current) of each output probe.
             # A CurrentOutput probe measures current, so its noise/signal is
@@ -68,7 +69,7 @@ class StatisticalNoiseAnalysis(dict):
             output_types = {}
             for output_name in outputWaveformLabels:
                 output_types[output_name] = 'voltage'
-                for device in schematic.deviceList:
+                for device in devices:
                     if device['ref'] is None:
                         continue
                     if device['ref'].GetValue() == output_name:
@@ -82,7 +83,7 @@ class StatisticalNoiseAnalysis(dict):
             probe_types = {}
             for output_name in output_waveform_names:
                 probe_types[output_name] = 'voltage'
-                for device in schematic.deviceList:
+                for device in devices:
                     if device['ref'] is None:
                         continue
                     if device['ref'].GetValue() == output_name:
@@ -92,9 +93,8 @@ class StatisticalNoiseAnalysis(dict):
 
             input_types = {}
             inputNoiseSpectralDensityList = []
-            for noise_source_ref in netlist.NoiseSourceNames():
-                sd = None
-                for device in schematic.deviceList:
+            for noise_source_ref in sourceNames:
+                for device in devices:
                     if device['partname'].GetValue() in ['VoltageStatisticalNoiseSource','VoltageStatisticalNoiseSourceProject','CurrentStatisticalNoiseSource','CurrentStatisticalNoiseSourceProject']:
                         if device['ref'].GetValue() == noise_source_ref:
                             input_types[noise_source_ref] = 'current' if device['partname'].GetValue().startswith('Current') else 'voltage'
@@ -104,6 +104,8 @@ class StatisticalNoiseAnalysis(dict):
                                 output_types=probe_types).Resample(fl)
                             inputNoiseSpectralDensityList.append(sd)
                             break
+                else:
+                    raise ValueError('statistical noise source not found: '+noise_source_ref)
 
             from SignalIntegrity.Lib.Noise.NoiseAnalysis import NoiseAnalysis
 

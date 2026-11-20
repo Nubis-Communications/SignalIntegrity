@@ -96,6 +96,33 @@ class TestStatisticalNoiseTest(unittest.TestCase,
                     self.assertIs(byName['VS1'],source.Wf)
                     self.assertEqual(byName['N'],0.)
 
+    def testNoiseAnalysisIncludesInactivePages(self):
+        import SignalIntegrity.App
+        from SignalIntegrity.App.ProjectFile import SchematicPageConfiguration
+        from SignalIntegrity.App.StatisticalNoiseAnalysis import StatisticalNoiseAnalysis
+
+        app=siapp.SignalIntegrityAppHeadless()
+        self.assertTrue(app.OpenProjectFile('StatisticalNoiseWaveforms.si'))
+        project=SignalIntegrity.App.Project
+        page=SchematicPageConfiguration()
+        page['Name']='Empty page'
+        project['Pages']=[page]
+        app.Drawing.InitFromProject()
+        schematic=app.Drawing.schematic
+
+        frequencies=si.fd.EvenlySpacedFrequencyList(40.e9,8)
+        matrices=si.fd.TransferMatrices(frequencies,[[[1.]] for _ in frequencies])
+        waveform=si.td.wf.Waveform(si.td.wf.TimeDescriptor(0.,16,80.e9),1.)
+        def analyze():
+            return StatisticalNoiseAnalysis(schematic,matrices,[waveform],['VO2'],['VO2'],['VN1'])
+
+        expected=analyze()['output_noise_spectral_density']['VO2']['rms']
+        self.assertGreater(expected,0.)
+        schematic.SelectPage(1)
+        result=analyze()
+        self.assertEqual(result['input_names'],['VN1'])
+        self.assertAlmostEqual(result['output_noise_spectral_density']['VO2']['rms'],expected)
+
     def testNoiseWaveform(self):
         """
         This simulation has five probes VO1-VO7.
