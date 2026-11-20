@@ -88,7 +88,7 @@ class Simulator(object):
         if not hasattr(self,'noiseBreakdownDialogs'):
             self.noiseBreakdownDialogs={}
         displayNames=statistical_noise_analysis.get('noise_display_output_names',statistical_noise_analysis.get('output_names',[]))
-        probeNames=[device['ref'].GetValue() for device in self.parent.Drawing.schematic.deviceList
+        probeNames=[device['ref'].GetValue() for device in self.parent.Drawing.schematic.CircuitDevices()
                     if device['ref'] is not None and device['noise'] is not None
                     and device['noise'].GetValue() == 'full breakdown'
                     and device['ref'].GetValue() in displayNames
@@ -270,7 +270,7 @@ class Simulator(object):
             for outputWaveformIndex in range(len(outputWaveformList)):
                 outputWaveform=outputWaveformList[outputWaveformIndex]
                 outputWaveformLabel = (self.outputWaveformLabels+otherWaveformLabels)[outputWaveformIndex]
-                for device in self.parent.Drawing.schematic.deviceList:
+                for device in self.parent.Drawing.schematic.CircuitDevices():
                     if device['partname'].GetValue() in ['Output',
                                                          'DifferentialVoltageOutput',
                                                          'CurrentOutput',
@@ -385,7 +385,7 @@ class Simulator(object):
         for outputWaveformIndex in range(len(outputWaveformList)):
             outputWaveform=(outputWaveformList)[outputWaveformIndex]
             outputWaveformLabel = (outputWaveformLabels)[outputWaveformIndex]
-            for device in self.parent.Drawing.schematic.deviceList:
+            for device in self.parent.Drawing.schematic.CircuitDevices():
                 if device['partname'].GetValue() in ['EyeProbe','DifferentialEyeProbe','EyeWaveform']:
                     matched = device['ref'].GetValue() == outputWaveformLabel
                     if matched:
@@ -491,7 +491,7 @@ class Simulator(object):
         for outputWaveformIndex in range(len(outputWaveformList)):
             outputWaveform=outputWaveformList[outputWaveformIndex]
             outputWaveformLabel = (self.outputWaveformLabels+otherWaveformLabels)[outputWaveformIndex]
-            for device in self.parent.Drawing.schematic.deviceList:
+            for device in self.parent.Drawing.schematic.CircuitDevices():
                 if device['partname'].GetValue() in ['Output',
                                                      'DifferentialVoltageOutput',
                                                      'CurrentOutput',
@@ -527,7 +527,7 @@ class Simulator(object):
         for outputWaveformIndex in range(len(outputWaveformList)):
             outputWaveform=outputWaveformList[outputWaveformIndex]
             outputWaveformLabel = outputWaveformLabels[outputWaveformIndex]
-            for device in self.parent.Drawing.schematic.deviceList:
+            for device in self.parent.Drawing.schematic.CircuitDevices():
                 if device['partname'].GetValue() in ['EyeProbe','DifferentialEyeProbe']:
                     if device['ref'].GetValue() == outputWaveformLabel:
                         if device['eyestate'].GetValue() == 'on':

@@ -41,38 +41,33 @@ class NetList(object):
         self.noiseDisplayOutputNames=[]
         self.waveformProcessorLinearSourceNames=[]
         self.waveformProcessorPortCounts={}
-        deviceList = schematic.deviceList
-
-        wires_list = copy.deepcopy(SignalIntegrity.App.Project['Drawing.Schematic'].dict['Wires'])
-
-        # filter out the devices whose state is 'disabled'
-        new_deviceList=[]
-        for device in deviceList:
-            if device['element_state'] == None:
-                new_deviceList.append(device)
-            else:
-                state = device['element_state'].GetValue()
+        deviceList=[]
+        devicePages=[]
+        equiPotentialWireList=[]
+        for pageIndex,(page,pageWires) in enumerate(schematic.CircuitPages()):
+            wires_list=copy.deepcopy(pageWires)
+            for device in page.deviceList:
+                state=device['element_state'].GetValue() if device['element_state'] is not None else None
                 if state == 'disabled':
-                    pass
+                    continue
                 elif state == 'thru_wires':
                     from SignalIntegrity.App.Device import DeviceThru
                     wires=DeviceThru.ConvertDeviceToThruWires(device)
                     if wires is None:
                         from SignalIntegrity.App.Device import DeviceThru
                         device=DeviceThru.ConvertDeviceToThru(device)
-                        new_deviceList.append(device)
                     else:
                         wires_list['Wires'].extend(wires)
+                        continue
                 elif state == 'thru':
                     from SignalIntegrity.App.Device import DeviceThru
                     device=DeviceThru.ConvertDeviceToThru(device)
-                    new_deviceList.append(device)
-                else:
-                    new_deviceList.append(device)
-
-        deviceList = copy.deepcopy(new_deviceList)
-
-        # done filtering out disabled devices
+                deviceList.append(device)
+                devicePages.append(pageIndex)
+            # Physical connectivity is local to a page; net names are resolved below.
+            equiPotentialWireList.extend([(pageIndex,vertex['Coord']) for vertex in wire]
+                                         for wire in wires_list.EquiPotentialWireList())
+        deviceList=copy.deepcopy(deviceList)
 
         # change all differential/common-mode noise source references to that have _$D$ (differential)
         # or _$C$ (common-mode) appended to them.
@@ -86,7 +81,6 @@ class NetList(object):
                     else:
                         device['ref']['Value'] = device['ref']['Value'] + '_$D$'
 
-        equiPotentialWireList=wires_list.EquiPotentialWireList()
         # put in system variables
         self.textToShow+=SignalIntegrity.App.Project['Variables'].NetListLines()
         # put all devices in the net list
@@ -134,7 +128,8 @@ class NetList(object):
                         if device['show']['Value'] == 'true':
                             self.sourceNamesToShow.append(device['ref'].GetValue())
         # gather up all device pin coordinates
-        devicePinCoordinateList = [device.PinCoordinates() for device in deviceList]
+        devicePinCoordinateList = [[(page,coord) for coord in device.PinCoordinates()]
+                                   for page,device in zip(devicePages,deviceList)]
         devicePinNeedToCheckList = [[True for pinIndex in range(len(devicePinCoordinateList[deviceIndex]))] for deviceIndex in range(len(devicePinCoordinateList))]
         deviceConnectionList = []
         for deviceIndex in range(len(devicePinCoordinateList)):
@@ -152,7 +147,7 @@ class NetList(object):
                     for wire in equiPotentialWireList:
                         thisWireConnectedToThisDevicePin = False
                         for vertex in wire:
-                            if vertex['Coord'] == thisDevicePinCoordinate:
+                            if vertex == thisDevicePinCoordinate:
                                 thisWireConnectedToThisDevicePin = True
                                 break
                         if thisWireConnectedToThisDevicePin:
@@ -160,7 +155,7 @@ class NetList(object):
                                 for deviceCheckIndex in range(len(devicePinCoordinateList)):
                                     for pinCheckIndex in range(len(devicePinCoordinateList[deviceCheckIndex])):
                                         thisDevicePinCheckCoordinate = devicePinCoordinateList[deviceCheckIndex][pinCheckIndex]
-                                        if vertex['Coord'] == thisDevicePinCheckCoordinate:
+                                        if vertex == thisDevicePinCheckCoordinate:
                                             thisListOfConnectedDevicePins.append((deviceCheckIndex,pinCheckIndex))
                     thisListOfConnectedDevicePins=list(set(thisListOfConnectedDevicePins))
                     for connectedDevicePins in thisListOfConnectedDevicePins:

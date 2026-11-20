@@ -34,12 +34,12 @@ from SignalIntegrity.App.Theme import ThemedCanvas
 
 import SignalIntegrity.App.Project
 
-def ScaleWindowGeometry(geometry,scale):
+def ScaleWindowGeometry(geometry,scale,extraHeight=0):
     match=re.match(r'^(\d+)x(\d+)',geometry)
     if match is None:
         return geometry
     width=round(int(match.group(1))*scale)
-    height=round(int(match.group(2))*scale)
+    height=round(int(match.group(2))*scale)+extraHeight
     return str(width)+'x'+str(height)+geometry[match.end():]
 
 class SchematicCanvas(ThemedCanvas):
@@ -152,8 +152,9 @@ class Drawing(tk.Frame):
         foundACalibration=False
         foundANetworkAnalyzerModel=False
         foundAWaveform=False
-        for deviceIndex in range(len(self.schematic.deviceList)):
-            device = self.schematic.deviceList[deviceIndex]
+        visible={id(device):connected for device,connected in zip(self.schematic.deviceList,devicePinConnectedList)}
+        for device in self.schematic.CircuitDevices():
+            visiblePins=visible.get(id(device))
             if device['element_state'] != None:
                 if device['element_state'].GetValue() in ['thru','thru_wires']:
                     from SignalIntegrity.App.Device import DeviceThru
@@ -163,8 +164,8 @@ class Drawing(tk.Frame):
                         from SignalIntegrity.App.PartProperty import PartPropertyElementState
                         device.AddPartProperty(PartPropertyElementState(element_state))
             foundSomething=True
-            devicePinsConnected=devicePinConnectedList[deviceIndex]
-            device.DrawDevice(canvas,grid,originx,originy,devicePinsConnected)
+            if visiblePins is not None:
+                device.DrawDevice(canvas,grid,originx,originy,visiblePins)
             deviceType = device['partname'].GetValue()
             if  deviceType == 'Port':
                 foundAPort = True
@@ -244,7 +245,7 @@ class Drawing(tk.Frame):
             self.partLoaded=copy.deepcopy(self.deviceSelected)
             if self.partLoaded['partname'].GetValue() == 'Port':
                 portNumberList=[]
-                for device in self.schematic.deviceList:
+                for device in self.schematic.CircuitDevices():
                     if device['partname'].GetValue() == 'Port':
                         portNumberList.append(int(device['pn'].GetValue()))
                 portNumber=1
@@ -253,7 +254,7 @@ class Drawing(tk.Frame):
                 self.partLoaded['pn'].SetValueFromString(str(portNumber))
             elif self.partLoaded['partname'].GetValue() == 'NetworkAnalyzerStimulus':
                 portNumberList=[]
-                for device in self.schematic.deviceList:
+                for device in self.schematic.CircuitDevices():
                     if device['partname'].GetValue() == 'NetworkAnalyzerStimulus':
                         portNumberList.append(int(device['pn'].GetValue()))
                 portNumber=1
@@ -380,17 +381,27 @@ class Drawing(tk.Frame):
                     vertexProject['Coord']=(vertexCoord[0]-originx,vertexCoord[1]-originy)
             if advanceStateMachine:
                 self.stateMachine.MultipleItemsOnClipboard()
-    def InitFromProject(self):
+    def InitFromProject(self,resize=True,addTabHeight=False):
         drawingProperties=SignalIntegrity.App.Project['Drawing.DrawingProperties']
         # the canvas and geometry must be set prior to the remainder of the schematic initialization
         # otherwise it will not be the right size.  In the past, the xml happened to have the drawing
         # properties first, which made it work, but it was an accident.
         #self.canvas.config(width=drawingProperties['Width'],height=drawingProperties['Height'])
         geometry=drawingProperties['Geometry'].split('+')[0]
-        if sys.platform.startswith('linux'):
-            geometry=ScaleWindowGeometry(geometry,self.parent.displayScale)
-        self.parent.root.geometry(geometry)
+        if resize:
+            scale=self.parent.displayScale if sys.platform.startswith('linux') else 1.0
+            extraHeight=0
+            if addTabHeight:
+                # Measure the actual themed strip in screen pixels, after Tk has laid it out.
+                self.parent.root.update_idletasks()
+                extraHeight=self.parent.pageBar.winfo_reqheight()
+            geometry=ScaleWindowGeometry(geometry,scale,extraHeight)
+            if addTabHeight:
+                # The initial history entry may be captured before the resize event arrives.
+                drawingProperties['Geometry']=ScaleWindowGeometry(geometry,1.0/scale)
+            self.parent.root.geometry(geometry)
         self.schematic = Schematic()
         self.schematic.InitFromProject()
         self.stateMachine = None
         self.InstallStateMachine()
+        self.parent.RefreshSchematicPages()

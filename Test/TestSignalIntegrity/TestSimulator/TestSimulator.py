@@ -37,6 +37,102 @@ class TestSimulator(unittest.TestCase,si.test.RoutineWriterTesterHelper,si.test.
         si.td.wf.Waveform.adaptionStrategy='SinX'
         si.sd.Numeric.trySVD=True
         unittest.TestCase.tearDown(self)
+    def testTabbedSchematicCircuit(self):
+        import copy
+        import tempfile
+        from contextlib import ExitStack
+        from pathlib import Path
+        import SignalIntegrity.App
+        from SignalIntegrity.App.Device import DeviceList, DeviceNetName, DeviceOutput, DeviceResistor, DeviceVoltageStepGenerator
+        from SignalIntegrity.App.ProjectFile import ProjectFile, SchematicPageConfiguration
+        from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
+        from SignalIntegrity.App.Wire import Vertex, Wire
+
+        def place(device,coordinate,ref=None):
+            x,y=device.PinCoordinates()[0]
+            ox,oy=device.partPicture.current.origin
+            device.partPicture.current.SetOrigin((ox+coordinate[0]-x,oy+coordinate[1]-y))
+            if ref is not None:
+                device['ref']['Value']=ref
+            return device
+
+        existingProject=SignalIntegrity.App.Project
+        cwd=os.getcwd()
+        try:
+            with ExitStack() as stack:
+                directory=stack.enter_context(tempfile.TemporaryDirectory())
+                stack.callback(os.chdir,cwd)
+                filename=str(Path(directory)/'MultiPage.si')
+                app=SignalIntegrityAppHeadless()
+                project=SignalIntegrity.App.Project=ProjectFile()
+                first=project.PageDrawings()[0]
+                source=place(copy.deepcopy(next(device for device in DeviceList
+                    if isinstance(device,DeviceVoltageStepGenerator) and device['ports'].GetValue() == 1)),(4,4),'VS1')
+                output=place(DeviceOutput(),(4,4),'VO1')
+                load=place(copy.deepcopy(next(device for device in DeviceList
+                    if isinstance(device,DeviceResistor) and device['ports'].GetValue() == 1)),(4,4),'R1')
+                send=place(DeviceNetName(),(4,4))
+                receive=place(DeviceNetName(),(8,4))
+                send['netname']['Value']=receive['netname']['Value']='CROSS_PAGE'
+                ProjectFile.WritePageDevices(first,[source,send])
+                app.Drawing.InitFromProject()
+                project.Write(app,filename)
+                self.assertTrue(app.OpenProjectFile(filename))
+                project=SignalIntegrity.App.Project
+                self.assertEqual(project.PageNames(),['Main'])
+                page=SchematicPageConfiguration()
+                page['Name']='Receive'
+                project['Pages']=[page]
+                ProjectFile.WritePageDevices(page['Drawing'],[output,receive,load])
+                page['Drawing.Schematic.Wires']=[Wire([Vertex((4,4)),Vertex((8,4))])]
+                project['CalculationProperties.FrequencyPoints']=16
+                app.Drawing.InitFromProject()
+                project.Write(app,filename)
+                self.assertTrue(app.OpenProjectFile(filename))
+                project=SignalIntegrity.App.Project
+                self.assertEqual(project.PageNames(),['Main','Receive'])
+                lines=app.NetListText()
+                self.assertTrue(any(line.startswith('voltageoutput VO1 ') for line in lines),lines)
+                self.assertTrue(any(line.startswith('connect ') and 'VS1' in line and 'R1' in line
+                                    for line in lines),lines)
+                app.Drawing.DrawSchematic()
+                self.assertTrue(app.Drawing.canSimulate)
+                result=app.Simulate(TransferMatricesOnly=True)
+                np.testing.assert_allclose(result['transfer matrices'][0],[[1.]])
+                schematic=app.Drawing.schematic
+                firstDevices=schematic.deviceList
+                source=firstDevices[0]
+                originalOrigin=source.partPicture.current.origin
+                source.partPicture.current.SetOrigin((5,5))
+                schematic.SelectPage(1)
+                self.assertEqual(schematic.CircuitDevices()[0].partPicture.current.origin,(5,5))
+                schematic.SelectPage(0)
+                self.assertIs(schematic.deviceList,firstDevices)
+                self.assertIs(schematic.deviceList[0],source)
+                source.partPicture.current.SetOrigin(originalOrigin)
+                schematic.SelectPage(1)
+                self.assertEqual(app.NetListText(),lines)
+                self.assertEqual(app.Drawing.schematic.deviceList[0]['ref'].GetValue(),'VO1')
+                app.Drawing.schematic.deviceList[1]['netname']['Value']='UNRELATED'
+                self.assertFalse(any(line.startswith('connect ') and 'VS1' in line and 'R1' in line
+                                     for line in app.NetListText()))
+                project.Write(app,filename)
+                self.assertTrue(app.OpenProjectFile(filename))
+                self.assertFalse(any(line.startswith('connect ') and 'VS1' in line and 'R1' in line
+                                     for line in app.NetListText()))
+                project=SignalIntegrity.App.Project
+                project.MovePage(1,0)
+                self.assertEqual(project.activePage,1)
+                app.Drawing.InitFromProject()
+                self.assertEqual(app.Drawing.schematic.deviceList[0]['ref'].GetValue(),'VS1')
+                project.Write(app,filename)
+                self.assertTrue(app.OpenProjectFile(filename))
+                self.assertEqual(SignalIntegrity.App.Project.PageNames(),['Receive','Main'])
+                self.assertEqual(app.Drawing.schematic.deviceList[0]['ref'].GetValue(),'VO1')
+        finally:
+            os.chdir(cwd)
+            SignalIntegrity.App.Project=existingProject
+
     def testZeroTransferPathsDoNotRestrictWaveformSupport(self):
         frequencies=si.fd.EvenlySpacedFrequencyList(8.,16)
         source=si.td.wf.Waveform(si.td.wf.TimeDescriptor(-4.,256,16.),

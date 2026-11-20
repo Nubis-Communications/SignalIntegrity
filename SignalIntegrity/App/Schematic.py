@@ -27,32 +27,62 @@ from SignalIntegrity.Lib.CallBacker import CallBacker
 class Schematic(CallBacker):
     def __init__(self):
         self.deviceList = []
+        self.otherPages={}
         super().__init__()
 
     def InitFromProject(self):
         self.__init__()
         if SignalIntegrity.App.Project is None:
             return
-        deviceListProject=SignalIntegrity.App.Project['Drawing.Schematic.Devices']
-        for d in range(len(deviceListProject)):
+        project=SignalIntegrity.App.Project
+        self.LoadDevices(project['Drawing.Schematic.Devices'])
+        for index,drawing in enumerate(project.PageDrawings()):
+            if index != project.activePage:
+                page=Schematic()
+                page.LoadDevices(drawing['Schematic.Devices'])
+                self.otherPages[index]=page
+        # Legacy eye settings are needed until every page has been loaded.
+        if 'EyeDiagram' in project.dict:
+            del(project.dict['EyeDiagram'])
+
+    def LoadDevices(self,deviceListProject):
+        from SignalIntegrity.App.Device import DeviceFromProject
+        for deviceProject in deviceListProject:
             try:
-                from SignalIntegrity.App.Device import DeviceFromProject
-                returnedDevice=DeviceFromProject(deviceListProject[d]).result
+                returnedDevice=DeviceFromProject(deviceProject).result
             except NameError: # part picture doesn't exist
                 returnedDevice=None
             if not returnedDevice is None:
                 self.deviceList.append(returnedDevice)
-        # global eye diagram configurations are allowed to get into the project for backwards compatibility
-        # Once the schematic has been initialized, this can be removed
-        if 'EyeDiagram' in SignalIntegrity.App.Project.dict.keys():
-            del(SignalIntegrity.App.Project.dict['EyeDiagram'])
+
+    def SelectPage(self,index):
+        project=SignalIntegrity.App.Project
+        previousIndex=project.activePage
+        if index != previousIndex:
+            page=self.otherPages.pop(index)
+            self.deviceList,page.deviceList=page.deviceList,self.deviceList
+            self.otherPages[previousIndex]=page
+            project.activePage=index
+
+    def CircuitPages(self):
+        project=SignalIntegrity.App.Project
+        return [(self if index == project.activePage else self.otherPages[index],
+                 drawing['Schematic'].dict['Wires'])
+                for index,drawing in enumerate(project.PageDrawings())]
+
+    def CircuitDevices(self):
+        if not self.otherPages:
+            return self.deviceList
+        return [device for page,_ in self.CircuitPages() for device in page.deviceList]
+
     def NetList(self):
-        self.Consolidate()
+        for page,wires in self.CircuitPages():
+            wires.ConsolidateWires(page)
         return NetList(self)
     def InputWaveforms(self):
         inputWaveformList=[]
         deferredNoiseWaveforms=[]
-        for device in self.deviceList:
+        for device in self.CircuitDevices():
             if not device['partname']['Value'] in ['ImpulseResponseFilter','FrequencyResponseFilter','EyeWaveform','Waveform']:
                 waveforms=device.Waveforms(self.callback)
                 # NetList emits four-port noise sources after the other sources.
@@ -65,7 +95,7 @@ class Schematic(CallBacker):
     
     def DependentSourceCount(self):
         count = 0
-        for device in self.deviceList:
+        for device in self.CircuitDevices():
             if device['partname']['Value'] in ['ImpulseResponseFilter','EyeWaveform','Waveform']:
                 continue
             wftype = device['wftype']
@@ -87,7 +117,7 @@ class Schematic(CallBacker):
         return dependentSourceCount + 1
     def OtherWaveforms(self):
         otherWaveformList=[]
-        for device in self.deviceList:
+        for device in self.CircuitDevices():
             if device['partname']['Value'] in ['EyeWaveform','Waveform']:
                 if device['state']['Value'] == 'on':
                     try:
@@ -109,7 +139,7 @@ class Schematic(CallBacker):
     def NewUniqueReferenceDesignator(self,defaultDesignator):
         if defaultDesignator != None and '?' in defaultDesignator:
             referenceDesignatorList=[]
-            for device in self.deviceList:
+            for device in self.CircuitDevices():
                 deviceReferenceDesignatorProperty = device['ref']
                 if deviceReferenceDesignatorProperty != None:
                     deviceReferenceDesignator = deviceReferenceDesignatorProperty.GetValue()

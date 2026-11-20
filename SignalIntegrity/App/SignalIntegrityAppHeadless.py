@@ -88,11 +88,11 @@ class DrawingHeadless(object):
         foundANetworkAnalyzerModel=False
         foundAWaveform=False
         foundDependentSource = False
-        for deviceIndex in range(len(self.schematic.deviceList)):
-            device = self.schematic.deviceList[deviceIndex]
+        visible={id(device):connected for device,connected in zip(self.schematic.deviceList,devicePinConnectedList)}
+        for device in self.schematic.CircuitDevices():
             foundSomething=True
-            devicePinsConnected=devicePinConnectedList[deviceIndex]
-            device.DrawDevice(canvas,grid,originx,originy,devicePinsConnected)
+            if id(device) in visible:
+                device.DrawDevice(canvas,grid,originx,originy,visible[id(device)])
             deviceType = device['partname'].GetValue()
             if  deviceType == 'Port':
                 foundAPort = True
@@ -191,7 +191,7 @@ class SignalIntegrityAppHeadless(object):
         if writable:
             # consolidation exists to clean up edits, so it is skipped when read-only
             self.Drawing.schematic.Consolidate()
-        for device in self.Drawing.schematic.deviceList:
+        for device in self.Drawing.schematic.CircuitDevices():
             device.selected=False
         for wireProject in SignalIntegrity.App.Project['Drawing.Schematic.Wires']:
             for vertexProject in wireProject['Vertices']:
@@ -424,7 +424,7 @@ class SignalIntegrityAppHeadless(object):
             for outputWaveformIndex in range(len(outputWaveformList)):
                 outputWaveform=outputWaveformList[outputWaveformIndex]
                 outputWaveformLabel = (outputWaveformLabels+otherWaveformLabels)[outputWaveformIndex]
-                for device in self.Drawing.schematic.deviceList:
+                for device in self.Drawing.schematic.CircuitDevices():
                     if device['partname'].GetValue() in ['Output',
                                                          'DifferentialVoltageOutput',
                                                          'CurrentOutput',
@@ -541,7 +541,7 @@ class SignalIntegrityAppHeadless(object):
         for outputWaveformIndex in range(len(outputWaveformList)):
             outputWaveform=outputWaveformList[outputWaveformIndex]
             outputWaveformLabel = outputWaveformLabels[outputWaveformIndex]
-            for device in self.Drawing.schematic.deviceList:
+            for device in self.Drawing.schematic.CircuitDevices():
                 if device['partname'].GetValue() in ['EyeProbe','DifferentialEyeProbe','EyeWaveform']:
                     if device['ref'].GetValue() == outputWaveformLabel:
                         if device['eyestate'].GetValue() == 'on':
@@ -655,7 +655,7 @@ class SignalIntegrityAppHeadless(object):
         for outputWaveformIndex in range(len(outputWaveformList)):
             outputWaveform=outputWaveformList[outputWaveformIndex]
             outputWaveformLabel = (outputWaveformLabels+otherWaveformLabels)[outputWaveformIndex]
-            for device in self.Drawing.schematic.deviceList:
+            for device in self.Drawing.schematic.CircuitDevices():
                 if device['partname'].GetValue() in ['Output','DifferentialVoltageOutput','CurrentOutput','EyeProbe','DifferentialEyeProbe']:
                     if device['ref'].GetValue() == outputWaveformLabel:
                         # probes may have different kinds of gain specified
@@ -687,7 +687,7 @@ class SignalIntegrityAppHeadless(object):
         for outputWaveformIndex in range(len(outputWaveformList)):
             outputWaveform=outputWaveformList[outputWaveformIndex]
             outputWaveformLabel = outputWaveformLabels[outputWaveformIndex]
-            for device in self.Drawing.schematic.deviceList:
+            for device in self.Drawing.schematic.CircuitDevices():
                 if device['partname'].GetValue() in ['EyeProbe','DifferentialEyeProbe']:
                     if device['ref'].GetValue() == outputWaveformLabel:
                         if device['eyestate'].GetValue() == 'on':
@@ -814,7 +814,7 @@ class SignalIntegrityAppHeadless(object):
         gain=proj.Device('U1')['gain']['Value']
         proj.Device('U1')['gain']['Value']=gain
         """
-        devices=self.Drawing.schematic.deviceList
+        devices=self.Drawing.schematic.CircuitDevices()
         for device in devices:
             if device['ref'] != None:
                 if device['ref']['Value'] == ref:
@@ -846,7 +846,7 @@ class SignalIntegrityAppHeadless(object):
             level=SignalIntegrityAppHeadless.projectStack.Push()
             try:
                 app=SignalIntegrityAppHeadless()
-                for device in self.Drawing.schematic.deviceList:
+                for device in self.Drawing.schematic.CircuitDevices():
                     if device['partname']['Value']=='NetworkAnalyzerModel':
                         variablesList=device.variablesList
                         break
@@ -895,7 +895,7 @@ class SignalIntegrityAppHeadless(object):
             level=SignalIntegrityAppHeadless.projectStack.Push()
             try:
                 app=SignalIntegrityAppHeadless()
-                for device in self.Drawing.schematic.deviceList:
+                for device in self.Drawing.schematic.CircuitDevices():
                     if device['partname']['Value']=='NetworkAnalyzerModel':
                         variablesList=device.variablesList
                         break
@@ -1347,7 +1347,7 @@ def _EnumerateProjectRefs(fileName,args):
             raise ValueError
         if not app.Drawing.canCalculate:
             raise ValueError
-        deviceList=app.Drawing.schematic.deviceList
+        deviceList=app.Drawing.schematic.CircuitDevices()
         for device in deviceList:
 
             # skip only devices removed or bypassed in the netlist (see NetList.py);

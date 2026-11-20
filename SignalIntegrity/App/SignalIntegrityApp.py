@@ -19,10 +19,11 @@ SignalIntegrityApp.py
 # If not, see <https://www.gnu.org/licenses/>
 
 import tkinter as tk
+from tkinter import simpledialog, ttk
 from tkinter import font
 from SignalIntegrity.App import MessageBox as messagebox
 
-from PIL import Image
+from PIL import Image, ImageDraw, ImageTk
 
 import sys
 import copy
@@ -53,7 +54,7 @@ from SignalIntegrity.App.ProgressDialog import ProgressDialog
 from SignalIntegrity.App.About import AboutDialog
 from SignalIntegrity.App.Preferences import Preferences
 from SignalIntegrity.App.PreferencesDialog import PreferencesDialog
-from SignalIntegrity.App.Theme import ApplyTheme
+from SignalIntegrity.App.Theme import ApplyTheme, ContrastRatio
 from SignalIntegrity.App.FilePicker import AskSaveAsFilename,AskOpenFileName
 from SignalIntegrity.App.ProjectFile import ProjectFile
 from SignalIntegrity.App.CalculationPropertiesDialog import CalculationPropertiesDialog,CalculationProperty
@@ -298,6 +299,16 @@ class SignalIntegrityApp(tk.Frame):
         VariablesMenu.add_separator()
         self.ParameterizeDoer.AddMenuElement(VariablesMenu,label='Parameterize Schematic',underline=0)
         # ------
+        self.pagesMenu=tk.Menu(TheMenu,tearoff=False,postcommand=self.UpdatePagesMenu)
+        TheMenu.add_cascade(label='Pages',menu=self.pagesMenu,underline=2)
+        self.pagesMenu.add_command(label='Add Page',underline=0,command=self.onAddSchematicPage)
+        self.pagesMenu.add_command(label='Rename Page',underline=0,
+                                   command=lambda:self.onRenameSchematicPage(SignalIntegrity.App.Project.activePage))
+        self.pagesMenu.add_command(label='Delete Page',underline=0,
+                                   command=lambda:self.onDeleteSchematicPage(SignalIntegrity.App.Project.activePage))
+        self.pagesMenu.add_command(label='Duplicate Page',underline=1,
+                                   command=lambda:self.onDuplicateSchematicPage(SignalIntegrity.App.Project.activePage))
+        # ------
         HelpMenu=tk.Menu(self)
         TheMenu.add_cascade(label='Help',menu=HelpMenu,underline=0)
         self.HelpDoer.AddMenuElement(HelpMenu,label='Open Help File',underline=0)
@@ -348,10 +359,25 @@ class SignalIntegrityApp(tk.Frame):
         self.RedoDoer.AddToolBarElement(UndoFrame,iconfile=iconsdir+'edit-redo-3.gif').Pack(side=tk.LEFT,fill=tk.NONE,expand=tk.NO,anchor=tk.E)
 
         # The Drawing (which contains the schecmatic)
+        self.pageBar=ttk.Frame(self,padding=(8,0))
+        self.pageBar.pack(side=tk.TOP,fill=tk.X)
+        self.StyleSchematicTabs()
+        self.pageTabs=ttk.Notebook(self.pageBar,style='Schematic.TNotebook',height=1)
+        self.pageTabs.bind('<<NotebookTabChanged>>',self.onSelectSchematicPage)
+        self.pageTabs.bind('<ButtonPress-1>',self.onSchematicTabPress)
+        self.pageTabs.bind('<B1-Motion>',self.onSchematicTabDrag)
+        self.pageTabs.bind('<ButtonRelease-1>',self.onSchematicTabRelease)
+        self.pageTabs.bind('<Button-3>',self.onSchematicTabMenu)
+        self.pageTabPress=None
+        self.pageTabSpace=ttk.Frame(self.pageBar,width=24)
+        self.pageTabSpace.pack(side=tk.RIGHT,fill=tk.BOTH,expand=True)
+        self.pageTabSpace.bind('<Button-3>',self.onSchematicTabMenu)
+        self.pageMenu=tk.Menu(self.pageBar,tearoff=False)
+        self.pageTabs.pack(side=tk.LEFT)
+        self.statusbar.pack(side=tk.BOTTOM,fill=tk.X)
         self.Drawing=Drawing(self)
         self.Drawing.pack(side=tk.TOP,fill=tk.BOTH,expand=tk.YES)
 
-        self.statusbar.pack(side=tk.BOTTOM,fill=tk.X,expand=tk.NO)
         self.root.bind('<Key>',self.onKey)
 
         SignalIntegrity.App.Project=ProjectFile()
@@ -377,14 +403,6 @@ class SignalIntegrityApp(tk.Frame):
         # The edit history (for undo)
         self.history=History(self)
 
-        # we capture resizing so we can resize the canvas a bit smaller to allow the user
-        # to always see the status message bar.  But we don't know how much smaller initially.
-        # so we capture the first call to resize which occurs when the canvas is sized.
-        # the canvas is 600 x 600 so the difference between these amounts is the delta to apply on
-        # subsequent resize calls.
-        self.knowDelta=False
-        self.deltaWidth=0
-        self.deltaHeight=0
         self.bind('<Configure>',self.onResize)
 
         CalculationProperty.labelWidth=40
@@ -465,23 +483,8 @@ class SignalIntegrityApp(tk.Frame):
             self.root.deiconify()
 
     def onResize(self,event):
-        if not self.knowDelta:
-            self.deltaWidth=event.width-600
-            self.deltaHeight=event.height-600
-            self.knowDelta=True
-        #print 'width: '+str(event.width)+', height'+str(event.height)
-
-        self.deltaWidth=4
-        if sys.platform.startswith('linux'):
-            self.deltaHeight=self.toolbarFrame.winfo_reqheight()+self.statusbar.winfo_reqheight()
-        else:
-            self.deltaHeight=50
-
-        try:
-            self.Drawing.canvas.config(width=event.width-self.deltaWidth,height=event.height-self.deltaHeight)
+        if SignalIntegrity.App.Project is not None:
             SignalIntegrity.App.Project['Drawing.DrawingProperties.Geometry']=self.Drawing.ProjectGeometry()
-        except tk.TclError:
-            pass
 
     def onKey(self,event):
 #       print "pressed", repr(event.keycode), repr(event.keysym)
@@ -569,6 +572,7 @@ class SignalIntegrityApp(tk.Frame):
     def SetReadOnly(self,readOnly):
         self.readOnly=bool(readOnly)
         self.Drawing.InstallStateMachine()
+        self.RefreshSchematicPages()
         self.SetTitle()
         self.Drawing.stateMachine.Nothing(True)
 
@@ -585,6 +589,7 @@ class SignalIntegrityApp(tk.Frame):
                 return
         self.readOnly=False
         self.Drawing.InstallStateMachine()
+        self.RefreshSchematicPages()
         self.SetTitle()
         self.Drawing.stateMachine.Nothing(True)
         self.history.Event('make writable')
@@ -639,7 +644,11 @@ class SignalIntegrityApp(tk.Frame):
             self.openArgs=dict(args)
             self.SetVariables(args, reportMissing=True)
             self.readOnly=self.ResolveReadOnly(self.readOnlyRequested if readOnly is None else readOnly)
-            self.Drawing.InitFromProject()
+            project=SignalIntegrity.App.Project
+            # Older multipage files already included the strip, even without the flag.
+            legacyGeometry=not (project['GeometryIncludesTabs'] or project['Pages'] or
+                                project['FirstPageName']!='Main')
+            self.Drawing.InitFromProject(addTabHeight=legacyGeometry)
             self.AnotherFileOpened(self.fileparts.FullFilePathExtension('.si'))
             self.Drawing.stateMachine.Nothing()
             self.history.Event('read project')
@@ -672,6 +681,235 @@ class SignalIntegrityApp(tk.Frame):
         self.history.Event('new project')
         self.SaveProjectToFile(filename)
 
+    def UpdatePagesMenu(self):
+        project=SignalIntegrity.App.Project
+        editable=project is not None and bool(self.fileparts.filename) and not self.ReadOnly()
+        state='normal' if editable else 'disabled'
+        self.pagesMenu.entryconfigure('Add Page',state=state)
+        self.pagesMenu.entryconfigure('Rename Page',state=state)
+        self.pagesMenu.entryconfigure('Duplicate Page',state=state)
+        self.pagesMenu.entryconfigure('Delete Page',
+                                      state='normal' if editable and project['Pages'] else 'disabled')
+
+    def RefreshSchematicPages(self):
+        project=SignalIntegrity.App.Project
+        names=project.PageNames()
+        tabs=self.pageTabs.tabs()
+        if [self.pageTabs.tab(tab,'text') for tab in tabs] != names:
+            for tab in tabs:
+                self.pageTabs.nametowidget(tab).destroy()
+            for name in names:
+                self.pageTabs.add(ttk.Frame(self.pageTabs),text=name)
+        self.pageTabs.select(project.activePage)
+
+    def onSelectSchematicPage(self,event):
+        selected=self.pageTabs.select()
+        project=SignalIntegrity.App.Project
+        if not selected or project is None or self.Drawing.stateMachine is None:
+            return
+        index=self.pageTabs.index(selected)
+        if index != project.activePage and index < len(project.PageNames()):
+            self.ShowSchematicPage(index)
+
+    def SchematicTabAt(self,event):
+        index=self.pageTabs.tk.call(self.pageTabs._w,'identify','tab',event.x,event.y)
+        return int(index) if index != '' else None
+
+    def onSchematicTabMenu(self,event):
+        if self.ReadOnly() or not self.fileparts.filename:
+            return
+        index=self.SchematicTabAt(event) if event.widget is self.pageTabs else None
+        self.pageMenu.delete(0,tk.END)
+        if index is None:
+            self.pageMenu.add_command(label='Add Page',command=self.onAddSchematicPage)
+        else:
+            self.pageMenu.add_command(label='Rename Page',command=lambda:self.onRenameSchematicPage(index))
+            self.pageMenu.add_command(label='Delete Page',command=lambda:self.onDeleteSchematicPage(index),
+                                      state='normal' if len(self.pageTabs.tabs()) > 1 else 'disabled')
+            self.pageMenu.add_command(label='Duplicate Page',command=lambda:self.onDuplicateSchematicPage(index))
+        try:
+            self.pageMenu.tk_popup(event.x_root,event.y_root)
+        finally:
+            self.pageMenu.grab_release()
+
+    def onSchematicTabPress(self,event):
+        index=self.SchematicTabAt(event)
+        if not self.ReadOnly() and index is not None and len(self.pageTabs.tabs()) > 1:
+            self.pageTabPress=(index,event.x)
+            return 'break'
+
+    def onSchematicTabDrag(self,event):
+        if self.pageTabPress is not None:
+            if abs(event.x-self.pageTabPress[1]) >= 5:
+                self.pageTabs.configure(cursor='fleur')
+            return 'break'
+
+    def onSchematicTabRelease(self,event):
+        if self.pageTabPress is None:
+            return
+        source,startX=self.pageTabPress
+        self.pageTabPress=None
+        self.pageTabs.configure(cursor='')
+        if self.ReadOnly():
+            return 'break'
+        destination=self.SchematicTabAt(event)
+        space=self.pageTabSpace
+        x=event.x_root-space.winfo_rootx()
+        y=event.y_root-space.winfo_rooty()
+        if destination is None and 0 <= x < space.winfo_width() and 0 <= y < space.winfo_height():
+            destination=len(self.pageTabs.tabs())-1
+        if destination is not None:
+            if abs(event.x-startX) < 5 or destination == source:
+                if destination == source:
+                    self.pageTabs.select(source)
+            else:
+                project=SignalIntegrity.App.Project
+                project.Write(self)
+                project.MovePage(source,destination)
+                self.ShowSchematicPage(project.activePage,save=False)
+                self.history.Event('reorder pages')
+        return 'break'
+
+    def ShowSchematicPage(self,index,save=True,newPage=None):
+        project=SignalIntegrity.App.Project
+        clipboardState=None if self.ReadOnly() else self.Drawing.stateMachine.ClipboardState()
+        if save and newPage is None:
+            stateMachine=self.Drawing.stateMachine
+            if not self.ReadOnly() and stateMachine.state != 'Nothing':
+                self.Drawing.schematic.Consolidate()
+            stateMachine.UnselectAllDevices()
+            stateMachine.UnselectAllWires()
+            self.Drawing.schematic.SelectPage(index)
+            self.RefreshSchematicPages()
+        else:
+            if save and not self.ReadOnly():
+                self.Drawing.stateMachine.Nothing()
+                project.Write(self)
+            if newPage is not None:
+                pages=project['Pages'][:]
+                pages.insert(index-1,newPage)
+                project['Pages']=pages
+            project.activePage=index
+            self.Drawing.InitFromProject(resize=False)
+        self.Drawing.stateMachine.Nothing(force=True)
+        if clipboardState is not None:
+            self.Drawing.stateMachine.state=clipboardState
+            self.Drawing.stateMachine.ForceIntializeState()
+
+    def onAddSchematicPage(self):
+        if self.ReadOnly() or not self.fileparts.filename:
+            return
+        from SignalIntegrity.App.ProjectFile import SchematicPageConfiguration
+        project=SignalIntegrity.App.Project
+        name=simpledialog.askstring('Add Page','Page name:',parent=self.root,
+                                    initialvalue='Page '+str(len(project.PageNames())+1))
+        if name is None or not name.strip():
+            return
+        page=SchematicPageConfiguration()
+        page['Name']=name.strip()
+        page['Drawing.DrawingProperties.Grid']=SignalIntegrity.App.Preferences['Appearance.InitialGrid']
+        page['Drawing.DrawingProperties.Geometry']=self.Drawing.ProjectGeometry()
+        self.ShowSchematicPage(len(project['Pages'])+1,newPage=page)
+        self.history.Event('add page')
+
+    def onRenameSchematicPage(self,index):
+        if self.ReadOnly() or not self.fileparts.filename:
+            return
+        project=SignalIntegrity.App.Project
+        name=simpledialog.askstring('Rename Page','Page name:',parent=self.root,
+                                    initialvalue=project.PageNames()[index])
+        if name is None or not name.strip() or name.strip() == project.PageNames()[index]:
+            return
+        if index:
+            project['Pages'][index-1]['Name']=name.strip()
+        else:
+            project['FirstPageName']=name.strip()
+        self.RefreshSchematicPages()
+        self.history.Event('rename page')
+
+    def onDuplicateSchematicPage(self,index):
+        if self.ReadOnly() or not self.fileparts.filename:
+            return
+        from SignalIntegrity.App.ProjectFile import SchematicPageConfiguration
+        project=SignalIntegrity.App.Project
+        schematic=self.Drawing.schematic
+        names=project.PageNames()
+        baseName=names[index]+' Copy'
+        name=baseName
+        suffix=2
+        while name in names:
+            name=baseName+' '+str(suffix)
+            suffix+=1
+        name=simpledialog.askstring('Duplicate Page','New page name:',parent=self.root,initialvalue=name)
+        if name is None:
+            return
+        name=name.strip()
+        if not name:
+            messagebox.showerror('Duplicate Page','Enter a name for the new page.',parent=self.root)
+            return
+
+        usedRefs=set()
+        usedPorts={'Port':set(),'NetworkAnalyzerStimulus':set()}
+        for device in schematic.CircuitDevices():
+            if device['ref'] is not None:
+                usedRefs.add(device['ref'].GetValue())
+            kind=device['partname'].GetValue()
+            if kind in usedPorts:
+                usedPorts[kind].add(int(device['pn'].GetValue()))
+
+        source,_=schematic.CircuitPages()[index]
+        devices=copy.deepcopy(source.deviceList)
+        for device in devices:
+            ref=device['ref']
+            if ref is not None and ref.GetValue() not in (None,''):
+                original=ref.GetValue()
+                default=device['defref']
+                pattern=default.GetValue() if default is not None else None
+                if not pattern or '?' not in pattern:
+                    pattern=original+'_copy?'
+                number=1
+                while pattern.replace('?',str(number)) in usedRefs:
+                    number+=1
+                newRef=pattern.replace('?',str(number))
+                ref.SetValueFromString(newRef)
+                usedRefs.add(newRef)
+            kind=device['partname'].GetValue()
+            if kind in usedPorts:
+                number=1
+                while number in usedPorts[kind]:
+                    number+=1
+                device['pn'].SetValueFromString(str(number))
+                usedPorts[kind].add(number)
+
+        page=SchematicPageConfiguration()
+        page['Name']=name
+        page.dict['Drawing']=copy.deepcopy(project.PageDrawings()[index])
+        project.WritePageDevices(page['Drawing'],devices)
+        self.ShowSchematicPage(index+1,newPage=page)
+        self.history.Event('duplicate page')
+
+    def onDeleteSchematicPage(self,index):
+        if self.ReadOnly() or not self.fileparts.filename:
+            return
+        project=SignalIntegrity.App.Project
+        active=project.activePage
+        pages=project['Pages'][:]
+        if not pages or not messagebox.askyesno('Delete Page',
+                'Delete the schematic page "'+project.PageNames()[index]+'"?',parent=self.root):
+            return
+        self.Drawing.stateMachine.Nothing()
+        project.Write(self)
+        if index:
+            del pages[index-1]
+        else:
+            first=pages.pop(0)
+            project.dict['Drawing']=first['Drawing']
+            project['FirstPageName']=first['Name']
+        project['Pages']=pages
+        destination=active-1 if index < active else min(active,len(pages))
+        self.ShowSchematicPage(destination,save=False)
+        self.history.Event('delete page')
+
     def onCloseProject(self):
         if not self.CheckSaveCurrentProject():
             return
@@ -683,6 +921,7 @@ class SignalIntegrityApp(tk.Frame):
         self.Drawing.InstallStateMachine()
         self.Drawing.stateMachine.Nothing()
         self.Drawing.schematic.Clear()
+        self.RefreshSchematicPages()
         self.Drawing.DrawSchematic()
         self.fileparts=FileParts()
         self.root.title('SignalIntegrity')
@@ -695,6 +934,7 @@ class SignalIntegrityApp(tk.Frame):
         self.fileparts=FileParts(filename)
         os.chdir(self.fileparts.AbsoluteFilePath())
         self.fileparts=FileParts(filename)
+        SignalIntegrity.App.Project['GeometryIncludesTabs']=True
         SignalIntegrity.App.Project.Write(self,filename)
         filename=ConvertFileNameToRelativePath(filename)
         self.AnotherFileOpened(filename)
@@ -962,7 +1202,7 @@ class SignalIntegrityApp(tk.Frame):
     def onAddPort(self):
         self.Drawing.stateMachine.Nothing()
         portNumber=1
-        for device in self.Drawing.schematic.deviceList:
+        for device in self.Drawing.schematic.CircuitDevices():
             if device['partname'].GetValue() == 'Port':
                 if portNumber <= int(device['pn'].GetValue()):
                     portNumber = int(device['pn'].GetValue())+1
@@ -1316,7 +1556,7 @@ class SignalIntegrityApp(tk.Frame):
         self.history.Event('parameterize project')
         self.Drawing.stateMachine.Nothing()
         variables=SignalIntegrity.App.Project['Variables']
-        for device in self.Drawing.schematic.deviceList:
+        for device in self.Drawing.schematic.CircuitDevices():
             ref=device['ref']
             if ref != None:
                 prefix=ref['Value']
@@ -1460,6 +1700,54 @@ class SignalIntegrityApp(tk.Frame):
     def ConfigureDisplayScaling(self):
         return ConfigureDisplayScaling(self.root)
 
+    def StyleSchematicTabs(self):
+        style=ttk.Style(self.root)
+        palette=self.root.appearanceTheme.palette
+        background=self.root.winfo_rgb(palette['background'])
+        foreground=self.root.winfo_rgb(palette['foreground'])
+
+        def shade(weight):
+            return tuple(round((back+(front-back)*weight)/257) for back,front in zip(background,foreground))
+
+        def hexColor(rgb):
+            return '#{:02x}{:02x}{:02x}'.format(*rgb)
+
+        def readableText(fill,preferred):
+            if ContrastRatio(self.root,preferred,fill) >= 4.5:
+                return preferred
+            return max(('#000000','#ffffff'),key=lambda color:ContrastRatio(self.root,color,fill))
+
+        normalRgb=shade(.08)
+        normalFill=hexColor(normalRgb)
+        normalText=readableText(normalFill,palette['foreground'])
+        accentRgb=self.root.winfo_rgb(palette['selectbackground'])
+        selectedRgb=tuple(round(.7*normal+.3*accent/257) for normal,accent in zip(normalRgb,accentRgb))
+        selectedFill=hexColor(selectedRgb)
+        selectedText=readableText(selectedFill,normalText)
+
+        if not hasattr(self.root,'schematicTabImages'):
+            self.root.schematicTabImages=[ImageTk.PhotoImage('RGBA',(16,12),master=self.root) for _ in range(2)]
+        normal,selected=self.root.schematicTabImages
+        for photo,fill in ((normal,normalRgb),(selected,selectedRgb)):
+            image=Image.new('RGBA',(16,12))
+            # Extend the shape below the image so only the top corners are rounded.
+            ImageDraw.Draw(image).rounded_rectangle((0,0,15,16),radius=4,fill=fill,outline=shade(.32))
+            photo.paste(image)
+
+        element='Schematic.roundedTab'
+        if element not in style.element_names():
+            # Keep the corner slices without using their height as label padding.
+            style.element_create(element,'image',normal,('selected',selected),
+                                 border=(5,5,5,1),padding=(5,1,5,1),sticky='nsew')
+        _,layout=style.layout('TNotebook.Tab')[0]
+        style.layout('Schematic.TNotebook.Tab',[(element,layout)])
+        tabPadding=(12,0)
+        style.configure('Schematic.TNotebook.Tab',padding=tabPadding,foreground=normalText)
+        # Some Tk themes (such as clam) add extra padding to selected tabs.
+        style.map('Schematic.TNotebook.Tab',padding=[('selected',tabPadding)],
+                  foreground=[('selected',selectedText)])
+        style.configure('Schematic.TNotebook',tabposition='nw',tabmargins=0)
+
     def UpdateColorsAndFonts(self):
         fontSizeDesired = SignalIntegrity.App.Preferences['Appearance.FontSize']
         if not fontSizeDesired is None:
@@ -1469,6 +1757,8 @@ class SignalIntegrityApp(tk.Frame):
             PartPicture.textSpacing=round(fontSizeDesired+5)
 
         ApplyTheme(self.root,SignalIntegrity.App.Preferences)
+        if hasattr(self,'pageTabs'):
+            self.StyleSchematicTabs()
 
     def UpdateFeatures(self):
         networkAnalyzerModelEnabled = SignalIntegrity.App.Preferences['Features.NetworkAnalyzerModel']

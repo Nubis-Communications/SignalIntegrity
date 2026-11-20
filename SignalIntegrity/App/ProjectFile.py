@@ -596,11 +596,23 @@ class ProjectPropertiesConfiguration(XMLConfiguration):
             return []
         return XMLConfiguration.OutputXML(self,indent)
 
+class SchematicPageConfiguration(XMLConfiguration):
+    def __init__(self):
+        super().__init__('Page')
+        self.Add(XMLPropertyDefaultString('Name','Page'))
+        self.SubDir(DrawingConfiguration())
+        from SignalIntegrity.App.Wire import WireList
+        self['Drawing.Schematic'].dict['Wires']=WireList()
+
 class ProjectFile(ProjectFileBase):
     def __init__(self):
         ProjectFileBase.__init__(self,'si')
         self.SubDir(ProjectPropertiesConfiguration())
         self.SubDir(DrawingConfiguration())
+        self.Add(XMLPropertyDefaultString('FirstPageName','Main',writeDefault=False))
+        self.Add(XMLProperty('Pages',[],'array',arrayType=SchematicPageConfiguration()))
+        self.Add(XMLPropertyDefaultBool('GeometryIncludesTabs',False,writeDefault=False))
+        self.activePage=0
         self.SubDir(CalculationProperties())
         self.SubDir(PostProcessingConfiguration())
         self.SubDir(VariablesConfiguration())
@@ -615,16 +627,70 @@ class ProjectFile(ProjectFileBase):
         from SignalIntegrity.App.Wire import WireList
         self['Drawing.Schematic'].dict['Wires']=WireList()
 
+    def PageDrawings(self):
+        return [self.dict['Drawing']]+[page['Drawing'] for page in self['Pages']]
+
+    def PageNames(self):
+        return [self['FirstPageName']]+[page['Name'] for page in self['Pages']]
+
+    def MovePage(self,source,destination):
+        order=list(range(len(self['Pages'])+1))
+        order.insert(destination,order.pop(source))
+        names=self.PageNames()
+        drawings=self.PageDrawings()
+        pages=[]
+        for index in order[1:]:
+            page=self['Pages'][index-1] if index else SchematicPageConfiguration()
+            page['Name']=names[index]
+            page.dict['Drawing']=drawings[index]
+            pages.append(page)
+        self.dict['Drawing']=drawings[order[0]]
+        self['FirstPageName']=names[order[0]]
+        self['Pages']=pages
+        self.activePage=order.index(self.activePage)
+
+    def DrawingPath(self,path):
+        key,_,suffix=path.partition('.')
+        if key == 'Drawing' and self.activePage:
+            return self['Pages'][self.activePage-1]['Drawing'],suffix
+        return None,suffix
+
+    def GetValue(self,path):
+        drawing,suffix=self.DrawingPath(path)
+        return super().GetValue(path) if drawing is None else drawing.GetValue(suffix)
+
+    def GetPropertyValue(self,path):
+        drawing,suffix=self.DrawingPath(path)
+        return super().GetPropertyValue(path) if drawing is None else drawing.GetPropertyValue(suffix)
+
+    def SetValue(self,path,value):
+        drawing,suffix=self.DrawingPath(path)
+        return super().SetValue(path,value) if drawing is None else drawing.SetValue(suffix,value)
+
+    def FromText(self,text):
+        self['Pages']=[]
+        self['FirstPageName']='Main'
+        self['GeometryIncludesTabs']=False
+        super().FromText(text)
+        self.activePage=min(self.activePage,len(self['Pages']))
+        return self
+
     def Read(self,filename=None):
         if not filename is None:
             ProjectFileBase.Read(self, filename)
         return self
 
     def Write(self,app,filename=None):
-        self['Drawing.Schematic.Devices']=[DeviceConfiguration() for _ in range(len(app.Drawing.schematic.deviceList))]
-        for d in range(len(self['Drawing.Schematic.Devices'])):
-            deviceProject=self['Drawing.Schematic.Devices'][d]
-            device=app.Drawing.schematic.deviceList[d]
+        for drawing,(schematic,_) in zip(self.PageDrawings(),app.Drawing.schematic.CircuitPages()):
+            self.WritePageDevices(drawing,schematic.deviceList)
+        if filename is not None:
+            ProjectFileBase.Write(self,filename)
+        return self
+
+    @staticmethod
+    def WritePageDevices(drawing,devices):
+        drawing['Schematic.Devices']=[DeviceConfiguration() for _ in devices]
+        for deviceProject,device in zip(drawing['Schematic.Devices'],devices):
             if not device.configuration is None:
                 if isinstance(device.configuration,list):
                     for config in device.configuration:
@@ -646,9 +712,6 @@ class ProjectFile(ProjectFileBase):
             deviceNetList=device.netlist
             for n in deviceNetList.dict:
                 deviceNetListProject[n]=deviceNetList[n]
-        if not filename is None:
-            ProjectFileBase.Write(self,filename)
-        return self
 
     @staticmethod
     def EvaluateSafely(equations,sendargs,returnargs):

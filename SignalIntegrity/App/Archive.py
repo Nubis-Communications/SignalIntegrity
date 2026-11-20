@@ -136,7 +136,7 @@ class Archive(list):
                 if not done:
                     #Force equations to evaluate so that variabels are propagated correctly
                     SignalIntegrity.App.Project.EvaluateEquations(force=True)
-                    for device in app.Drawing.schematic.deviceList:
+                    for device in app.Drawing.schematic.CircuitDevices():
                         args={}
                         for variable in device.variablesList:
                             name=variable['Name']

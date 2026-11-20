@@ -32,6 +32,8 @@ class DrawingStateMachine(object):
         self.parent=parent
         self.NoProject()
         self.parent.canvas.bind('<Control-Button-3>',self.onControlMouseButton3TryToViewSomething)
+    def ClipboardState(self):
+        return self.state if self.state in ('PartLoaded','MultipleItemsOnClipboard') else None
     def UnselectAllDevices(self):
         for device in self.parent.schematic.deviceList:
             device.selected=False
@@ -1549,7 +1551,7 @@ class DrawingStateMachine(object):
             for device in self.parent.devicesToDuplicate:
                 if device['partname'].GetValue() == 'Port':
                     portNumberList=[]
-                    for existingDevice in self.parent.schematic.deviceList:
+                    for existingDevice in self.parent.schematic.CircuitDevices():
                         if existingDevice['partname'].GetValue() == 'Port':
                             portNumberList.append(int(existingDevice['pn'].GetValue()))
                     if device['pn'].GetValue() in portNumberList:
@@ -1559,7 +1561,7 @@ class DrawingStateMachine(object):
                         device['pn'].SetValueFromString(str(portNumber))
                 elif device['partname'].GetValue() == 'NetworkAnalyzerStimulus':
                     portNumberList=[]
-                    for existingDevice in self.parent.schematic.deviceList:
+                    for existingDevice in self.parent.schematic.CircuitDevices():
                         if existingDevice['partname'].GetValue() == 'NetworkAnalyzerStimulus':
                             portNumberList.append(int(existingDevice['pn'].GetValue()))
                     if device['pn'].GetValue() in portNumberList:
@@ -1568,7 +1570,7 @@ class DrawingStateMachine(object):
                             portNumber=portNumber+1
                         device['pn'].SetValueFromString(str(portNumber))
                 existingReferenceDesignators=[]
-                for existingDevice in self.parent.schematic.deviceList:
+                for existingDevice in self.parent.schematic.CircuitDevices():
                     referenceDesignatorProperty = existingDevice['ref']
                     if referenceDesignatorProperty != None:
                         existingReferenceDesignators.append(referenceDesignatorProperty.GetValue())

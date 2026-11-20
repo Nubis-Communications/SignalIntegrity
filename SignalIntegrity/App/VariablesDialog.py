@@ -64,7 +64,7 @@ class VariablePropertyDialog(PropertiesDialog):
         oldVariableName=self.SavedName
         if not self.add and (oldVariableName != newVariableName):
             self.SavedName=newVariableName
-            for device in self.top.Drawing.schematic.deviceList:
+            for device in self.top.Drawing.schematic.CircuitDevices():
                 for prop in device.propertiesList:
                     if prop['Value']==('='+oldVariableName):
                         prop.SetValueFromString('='+newVariableName)
@@ -376,7 +376,7 @@ class VariablesDialog(PropertiesDialog):
         value=self.project[v]['Value']
         totalThisVariable=sum([1 if variable['Name']==variableName else 0 for variable in self.project])
         if totalThisVariable == 1:
-            for device in self.top.Drawing.schematic.deviceList:
+            for device in self.top.Drawing.schematic.CircuitDevices():
                 for prop in device.propertiesList:
                     if prop['Value']==('='+variableName):
                         prop.SetValueFromString(value)
