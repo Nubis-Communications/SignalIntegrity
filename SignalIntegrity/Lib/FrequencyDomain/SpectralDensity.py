@@ -118,11 +118,11 @@ class SpectralDensity(FrequencyDomain):
         @param fileName string name of file to read
         @return self
         @remark
-        The JSON data must decode to a dictionary that contains a 'noise' (or,
-        alternatively, 'wave') key at the root level.  That key holds a
-        dictionary with the frequency in Hz and spectral density in V/sqrt(Hz),
-        typically as arrays keyed by 'x' and 'y'.  Any other keys present at the
-        root level are ignored, so additional metadata in the file is tolerated.
+        The JSON data must decode to a dictionary containing frequency in Hz
+        and spectral density in V/sqrt(Hz).  Arrays keyed by 'x' and 'y' may be
+        at the root level or inside a 'noise' (or, alternatively, 'wave')
+        dictionary.  Wrapped data takes precedence over root-level arrays.
+        Additional metadata in the file is ignored.
         """
         with open(fileName,'rU' if sys.version_info.major < 3 else 'r') as f:
             text=f.read()
@@ -140,9 +140,11 @@ class SpectralDensity(FrequencyDomain):
             section=data['noise']
         elif 'wave' in data:
             section=data['wave']
+        elif 'x' in data and 'y' in data:
+            section=data
         else:
             raise ValueError(
-                "spectral density json must contain a 'noise' or 'wave' key")
+                "spectral density json must contain a 'noise' or 'wave' key, or top-level x/y arrays")
 
         if not isinstance(section,dict):
             raise ValueError(

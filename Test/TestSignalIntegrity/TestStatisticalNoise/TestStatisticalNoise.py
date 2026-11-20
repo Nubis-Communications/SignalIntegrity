@@ -252,6 +252,38 @@ class TestStatisticalNoiseTest(unittest.TestCase,
         finally:
             os.remove(fileName)
 
+    def testSpectralDensityReadFromJsonAcceptsTopLevelXY(self):
+        arrays={'x':[1.0,2.0,3.0],'y':[2.0e-9,3.0e-9,4.0e-9]}
+        for data in [dict(arrays,source='export'),{'noise':arrays},{'wave':arrays},
+                     dict(x=[9.0],y=[9.0],noise=arrays)]:
+            with self.subTest(data=data):
+                fd,fileName=tempfile.mkstemp(suffix='.json')
+                try:
+                    with os.fdopen(fd,'w') as f:
+                        json.dump(data,f)
+                    sd=si.fd.SpectralDensity(Keven=False).ReadFromFile(fileName)
+                    self.assertEqual(sd.Frequencies(),arrays['x'])
+                    self.assertEqual(sd.Values('V/sqrt(Hz)'),arrays['y'])
+                    self.assertFalse(sd.Keven)
+                finally:
+                    os.remove(fileName)
+
+    def testSpectralDensityReadFromJsonRejectsInvalidTopLevelXY(self):
+        for data,message in [({'x':[1.0],'y':[]},'same length'),
+                             ({'x':[],'y':[]},'no spectral density data'),
+                             ({'x':[1.0],'y':[float('nan')]},'non-finite'),
+                             ({'x':[1.0]},'top-level x/y arrays'),
+                             ({'noise':None,'x':[1.0],'y':[2.e-9]},'must be a dictionary')]:
+            with self.subTest(data=data):
+                fd,fileName=tempfile.mkstemp(suffix='.json')
+                try:
+                    with os.fdopen(fd,'w') as f:
+                        json.dump(data,f)
+                    with self.assertRaisesRegex(ValueError,message):
+                        si.fd.SpectralDensity().ReadFromFile(fileName)
+                finally:
+                    os.remove(fileName)
+
     def testSpectralDensityWriteToJsonWritesXYArrays(self):
         fd, fileName = tempfile.mkstemp(suffix='.json')
         try:
