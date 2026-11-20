@@ -930,7 +930,7 @@ optimize = 99
             device.configuration['WhiteNoise.VPerRootHz']=density
             device.configuration['WhiteNoise.NoiseBandwidth']=8.e9
             devices.append(device)
-        schematic=SimpleNamespace(NetList=lambda:netlist,deviceList=devices)
+        schematic=SimpleNamespace(NetList=lambda:netlist,CircuitDevices=lambda:devices)
         from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
         SignalIntegrityAppHeadless().OpenProjectFile('WaveformProcessorTestTwoProbe_nonlin_source.si')
         siapp.Project['CalculationProperties.EndFrequency']=8.e9
