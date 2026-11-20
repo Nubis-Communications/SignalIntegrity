@@ -410,6 +410,48 @@ noise = input_noise_1.TotalRMS()
         self.assertEqual(state['Value'],'12.0')
         self.assertEqual(list(sources[0]),[2.]*8)
 
+    def testInputWaveformsMatchSourceOrderWithFourPortNoise(self):
+        from SignalIntegrity.App.Device import DeviceList,DeviceWaveformProcessorVariable
+        from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
+
+        for kind in ['VoltageStatisticalNoiseSource','CurrentStatisticalNoiseSource']:
+            for mode in ['differential-mode','common-mode']:
+                for noiseFirst in [True,False]:
+                    with self.subTest(kind=kind,mode=mode,noiseFirst=noiseFirst):
+                        app=SignalIntegrityAppHeadless()
+                        self.assertTrue(app.OpenProjectFile('WaveformProcessorTestTwoProbe_nonlin_source.si'))
+                        source=next(device for device in app.Drawing.schematic.deviceList
+                                    if device['ref'].GetValue() == 'VS1')
+                        td=si.td.wf.TimeDescriptor(0.,8,1.e9)
+                        source.Wf=si.td.wf.Waveform(td,1.)
+                        noise=copy.deepcopy(next(device for device in DeviceList
+                            if device['partname'].GetValue() == kind
+                            and int(device['ports'].GetValue()) == 4))
+                        noise['ref']['Value']='N'
+                        noise['mode']['Value']=mode
+                        processor=DeviceWaveformProcessorVariable(1,2)
+                        processor['ref']['Value']='P'
+                        schematic=app.Drawing.schematic
+                        schematic.deviceList=([source,noise,processor] if noiseFirst
+                                              else [source,processor,noise])
+                        siapp.Project['Drawing.Schematic.Wires']=[]
+                        names=schematic.NetList().SourceNames()
+                        sources=schematic.InputWaveforms()
+                        outputs=schematic.dependentWaveforms[0].ProcessorOutputs
+                        byName=dict(zip(names,sources))
+                        self.assertIs(byName['VS1'],source.Wf)
+                        for index,output in enumerate(outputs,1):
+                            self.assertIs(byName['P_out'+str(index)],output)
+                            si.td.wf.Waveform.__init__(output,x=si.td.wf.Waveform(td,float(index+1)))
+                        self.assertEqual(byName['N'],0.)
+
+                        rebuilt=dict(zip(names,schematic.InputWaveforms(preserveDependentWaveforms=True)))
+                        self.assertIs(rebuilt['VS1'],source.Wf)
+                        self.assertEqual(rebuilt['N'],0.)
+                        for index,output in enumerate(schematic.dependentWaveforms[0].ProcessorOutputs,1):
+                            self.assertIs(rebuilt['P_out'+str(index)],output)
+                            self.assertEqual(output.Values(),[float(index+1)]*td.K)
+
     def testProcessorElementStatesNetlistAndScheduling(self):
         from SignalIntegrity.App.Device import DeviceWaveformProcessorVariable
         from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
