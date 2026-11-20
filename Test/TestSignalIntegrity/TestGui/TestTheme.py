@@ -684,7 +684,7 @@ class TestTheme(unittest.TestCase):
         from SignalIntegrity.App.ProjectFile import VariableConfiguration
         self.apply('Dark')
         parent = tk.Frame(self.root)
-        parent.Drawing = SimpleNamespace(schematic=SimpleNamespace(deviceList=[]), DrawSchematic=Mock())
+        parent.Drawing = SimpleNamespace(schematic=SimpleNamespace(CircuitDevices=Mock(return_value=[])), DrawSchematic=Mock())
         parent.statusbar = SimpleNamespace(set=Mock())
         parent.history = SimpleNamespace(Event=Mock())
         variables = []
