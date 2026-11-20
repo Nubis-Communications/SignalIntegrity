@@ -81,6 +81,7 @@ class Schematic(CallBacker):
             wires.ConsolidateWires(page)
         return NetList(self)
     def InputWaveforms(self,preserveDependentWaveforms=False):
+        """Return source waveforms in netlist order, preserving processor execution order."""
         from SignalIntegrity.App.Device import DeviceWaveformProcessorVariable
         from SignalIntegrity.Lib.TimeDomain.Waveform.DependentWaveform import DependentWaveform
         from SignalIntegrity.Lib.TimeDomain.Waveform.Waveform import Waveform
