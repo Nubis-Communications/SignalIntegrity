@@ -51,10 +51,17 @@ class Schematic(CallBacker):
         return NetList(self)
     def InputWaveforms(self):
         inputWaveformList=[]
+        deferredNoiseWaveforms=[]
         for device in self.deviceList:
             if not device['partname']['Value'] in ['ImpulseResponseFilter','FrequencyResponseFilter','EyeWaveform','Waveform']:
-                inputWaveformList.extend(device.Waveforms(self.callback))
-        return inputWaveformList
+                waveforms=device.Waveforms(self.callback)
+                # NetList emits four-port noise sources after the other sources.
+                if (device.netlist['DeviceName'] in ['voltagenoisesource','currentnoisesource']
+                        and device['ports']['Value'] == '4'):
+                    deferredNoiseWaveforms.extend(waveforms)
+                else:
+                    inputWaveformList.extend(waveforms)
+        return inputWaveformList+deferredNoiseWaveforms
     
     def DependentSourceCount(self):
         count = 0

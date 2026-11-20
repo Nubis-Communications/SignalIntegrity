@@ -69,6 +69,33 @@ class TestStatisticalNoiseTest(unittest.TestCase,
         self.SimulationResultsChecker('StatisticalNoise.si',checkNoise = True)
     def testStatisticalNoiseAbove(self):
         self.SimulationResultsChecker('StatisticalNoiseExternal.si',checkNoise = True)
+    def testFourPortNoiseSourceWaveformOrder(self):
+        import copy
+        import SignalIntegrity.App
+        from SignalIntegrity.App.Device import DeviceList
+        from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
+
+        app=SignalIntegrityAppHeadless()
+        self.assertTrue(app.OpenProjectFile('StatisticalNoiseWaveforms.si'))
+        schematic=app.Drawing.schematic
+        source=next(device for device in schematic.deviceList if device['ref'].GetValue() == 'VS1')
+        source.Wf=si.td.wf.Waveform(si.td.wf.TimeDescriptor(0.,8,1.e9),1.)
+        SignalIntegrity.App.Project['Drawing.Schematic.Wires']=[]
+        for kind in ['VoltageStatisticalNoiseSource','CurrentStatisticalNoiseSource']:
+            noise=copy.deepcopy(next(device for device in DeviceList
+                if device['partname'].GetValue() == kind and device['ports']['Value'] == '4'))
+            noise['ref']['Value']='N'
+            for mode in ['differential-mode','common-mode']:
+                with self.subTest(kind=kind,mode=mode):
+                    noise['mode']['Value']=mode
+                    schematic.deviceList=[noise,source]
+                    names=schematic.NetList().SourceNames()
+                    waveforms=schematic.InputWaveforms()
+                    self.assertEqual(len(waveforms),len(names))
+                    byName=dict(zip(names,waveforms))
+                    self.assertIs(byName['VS1'],source.Wf)
+                    self.assertEqual(byName['N'],0.)
+
     def testNoiseWaveform(self):
         """
         This simulation has five probes VO1-VO7.
