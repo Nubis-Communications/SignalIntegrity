@@ -85,6 +85,7 @@ class Drawing(tk.Frame):
         if self.parent.ReadOnly():
             return
         self.deviceTearOffMenu.add_command(label="Edit Properties",command=self.EditSelectedDevice)
+        self.deviceTearOffMenu.add_command(label="Cut",command=self.CutMultipleSelections)
         self.deviceTearOffMenu.add_command(label="Duplicate",command=self.DuplicateSelectedDevice)
         self.deviceTearOffMenu.add_command(label="Delete",command=self.DeleteSelectedDevice)
         self.deviceTearOffMenu.add_command(label='Convert',command=self.ConvertSelectedDevice)
@@ -322,7 +323,7 @@ class Drawing(tk.Frame):
             self.stateMachine.Nothing()
         self.parent.history.Event('delete selections')
     def CutMultipleSelections(self):
-        if self.stateMachine.state=='Multiple Selections':
+        if self.stateMachine.state in ('DeviceSelected','Multiple Selections'):
             self.DuplicateMultipleSelections(False)
             self.DeleteMultipleSelections(False)
             self.stateMachine.MultipleItemsOnClipboard()
@@ -332,7 +333,7 @@ class Drawing(tk.Frame):
         elif self.stateMachine.state=='DeviceSelected':
             self.DuplicateSelectedDevice()
     def DuplicateMultipleSelections(self,advanceStateMachine=True):
-        if self.stateMachine.state=='Multiple Selections':
+        if self.stateMachine.state in ('DeviceSelected','Multiple Selections'):
             self.pendingPageImport=None
             self.devicesToDuplicate=[]
             originSet=False

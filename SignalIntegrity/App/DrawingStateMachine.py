@@ -590,6 +590,7 @@ class DrawingStateMachine(object):
                 else:
                     config=self.parent.deviceSelected.configuration
                     self.parent.deviceTearOffMenu.add_command(label=config.name,command=lambda: config.onConfiguration(self.parent))
+            self.parent.deviceTearOffMenu.add_command(label="Cut",command=self.parent.CutMultipleSelections)
             self.parent.deviceTearOffMenu.add_command(label="Duplicate",command=self.parent.DuplicateSelectedDevice)
             self.parent.deviceTearOffMenu.add_command(label="Delete",command=self.parent.DeleteSelectedDevice)
             self.parent.deviceTearOffMenu.add_command(label='Convert',command=self.parent.ConvertSelectedDevice)

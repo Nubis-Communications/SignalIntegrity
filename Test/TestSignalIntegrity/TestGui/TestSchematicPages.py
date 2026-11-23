@@ -319,6 +319,67 @@ class TestSchematicPages(unittest.TestCase):
         self.assertEqual(project['Variables'].Names(),['x','channel'])
         self.assertEqual(project['Equations'].GetTextString(),'x=2')
 
+    def test_cut_selected_device_and_place_it(self):
+        drawing=self.app.Drawing
+        device=drawing.schematic.deviceList[0]
+        reference=device['ref'].GetValue()
+        device.selected=True
+        drawing.Button1Coord=device.partPicture.current.origin
+        drawing.stateMachine.DeviceSelected()
+
+        self.app.CutSelectedDoer.Execute()
+
+        self.assertEqual(drawing.stateMachine.state,'MultipleItemsOnClipboard')
+        self.assertEqual(len(drawing.schematic.deviceList),1)
+        self.assertEqual(drawing.devicesToDuplicate[0]['ref'].GetValue(),reference)
+        self.assertEqual(drawing.devicesToDuplicate[0].partPicture.current.origin,(0,0))
+        drawing.stateMachine.onMouseButton1_MultipleItemsOnClipboard(SimpleNamespace(x=400,y=300))
+        self.assertEqual(len(drawing.schematic.deviceList),2)
+        self.assertEqual(drawing.schematic.deviceList[-1]['ref'].GetValue(),reference)
+        self.app.history.Undo()
+        self.assertEqual(len(drawing.schematic.deviceList),1)
+        self.app.history.Undo()
+        self.assertEqual(len(drawing.schematic.deviceList),2)
+
+    def test_cut_multiple_devices_and_wire(self):
+        import SignalIntegrity.App
+        from SignalIntegrity.App.Wire import Vertex,Wire
+
+        drawing=self.app.Drawing
+        for device in drawing.schematic.deviceList:
+            device.selected=True
+        SignalIntegrity.App.Project['Drawing.Schematic.Wires']=[
+            Wire([Vertex((20,20),True),Vertex((23,20),True)])]
+        drawing.Button1Coord=(0,0)
+        drawing.stateMachine.MultipleSelections()
+        self.app.CutSelectedDoer.Execute()
+
+        self.assertEqual(drawing.stateMachine.state,'MultipleItemsOnClipboard')
+        self.assertEqual(len(drawing.schematic.deviceList),0)
+        self.assertEqual(len(SignalIntegrity.App.Project['Drawing.Schematic.Wires']),0)
+        self.assertEqual(len(drawing.devicesToDuplicate),2)
+        self.assertEqual(len(drawing.wiresToDuplicate),1)
+        drawing.stateMachine.onMouseButton1_MultipleItemsOnClipboard(SimpleNamespace(x=400,y=300))
+        self.assertEqual(len(drawing.schematic.deviceList),2)
+        self.assertEqual(len(SignalIntegrity.App.Project['Drawing.Schematic.Wires']),1)
+
+    def test_device_context_menu_cuts_selected_device(self):
+        drawing=self.app.Drawing
+        device=drawing.schematic.deviceList[0]
+        device.selected=True
+        drawing.Button1Coord=device.partPicture.current.origin
+        drawing.stateMachine.DeviceSelected()
+        with patch('SignalIntegrity.App.DrawingStateMachine.tk.Menu') as menuType, \
+             patch.object(drawing,'tk'):
+            drawing.stateMachine.onMouseButton3Release_DeviceSelected(SimpleNamespace(x_root=100,y_root=100))
+        commands={call.kwargs['label']:call.kwargs['command']
+                  for call in menuType.return_value.add_command.call_args_list}
+        self.assertIn('Cut',commands)
+        commands['Cut']()
+        self.assertEqual(drawing.stateMachine.state,'MultipleItemsOnClipboard')
+        self.assertEqual(len(drawing.schematic.deviceList),1)
+        self.assertEqual(len(drawing.devicesToDuplicate),1)
+
     def test_duplicate_variable_aborts_before_page_or_script_changes(self):
         import SignalIntegrity.App
         from SignalIntegrity.App.ProjectFile import ProjectFile
