@@ -45,6 +45,12 @@ if _workerId is not None:
         shutil.copy2(_sharedPreferences, _workerPreferences)
     os.environ[Preferences.envVar] = _workerPreferences
 
+    _preferences = Preferences(_workerPreferences)
+    _preferences['Calculation.AllowParallelization'] = True
+    _preferences['Calculation.AllowMaximumImpulseResponseLength'] = True
+    _preferences['Cache.NumberOfFiles'] = 10
+    _preferences.SaveToFile()
+
 def pytest_configure(config):
     config.addinivalue_line('markers', 'gui: Tk GUI test from the TestGui package')
 
