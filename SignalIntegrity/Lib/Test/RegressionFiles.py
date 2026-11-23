@@ -102,14 +102,17 @@ class RegressionContext(object):
     @classmethod
     def ProjectPath(cls,filename):
         """Returns the project path relative to the archive root.
-        On Windows a project on a different drive than the archive root has no relative path,
-        so its absolute path without the drive is used, keeping mirrored files under the root.
+        A project outside the archive root (or, on Windows, on a different drive) uses its
+        absolute path without the drive instead, keeping mirrored files under the root.
         """
         absolute=os.path.abspath(filename)
         try:
-            return os.path.relpath(absolute,cls.archiveRoot)
+            relative=os.path.relpath(absolute,cls.archiveRoot)
+            if relative!=os.pardir and not relative.startswith(os.pardir+os.sep):
+                return relative
         except ValueError:
-            return os.path.splitdrive(absolute)[1].lstrip('\\/')
+            pass
+        return os.path.splitdrive(absolute)[1].lstrip('\\/')
     @classmethod
     def CallSiteKey(cls,filename,args=None):
         """Returns the stable key for one sub-project invocation."""

@@ -291,6 +291,18 @@ class TestRegressionFiles(unittest.TestCase):
                             self.id()+' reference path escaped the regression root: '+path)
         finally:
             RegressionContext.Stop()
+    def testRegressionContextProjectOutsideArchiveRootStaysUnderRegressionRoot(self):
+        archive=self.File('archive')
+        RegressionContext.Start(archive,self.File('Regression'))
+        try:
+            project=os.path.join(self.tempDir,'elsewhere','Top.si')
+            self.assertFalse(RegressionContext.CallSiteKey(project).startswith('..'),
+                             self.id()+' key climbs out of the archive root')
+            path=RegressionContext.ReferencePath(project,'netlist','')
+            self.assertTrue(os.path.abspath(path).startswith(os.path.abspath(self.File('Regression'))),
+                            self.id()+' reference path escaped the regression root: '+path)
+        finally:
+            RegressionContext.Stop()
     def testRegressionContextProjectArtifactsAreSwitchable(self):
         class App(object):
             pass
