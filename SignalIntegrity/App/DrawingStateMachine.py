@@ -1545,6 +1545,15 @@ class DrawingStateMachine(object):
             self.parent.DrawSchematic()
     def onMouseButton1_MultipleItemsOnClipboard(self,event):
         if not self.Locked():
+            pending=self.parent.pendingPageImport
+            if pending is not None:
+                variables,equations=pending
+                if not self.parent.parent.ApplyPageImport(self.parent.devicesToDuplicate,variables,equations):
+                    self.parent.pendingPageImport=None
+                    self.DispatchBasedOnSelections()
+                    self.Unlock()
+                    return
+                self.parent.pendingPageImport=None
             self.UnselectAllDevices()
             self.UnselectAllWires()
             self.SaveButton1Coordinates(event)
@@ -1608,6 +1617,7 @@ class DrawingStateMachine(object):
     def onControlMouseButton1Release_MultipleItemsOnClipboard(self,event):
         pass
     def onMouseButton3_MultipleItemsOnClipboard(self,event):
+        self.parent.pendingPageImport=None
         self.DispatchBasedOnSelections()
     def onMouseButton1Motion_MultipleItemsOnClipboard(self,event):
         pass
@@ -1634,7 +1644,8 @@ class DrawingStateMachine(object):
     def onDownKey_MultipleItemsOnClipboard(self,event):
         pass
     def onEscapeKey_MultipleItemsOnClipboard(self,event):
-        pass
+        self.parent.pendingPageImport=None
+        self.DispatchBasedOnSelections()
 
     def ForceIntializeState(self):
         if self.state == 'Nothing':

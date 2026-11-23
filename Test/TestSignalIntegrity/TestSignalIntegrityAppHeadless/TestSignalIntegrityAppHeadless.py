@@ -22,6 +22,7 @@ TestSignalIntegrityAppHeadless.py
 import unittest
 import os
 import math
+from unittest.mock import patch
 
 class TestSignalIntegrityAppHeadlessTest(unittest.TestCase):
     """tests of the headless (scripted) application calculations
@@ -61,6 +62,20 @@ class TestSignalIntegrityAppHeadlessTest(unittest.TestCase):
     def assertWaveformsFinite(self,result,message):
         for label,wf in zip(result['output waveform labels'],result['output waveforms']):
             self.assertTrue(len(wf) > 0 and all(math.isfinite(v) for v in wf.Values()),message+': '+label+' is not finite')
+
+    def testHeadlessPictureIgnoresGuiTextSpacing(self):
+        from SignalIntegrity.App.PartPicture import PartPicture
+        from SignalIntegrity.App.TpX import TpX
+        from SignalIntegrity.App.TikZ import TikZ
+        for directory,name in (('TestSignalIntegrityApp','TestWaveformGood'),
+                               ('TestSystemVariables','RelayTest1')):
+            with self.subTest(project=name),patch.object(PartPicture,'textSpacing',14):
+                path=os.path.join('Test','TestSignalIntegrity',directory,name)
+                app=self.OpenProject(path+'.si')
+                picture=app.Drawing.DrawSchematic(TpX()).Finish().lineList
+                picture+=app.Drawing.DrawSchematic(TikZ()).Finish().lineList
+                with open(os.path.join(self.root,path+'.TpX')) as reference:
+                    self.assertEqual(picture,reference.readlines())
 
     def testVirtualProbeEyeDiagrams(self):
         """VirtualProbe with EyeDiagrams=True calculates the eye diagrams of the eye probes that are on"""

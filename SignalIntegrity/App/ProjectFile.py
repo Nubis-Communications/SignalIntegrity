@@ -671,6 +671,10 @@ class ProjectFile(ProjectFileBase):
         self['Pages']=[]
         self['FirstPageName']='Main'
         self['GeometryIncludesTabs']=False
+        self.dict['Drawing']['Schematic.Devices']=[]
+        self.dict['Drawing']['Schematic.Wires']=[]
+        self['Variables.Items']=[]
+        self['Equations.Lines']=[]
         super().FromText(text)
         self.activePage=min(self.activePage,len(self['Pages']))
         return self

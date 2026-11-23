@@ -21,3 +21,4 @@ from .TestDisplayScaling import TestDisplayScaling
 from .TestTheme import TestTheme
 from .TestEquationsDialog import TestEquationsDialog
 from .TestSelectionIndicators import TestSelectionIndicators
+from .TestSchematicPages import TestSchematicPages

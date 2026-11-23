@@ -51,7 +51,8 @@ class CoordinateTranslater(object):
         return (self.rotationPoint[0]+deltax,self.rotationPoint[1]+deltay)
 
 class PartPicture(object):
-    textSpacing=12
+    defaultTextSpacing=12
+    textSpacing=defaultTextSpacing
     def __init__(self,origin,pinList,innerBox,boundingBox,propertiesLocation,orientation,mirroredHorizontally,mirroredVertically,rotationPoint=None,textDirectionReversed=False):
         if rotationPoint==None:
             if len(pinList)==1:
@@ -196,7 +197,7 @@ class PartPicture(object):
         else: GoingUp=False
 
         V=len(self.visiblePartPropertyList)
-        textSpacing=PartPicture.textSpacing*getattr(canvas,'displayScale',1.0)
+        textSpacing=getattr(canvas,'textSpacing',PartPicture.textSpacing)*getattr(canvas,'displayScale',1.0)
         if GoingUp:
             locations=[((drawingOrigin[0]+self.origin[0]+self.propertiesLocation[0])*grid,
             (drawingOrigin[1]+self.origin[1]+self.propertiesLocation[1])*grid-textSpacing*v) for v in range(V)]

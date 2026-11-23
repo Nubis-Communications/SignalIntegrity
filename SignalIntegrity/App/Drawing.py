@@ -65,6 +65,7 @@ class Drawing(tk.Frame):
         self.canvas = SchematicCanvas(self,parent.displayScale,relief=tk.SUNKEN,borderwidth=1,width=600,height=600)
         self.canvas.pack(side=tk.TOP, fill=tk.BOTH, expand=tk.YES)
         self.schematic = Schematic()
+        self.pendingPageImport = None
         self.BuildTearOffMenus()
         self.stateMachine = None
         self.InstallStateMachine()
@@ -327,6 +328,7 @@ class Drawing(tk.Frame):
             self.DuplicateSelectedDevice()
     def DuplicateMultipleSelections(self,advanceStateMachine=True):
         if self.stateMachine.state=='Multiple Selections':
+            self.pendingPageImport=None
             self.devicesToDuplicate=[]
             originSet=False
             originx=0

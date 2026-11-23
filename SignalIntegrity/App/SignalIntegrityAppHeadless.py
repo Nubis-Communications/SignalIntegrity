@@ -63,6 +63,7 @@ class DrawingHeadless(object):
             canvas=self.canvas
         if SignalIntegrity.App.Project is None:
             return
+        canvas.textSpacing=PartPicture.defaultTextSpacing
         drawingPropertiesProject=SignalIntegrity.App.Project['Drawing.DrawingProperties']
         grid=drawingPropertiesProject['Grid']
         originx=drawingPropertiesProject['Originx']
@@ -70,7 +71,7 @@ class DrawingHeadless(object):
         SignalIntegrity.App.Project.EvaluateEquations()
         schematicPropertiesList=SignalIntegrity.App.Project['Variables'].DisplayStrings(True,False,False)
         V=len(schematicPropertiesList)
-        locations=[(0+7,0+PartPicture.textSpacing*(v+1)+3) for v in range(V)]
+        locations=[(0+7,0+canvas.textSpacing*(v+1)+3) for v in range(V)]
 
         for v in range(V):
             canvas.create_text(locations[v][0],locations[v][1],text=schematicPropertiesList[v],anchor='sw',fill='black')

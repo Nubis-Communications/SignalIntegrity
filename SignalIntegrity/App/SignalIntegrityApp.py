@@ -29,6 +29,7 @@ import sys
 import copy
 import os
 import io
+import xml.etree.ElementTree as ET
 
 # import matplotlib
 # matplotlib.use('TkAgg')
@@ -67,6 +68,17 @@ from SignalIntegrity.Lib.Encryption import Encryption
 
 from SignalIntegrity.__about__ import __version__,__project__
 import SignalIntegrity.App.Project
+
+class PageImportOptionsDialog(simpledialog.Dialog):
+    def body(self,master):
+        ttk.Label(master,text='The first schematic page will be imported.').pack(anchor='w',pady=(0,8))
+        self.importVariables=tk.BooleanVar(master=self,value=False)
+        self.importEquations=tk.BooleanVar(master=self,value=False)
+        ttk.Checkbutton(master,text='System variables',variable=self.importVariables).pack(anchor='w')
+        ttk.Checkbutton(master,text='Equations script',variable=self.importEquations).pack(anchor='w')
+
+    def apply(self):
+        self.result=(self.importVariables.get(),self.importEquations.get())
 
 class SignalIntegrityApp(tk.Frame):
     def __init__(self,projectFileName=None,pwd=None,runMainLoop=True,external=False,args={},readOnly=None):
@@ -302,6 +314,7 @@ class SignalIntegrityApp(tk.Frame):
         self.pagesMenu=tk.Menu(TheMenu,tearoff=False,postcommand=self.UpdatePagesMenu)
         TheMenu.add_cascade(label='Pages',menu=self.pagesMenu,underline=2)
         self.pagesMenu.add_command(label='Add Page',underline=0,command=self.onAddSchematicPage)
+        self.pagesMenu.add_command(label='Add Page from Project...',command=self.onAddSchematicPageFromProject)
         self.pagesMenu.add_command(label='Rename Page',underline=0,
                                    command=lambda:self.onRenameSchematicPage(SignalIntegrity.App.Project.activePage))
         self.pagesMenu.add_command(label='Delete Page',underline=0,
@@ -686,6 +699,7 @@ class SignalIntegrityApp(tk.Frame):
         editable=project is not None and bool(self.fileparts.filename) and not self.ReadOnly()
         state='normal' if editable else 'disabled'
         self.pagesMenu.entryconfigure('Add Page',state=state)
+        self.pagesMenu.entryconfigure('Add Page from Project...',state=state)
         self.pagesMenu.entryconfigure('Rename Page',state=state)
         self.pagesMenu.entryconfigure('Duplicate Page',state=state)
         self.pagesMenu.entryconfigure('Delete Page',
@@ -722,11 +736,14 @@ class SignalIntegrityApp(tk.Frame):
         self.pageMenu.delete(0,tk.END)
         if index is None:
             self.pageMenu.add_command(label='Add Page',command=self.onAddSchematicPage)
+            self.pageMenu.add_command(label='Add Page from Project...',command=self.onAddSchematicPageFromProject)
         else:
             self.pageMenu.add_command(label='Rename Page',command=lambda:self.onRenameSchematicPage(index))
             self.pageMenu.add_command(label='Delete Page',command=lambda:self.onDeleteSchematicPage(index),
                                       state='normal' if len(self.pageTabs.tabs()) > 1 else 'disabled')
             self.pageMenu.add_command(label='Duplicate Page',command=lambda:self.onDuplicateSchematicPage(index))
+            self.pageMenu.add_command(label='Import Page from Project...',command=lambda:self.onImportSchematicPage(index))
+            self.pageMenu.add_command(label='Save Page to Project...',command=lambda:self.onSaveSchematicPage(index))
         try:
             self.pageMenu.tk_popup(event.x_root,event.y_root)
         finally:
@@ -811,6 +828,236 @@ class SignalIntegrityApp(tk.Frame):
         page['Drawing.DrawingProperties.Geometry']=self.Drawing.ProjectGeometry()
         self.ShowSchematicPage(len(project['Pages'])+1,newPage=page)
         self.history.Event('add page')
+
+    @staticmethod
+    def RebasePageFilePaths(node,sourceDir,targetDir):
+        from SignalIntegrity.App.ProjectFileBase import XMLConfiguration,XMLProperty
+
+        def rebase(value):
+            if not isinstance(value,str) or not value or value == 'None' or value.startswith('='):
+                return value
+            absolute=os.path.abspath(os.path.join(sourceDir,value))
+            try:
+                return os.path.relpath(absolute,targetDir)
+            except ValueError:
+                return absolute
+
+        if isinstance(node,XMLConfiguration):
+            if 'Type' in node.dict and 'Value' in node.dict and node['Type']=='file' and node['Keyword']!='wfprojname':
+                node['Value']=rebase(node['Value'])
+            for child in node.dict.values():
+                SignalIntegrityApp.RebasePageFilePaths(child,sourceDir,targetDir)
+        elif isinstance(node,XMLProperty):
+            if node.dict.get('type') == 'file':
+                node['value']=rebase(node.GetValue())
+            elif isinstance(node.GetValue(),list):
+                for child in node.GetValue():
+                    SignalIntegrityApp.RebasePageFilePaths(child,sourceDir,targetDir)
+
+    def ReadSchematicPageFromProject(self):
+        from SignalIntegrity.App.Device import DeviceFromProject
+        filename=AskOpenFileName(parent=self.root,filetypes=[('si','.si')],
+                                 initialdir=self.fileparts.AbsoluteFilePath(),title='Import page from project')
+        if filename is None:
+            return None
+        try:
+            filename=os.path.abspath(filename)
+            text=Encryption().ReadEncryptedLines(filename,split=False)
+            if ET.fromstring(''.join(text)).tag != 'Project':
+                raise ValueError('not a SignalIntegrity project')
+            source=ProjectFile().FromText(text)
+            options=self.SelectPageImportOptions()
+            if options is None:
+                return None
+            drawing=copy.deepcopy(source.PageDrawings()[0])
+            self.RebasePageFilePaths(drawing,os.path.dirname(filename),
+                                     self.fileparts.AbsoluteFilePath())
+            devices=[DeviceFromProject(device).result for device in drawing['Schematic.Devices']]
+            for device in devices:
+                for prop in device.propertiesList:
+                    self.RebasePageFilePaths(prop,os.path.dirname(filename),self.fileparts.AbsoluteFilePath())
+            variables=copy.deepcopy(source['Variables.Items']) if options[0] else []
+            for variable in variables:
+                self.RebasePageFilePaths(variable,os.path.dirname(filename),self.fileparts.AbsoluteFilePath())
+            equations=source['Equations'].GetTextString() if options[1] else ''
+        except (OSError,ValueError,TypeError,KeyError,IndexError,AttributeError,NameError,ET.ParseError) as error:
+            messagebox.showerror('Import Page','Could not import project:\n'+str(error),parent=self.root)
+            return None
+        if not self.ValidatePageImportVariables(variables):
+            return None
+        return drawing,devices,variables,equations
+
+    def SelectPageImportOptions(self):
+        return PageImportOptionsDialog(self.root,title='Import Page').result
+
+    def ValidatePageImportVariables(self,variables):
+        names={variable['Name'] for variable in SignalIntegrity.App.Project['Variables.Items']}
+        duplicates=set()
+        for variable in variables:
+            name=variable['Name']
+            if name in names:
+                duplicates.add(name)
+            names.add(name)
+        if duplicates:
+            messagebox.showerror('Import Page',
+                                 'Duplicate system variable names: '+', '.join(sorted(duplicates)),
+                                 parent=self.root)
+            return False
+        return True
+
+    def ApplyPageImport(self,devices,variables,equations):
+        if not self.ValidatePageImportVariables(variables):
+            return False
+        project=SignalIntegrity.App.Project
+        original=project['Variables.Items'][:]
+        project['Variables.Items']=original+variables
+        try:
+            self.AssignImportedPageIdentifiers(devices)
+        except (ValueError,TypeError) as error:
+            project['Variables.Items']=original
+            messagebox.showerror('Import Page','Could not assign imported identifiers:\n'+str(error),parent=self.root)
+            return False
+        if equations:
+            current=project['Equations'].GetTextString()
+            project['Equations'].PutTextString(current+'\n'+equations if current else equations)
+        return True
+
+    def AssignImportedPageIdentifiers(self,devices):
+        from SignalIntegrity.App.ProjectFileBase import XMLConfiguration,XMLProperty
+        existing=self.Drawing.schematic.CircuitDevices()
+        refs={device['ref'].GetValue() for device in existing if device['ref'] is not None}
+        reserved=refs | {device['ref'].GetValue() for device in devices if device['ref'] is not None}
+        ports={kind:{int(device['pn'].GetValue()) for device in existing
+                     if device['partname'].GetValue()==kind}
+               for kind in ('Port','NetworkAnalyzerStimulus')}
+        renamed={}
+        for device in devices:
+            ref=device['ref']
+            if ref is not None:
+                original=ref.GetValue()
+                if original not in (None,'') and original in refs:
+                    default=device['defref']
+                    pattern=default.GetValue() if default is not None else None
+                    if not pattern or '?' not in pattern:
+                        pattern=original+'_copy?'
+                    number=1
+                    while pattern.replace('?',str(number)) in reserved:
+                        number+=1
+                    ref.SetValueFromString(pattern.replace('?',str(number)))
+                    renamed[original]=ref.GetValue()
+                    reserved.add(ref.GetValue())
+                refs.add(ref.GetValue())
+            kind=device['partname'].GetValue()
+            if kind in ports:
+                number=int(device['pn'].GetValue())
+                if number in ports[kind]:
+                    number=1
+                    while number in ports[kind]:
+                        number+=1
+                    device['pn'].SetValueFromString(str(number))
+                ports[kind].add(number)
+
+        def updateProbeNames(node):
+            if isinstance(node,XMLConfiguration):
+                if 'ProbeName' in node.dict and node['ProbeName'] in renamed:
+                    node['ProbeName']=renamed[node['ProbeName']]
+                for child in node.dict.values():
+                    updateProbeNames(child)
+            elif isinstance(node,XMLProperty) and isinstance(node.GetValue(),list):
+                for child in node.GetValue():
+                    updateProbeNames(child)
+
+        if renamed:
+            for device in devices:
+                configs=device.configuration if isinstance(device.configuration,list) else [device.configuration]
+                for config in configs:
+                    updateProbeNames(config)
+
+    def onAddSchematicPageFromProject(self):
+        if self.ReadOnly() or not self.fileparts.filename:
+            return
+        imported=self.ReadSchematicPageFromProject()
+        if imported is None:
+            return
+        drawing,devices,variables,equations=imported
+        project=SignalIntegrity.App.Project
+        name=simpledialog.askstring('Add Page from Project','Page name:',parent=self.root,
+                                    initialvalue='Page '+str(len(project.PageNames())+1))
+        if name is None:
+            return
+        if not name.strip():
+            messagebox.showerror('Add Page from Project','Enter a name for the new page.',parent=self.root)
+            return
+        if not self.ApplyPageImport(devices,variables,equations):
+            return
+        from SignalIntegrity.App.ProjectFile import SchematicPageConfiguration
+        page=SchematicPageConfiguration()
+        page['Name']=name.strip()
+        page.dict['Drawing']=drawing
+        project.WritePageDevices(drawing,devices)
+        self.ShowSchematicPage(len(project['Pages'])+1,newPage=page)
+        self.history.Event('add page from project')
+
+    def onImportSchematicPage(self,index):
+        if self.ReadOnly() or not self.fileparts.filename:
+            return
+        imported=self.ReadSchematicPageFromProject()
+        if imported is None:
+            return
+        drawing,devices,variables,equations=imported
+        wires=copy.deepcopy(drawing['Schematic.Wires'])
+        coordinates=[device.partPicture.current.origin for device in devices]
+        coordinates.extend(vertex['Coord'] for wire in wires for vertex in wire['Vertices'])
+        if not coordinates:
+            messagebox.showinfo('Import Page','The source page is empty.',parent=self.root)
+            return
+        originx=min(coord[0] for coord in coordinates)
+        originy=min(coord[1] for coord in coordinates)
+        for device in devices:
+            x,y=device.partPicture.current.origin
+            device.partPicture.current.SetOrigin((x-originx,y-originy))
+        for wire in wires:
+            for vertex in wire['Vertices']:
+                x,y=vertex['Coord']
+                vertex['Coord']=(x-originx,y-originy)
+        if SignalIntegrity.App.Project.activePage != index:
+            self.ShowSchematicPage(index)
+        self.Drawing.devicesToDuplicate=devices
+        self.Drawing.wiresToDuplicate=wires
+        self.Drawing.pendingPageImport=(variables,equations)
+        self.Drawing.stateMachine.MultipleItemsOnClipboard(force=True)
+
+    def onSaveSchematicPage(self,index):
+        if self.ReadOnly() or not self.fileparts.filename:
+            return
+        filename=AskSaveAsFilename(parent=self.root,filetypes=[('si','.si')],defaultextension='.si',
+                                   initialdir=self.fileparts.AbsoluteFilePath(),title='Save page to project')
+        if filename is None:
+            return
+        filename=os.path.abspath(filename)
+        if os.path.splitext(filename)[1] != '.si':
+            filename=os.path.splitext(filename)[0]+'.si'
+        current=os.path.abspath(self.fileparts.FullFilePathExtension('.si'))
+        if os.path.normcase(os.path.realpath(filename))==os.path.normcase(os.path.realpath(current)):
+            messagebox.showerror('Save Page','Choose a different file from the current project.',parent=self.root)
+            return
+        project=SignalIntegrity.App.Project
+        exported=copy.deepcopy(project)
+        exported.dict['Drawing']=copy.deepcopy(project.PageDrawings()[index])
+        devices=self.Drawing.schematic.CircuitPages()[index][0].deviceList
+        exported.WritePageDevices(exported.dict['Drawing'],copy.deepcopy(devices))
+        exported['Pages']=[]
+        exported['FirstPageName']='Main'
+        exported.activePage=0
+        for item in exported.dict.values():
+            self.RebasePageFilePaths(item,self.fileparts.AbsoluteFilePath(),os.path.dirname(filename))
+        from SignalIntegrity.App.ProjectFileBase import ProjectFileBase
+        try:
+            ProjectFileBase.Write(exported,filename)
+        except (OSError,ValueError,TypeError) as error:
+            messagebox.showerror('Save Page','Could not save project:\n'+str(error),parent=self.root)
+            return
+        self.statusbar.set('Page saved to project')
 
     def onRenameSchematicPage(self,index):
         if self.ReadOnly() or not self.fileparts.filename:
