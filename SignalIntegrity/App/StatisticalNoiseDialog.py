@@ -92,6 +92,8 @@ class StatisticalNoiseDialog(tk.Toplevel):
         self.SelectionsDisplayNoneDoer.AddMenuElement(self.SelectionMenu,label='Dispay None',underline=7)
         self.SelectionsToggleAllDoer.AddMenuElement(self.SelectionMenu,label='Toggle All',underline=0)
         self.SelectionMenu.add_separator()
+        # first dynamic entry; Tk 9 menus have no tear-off entry at index 0
+        self.selectionMenuFirstWaveformIndex=self.SelectionMenu.index('end')+1
         # ------
         CalcMenu=tk.Menu(self)
         TheMenu.add_cascade(label='Calculate',menu=CalcMenu,underline=0)
@@ -409,7 +411,7 @@ class StatisticalNoiseDialog(tk.Toplevel):
         self.SelectionDoerList = [Doer(lambda x=s: self.onSelection(x)) for s in range(len(self.displayIndexList))]
         # ------
         # ------
-        self.SelectionMenu.delete(5, tk.END)
+        self.SelectionMenu.delete(self.selectionMenuFirstWaveformIndex, tk.END)
         for s in range(len(self.displayIndexList)):
             self.SelectionDoerList[s].AddCheckButtonMenuElement(self.SelectionMenu,label=output_names[self.displayIndexList[s]])
             self.SelectionDoerList[s].Set(True)

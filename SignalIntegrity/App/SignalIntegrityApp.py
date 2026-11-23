@@ -211,10 +211,13 @@ class SignalIntegrityApp(tk.Frame):
         TheMenu.add_cascade(label='File',menu=self.FileMenu,underline=0)
         self.RecentsMenu=tk.Menu(self.FileMenu)
         self.FileMenu.add_cascade(label='Open Recent Projects',menu=self.RecentsMenu,underline=5)
+        # Menu indices depend on whether there is a tear-off entry (Tk 8 default) or not (Tk 9).
+        self.recentProjectsMenuIndex=self.FileMenu.index('end')
         self.RecentProject0Doer.AddMenuElement(self.RecentsMenu,label='')
         self.RecentProject1Doer.AddMenuElement(self.RecentsMenu,label='')
         self.RecentProject2Doer.AddMenuElement(self.RecentsMenu,label='')
         self.RecentProject3Doer.AddMenuElement(self.RecentsMenu,label='')
+        self.recentProjectsFirstIndex=self.RecentsMenu.index('end')-3
         self.FileMenu.add_separator()
         self.NewProjectDoer.AddMenuElement(self.FileMenu,label="New Project",accelerator='Ctrl+N',underline=0)
         self.OpenProjectDoer.AddMenuElement(self.FileMenu,label="Open Project",accelerator='Ctrl+O',underline=0)
@@ -1251,40 +1254,40 @@ class SignalIntegrityApp(tk.Frame):
         if recentFileList is None:
             recentFileList=[None,None,None,None]
         if all(r is None for r in recentFileList):
-            self.FileMenu.entryconfigure(1,state='disabled')
+            self.FileMenu.entryconfigure(self.recentProjectsMenuIndex,state='disabled')
         else:
-            self.FileMenu.entryconfigure(1,state='normal')
+            self.FileMenu.entryconfigure(self.recentProjectsMenuIndex,state='normal')
 
         if recentFileList[0] is None:
-            self.RecentsMenu.entryconfig(1, label='')
+            self.RecentsMenu.entryconfig(self.recentProjectsFirstIndex+0, label='')
             self.RecentProject0Doer.menuElement.label=''
             self.RecentProject0Doer.Activate(False)
         else:
-            self.RecentsMenu.entryconfig(1, label=recentFileList[0])
+            self.RecentsMenu.entryconfig(self.recentProjectsFirstIndex+0, label=recentFileList[0])
             self.RecentProject0Doer.menuElement.label=recentFileList[0]
             self.RecentProject0Doer.Activate(True)
         if recentFileList[1] is None:
-            self.RecentsMenu.entryconfig(2, label='')
+            self.RecentsMenu.entryconfig(self.recentProjectsFirstIndex+1, label='')
             self.RecentProject1Doer.menuElement.label=''
             self.RecentProject1Doer.Activate(False)
         else:
-            self.RecentsMenu.entryconfig(2, label=recentFileList[1])
+            self.RecentsMenu.entryconfig(self.recentProjectsFirstIndex+1, label=recentFileList[1])
             self.RecentProject1Doer.menuElement.label=recentFileList[1]
             self.RecentProject1Doer.Activate(True)
         if recentFileList[2] is None:
-            self.RecentsMenu.entryconfig(3, label='')
+            self.RecentsMenu.entryconfig(self.recentProjectsFirstIndex+2, label='')
             self.RecentProject2Doer.menuElement.label=''
             self.RecentProject2Doer.Activate(False)
         else:
-            self.RecentsMenu.entryconfig(3, label=recentFileList[2])
+            self.RecentsMenu.entryconfig(self.recentProjectsFirstIndex+2, label=recentFileList[2])
             self.RecentProject2Doer.menuElement.label=recentFileList[2]
             self.RecentProject2Doer.Activate(True)
         if recentFileList[3] is None:
-            self.RecentsMenu.entryconfig(4, label='')
+            self.RecentsMenu.entryconfig(self.recentProjectsFirstIndex+3, label='')
             self.RecentProject3Doer.menuElement.label=''
             self.RecentProject3Doer.Activate(False)
         else:
-            self.RecentsMenu.entryconfig(4, label=recentFileList[3])
+            self.RecentsMenu.entryconfig(self.recentProjectsFirstIndex+3, label=recentFileList[3])
             self.RecentProject3Doer.menuElement.label=recentFileList[3]
             self.RecentProject3Doer.Activate(True)
 
