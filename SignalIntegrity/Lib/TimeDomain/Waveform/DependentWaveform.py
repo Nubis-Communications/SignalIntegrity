@@ -51,7 +51,7 @@ class DependentWaveform(Waveform):
         self.ProjectVariables = None
 
         self.td = None
-        list.__init__(self, [0]) #Default is a blank waveform
+        self.values = Waveform._coerce([0]) #Default is a blank waveform
 
     @staticmethod
     def UpdateWaveforms(dependentWaveforms, OutputWaveformLabels, OutputWaveformList,

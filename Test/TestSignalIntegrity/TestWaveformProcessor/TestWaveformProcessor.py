@@ -22,6 +22,7 @@ TestWaveformProcessor.py
 import os
 import unittest
 import copy
+import numpy as np
 
 import SignalIntegrity.Lib as si
 import SignalIntegrity.App as siapp
@@ -344,7 +345,7 @@ noise = input_noise_1.TotalRMS()
                         self.assertEqual(matrices.Outputs,len(expectedOutputs))
                         self.assertEqual(matrices.Inputs,len(result['source names']))
                         if not visibleProbe:
-                            self.assertEqual(matrices[0],[])
+                            self.assertEqual(len(matrices[0]),0)
                             self.assertEqual(result['noise'],{})
                 self.assertEqual(records,[(0,0),(1,1),(2,2),(3,2)])
                 self.assertEqual(processor.variablesList[0]['Value'],'=processor_count')
@@ -449,7 +450,7 @@ noise = input_noise_1.TotalRMS()
                         self.assertEqual(rebuilt['N'],0.)
                         for index,output in enumerate(schematic.dependentWaveforms[0].ProcessorOutputs,1):
                             self.assertIs(rebuilt['P_out'+str(index)],output)
-                            self.assertEqual(output.Values(),[float(index+1)]*td.K)
+                            self.assertEqual(list(output.Values()),[float(index+1)]*td.K)
 
     def testProcessorElementStatesNetlistAndScheduling(self):
         from SignalIntegrity.App.Device import DeviceWaveformProcessorVariable
@@ -617,7 +618,7 @@ noise = input_noise_1.TotalRMS()
         self.assertEqual(len(shownResult['other waveform labels']),len(shownResult['other waveforms']))
         self.assertEqual(hiddenResult['output waveform labels'],shownResult['output waveform labels'])
         self.assertEqual(hiddenResult['output waveforms'],shownResult['output waveforms'])
-        self.assertEqual(hiddenResult['transfer matrices'],shownResult['transfer matrices'])
+        np.testing.assert_array_equal(hiddenResult['transfer matrices'],shownResult['transfer matrices'])
 
     def testWaveformProcessorBase(self):
         self.SimulationResultsChecker('WaveformProcessorTestTwoProbe_nonlin_source.si')
@@ -886,7 +887,7 @@ optimize = 99
                                   noise_spectral_densities=noise)
         self.assertAlmostEqual(outputs[0][0],1.+noise['P_in1'].TotalRMS())
         self.assertAlmostEqual(outputs[1][0],2.+noise['P_in2'].TotalRMS())
-        self.assertEqual(noise['P_in1'].Values(),[0.,3.e-9,3.e-9])
+        self.assertEqual(list(noise['P_in1'].Values()),[0.,3.e-9,3.e-9])
         for mapping in [{},{'P_in1':None,'P_in2':noise['P_in2']}]:
             with self.assertRaises(SignalIntegrityExceptionDependentWaveform):
                 outputs[0].UpdateWaveform(['P_in1','P_in2'],inputs,0,
@@ -945,8 +946,8 @@ optimize = 99
         netlist.noiseSourceNames=[]
         quiet=StatisticalNoiseAnalysis.WaveformProcessorInputNoise(
             schematic,matrices,waveforms,netlist.outputNames,dependent)
-        self.assertEqual(quiet['B_in1'].Frequencies(),list(frequencies))
-        self.assertEqual(quiet['B_in1'].Values(),[0.]*17)
+        self.assertEqual(list(quiet['B_in1'].Frequencies()),list(frequencies))
+        self.assertEqual(list(quiet['B_in1'].Values()),[0.]*17)
 
     def testProcessorSystemVariableChangesRefreshSimulation(self):
         from types import SimpleNamespace
@@ -1186,11 +1187,11 @@ optimize = 99
                 self.assertEqual([record[3] for record in records],[0.,0.1])
                 self.assertEqual(state['Value'],'0.2')
                 self.assertEqual(list(inputs[2]),[4.]*len(inputs[2]))
-                self.assertEqual(records[0][1].Values(),[0.]*len(frequencies))
+                self.assertEqual(list(records[0][1].Values()),[0.]*len(frequencies))
                 expected=np.sqrt(2.*constants.e*.02)
                 # Input 2 includes the upstream processor's unity noise path.
                 for index,gain in [(1,2.),(2,2.5)]:
-                    self.assertEqual(records[1][index].Frequencies(),list(frequencies))
+                    self.assertEqual(list(records[1][index].Frequencies()),list(frequencies))
                     self.assertAlmostEqual(max(records[1][index].Values())/expected,gain,places=10)
                 np.testing.assert_allclose(records[1][2].Values(),
                                            np.asarray(records[1][1].Values())*1.25,rtol=1.e-10)
@@ -1226,7 +1227,7 @@ optimize = 99
 
         expectedOutputs,expectedSources,expectedMatrices = netList.LinearizeWaveformProcessorTransferMatrices(rawTransferMatrices)
         result = app.TransferParameters()
-        self.assertEqual(rawTransferMatrices,rawTransferMatricesBeforeLinearization)
+        np.testing.assert_array_equal(rawTransferMatrices,rawTransferMatricesBeforeLinearization)
         self.assertEqual(result['output waveform labels'],expectedOutputs)
         self.assertEqual(result['source names'],expectedSources)
         self.assertNotIn('NLS1',result['output waveform labels'])
@@ -1246,7 +1247,7 @@ optimize = 99
             expected += rawMatrix[rawOutputIndex][rawProcessorSourceIndex] * rawMatrix[rawInputIndex][rawSourceIndex] / (1.0-feedback)
             self.assertAlmostEqual(abs(result['transfer matrices'][frequencyIndex][outputIndex][sourceIndex]-expected),0.0,places=10)
 
-        self.assertEqual(result['transfer matrices'],expectedMatrices)
+        np.testing.assert_array_equal(result['transfer matrices'],expectedMatrices)
 
         simulationResult = app.Simulate()
         self.assertNotIn('NLS1',simulationResult['source names'])
@@ -1290,7 +1291,7 @@ optimize = 99
             expected += rawMatrix[rawOutputIndex][rawProcessorSourceIndex] * rawMatrix[rawInputIndex][rawSourceIndex] / (1.0-feedback)
             self.assertAlmostEqual(abs(result['transfer matrices'][frequencyIndex][outputIndex][sourceIndex]-expected),0.0,places=10)
 
-        self.assertEqual(result['transfer matrices'],expectedMatrices)
+        np.testing.assert_array_equal(result['transfer matrices'],expectedMatrices)
 
     def testVariableProcessorLinearizationUsesOnlyPortOne(self):
         from SignalIntegrity.App.NetList import NetList

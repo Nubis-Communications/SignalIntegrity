@@ -70,7 +70,7 @@ class TransferMatricesProcessor(CallBacker):
         # pragma: include
 
         #Replace any 1 sample waveforms with floats - so they are handled as DC values 
-        wfl = [wflm[0] if issubclass(type(wflm), list) and len(wflm) == 1
+        wfl = [wflm[0] if isinstance(wflm,(list,Waveform)) and len(wflm) == 1
                else wflm for wflm in wfl]
         if td is None:
             td = [wflm.td.Fs if isinstance(wflm,Waveform) else None for wflm in wfl]
