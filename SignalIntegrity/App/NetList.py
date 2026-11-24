@@ -345,9 +345,9 @@ class NetList(object):
                 # stimdef definitions
                 if len(definingStimListThisNet)==0: # stim
                     for (stimDeviceIndex,stimPinIndex) in directStimListThisNet: # generate the stim for each stim
-                        stimPin1Coordinate=deviceList[stimDeviceIndex].PinCoordinates()[stimPinIndex]
+                        stimPin1Coordinate=devicePinCoordinateList[stimDeviceIndex][stimPinIndex]
                         for (deviceIndex,devicePinIndex) in net: # find the device pin connected to this stim
-                            devicePinCoordinate=deviceList[deviceIndex].PinCoordinates()[devicePinIndex]
+                            devicePinCoordinate=devicePinCoordinateList[deviceIndex][devicePinIndex]
                             if stimPin1Coordinate==devicePinCoordinate:
                                 stimNameString=''
                                 for stimNameIndex in range(len(self.stimNames)):

@@ -24,6 +24,80 @@ import os
 import math
 from unittest.mock import patch
 
+class TestSchematicPageLookups(unittest.TestCase):
+    def setUp(self):
+        import SignalIntegrity.App
+        from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
+        from SignalIntegrity.App.ProjectFile import ProjectFile,SchematicPageConfiguration
+        self.addCleanup(setattr,SignalIntegrity.App,'Project',SignalIntegrity.App.Project)
+        self.addCleanup(setattr,SignalIntegrity.App,'Preferences',SignalIntegrity.App.Preferences)
+        self.app=SignalIntegrityAppHeadless()
+        self.project=ProjectFile()
+        SignalIntegrity.App.Project=self.project
+        self.project['Pages']=[SchematicPageConfiguration()]
+
+    def resistor(self,name):
+        import copy
+        from SignalIntegrity.App.Device import DeviceList,DeviceResistor
+        device=copy.deepcopy(next(device for device in DeviceList
+                                 if isinstance(device,DeviceResistor) and device['ports'].GetValue()==1))
+        device['ref']['Value']=name
+        device.partPicture.current.SetOrigin((5,5))
+        return device
+
+    def test_equations_find_devices_on_other_pages_without_changing_active_page(self):
+        from SignalIntegrity.App.ProjectFile import SchematicConfiguration
+        drawings=self.project.PageDrawings()
+        self.project.WritePageDevices(drawings[0],[self.resistor('R1')])
+        self.project.WritePageDevices(drawings[1],[self.resistor('R2')])
+        self.project['Equations'].PutTextString(
+            "import SignalIntegrity.App.Project\n"
+            "schematic=SignalIntegrity.App.Project['Drawing.Schematic']\n"
+            "schematic.Device('R1').Property('r')['Value']='75'\n"
+            "schematic.Device('R2').Property('r')['Value']='100'")
+        for page in (0,1):
+            with self.subTest(page=page):
+                self.project.activePage=page
+                self.assertIsNone(self.project.EvaluateEquations(force=True))
+                self.assertTrue(self.project['Equations.Valid'])
+                self.assertEqual(self.project.activePage,page)
+                self.assertEqual(drawings[0]['Schematic'].Device('R1').Property('r')['Value'],'75')
+                self.assertEqual(drawings[1]['Schematic'].Device('R2').Property('r')['Value'],'100')
+                self.assertIsNone(self.project['Drawing.Schematic'].Device('missing'))
+        self.assertIsNone(SchematicConfiguration().Device('R1'))
+
+    def test_stimulus_attachment_is_page_local_on_shared_named_net(self):
+        import copy
+        from SignalIntegrity.App.Device import DeviceStim,DeviceNetName
+        from SignalIntegrity.App.Schematic import Schematic
+        resistor=self.resistor('R1')
+        pin=resistor.PinCoordinates()[0]
+        stim=DeviceStim()
+        stim['ref']['Value']='M1'
+        stimPin=next(coord for coord,partPin in zip(stim.PinCoordinates(),stim.partPicture.current.pinList)
+                     if partPin['Number']==1)
+        stim.partPicture.current.SetOrigin((pin[0]-stimPin[0],pin[1]-stimPin[1]))
+        net=DeviceNetName()
+        net['netname']['Value']='shared'
+        netPin=net.PinCoordinates()[0]
+        net.partPicture.current.SetOrigin((pin[0]-netPin[0],pin[1]-netPin[1]))
+        drawings=self.project.PageDrawings()
+        self.project.WritePageDevices(drawings[0],[resistor,stim,net])
+        self.project.WritePageDevices(drawings[1],[self.resistor('R2'),copy.deepcopy(net)])
+        schematic=Schematic()
+        schematic.InitFromProject()
+        for offset in (0,20):
+            if offset:
+                for device in schematic.CircuitPages()[1][0].deviceList:
+                    x,y=device.partPicture.current.origin
+                    device.partPicture.current.SetOrigin((x+offset,y))
+            for page in (0,1):
+                with self.subTest(offset=offset,page=page):
+                    schematic.SelectPage(page)
+                    lines=schematic.NetList().Text()
+                    self.assertEqual([line for line in lines if line.startswith('stim ')],['stim m1 R1 1'])
+                    self.assertTrue(any(line.startswith('connect ') and 'R1 1' in line and 'R2 1' in line
+                                        for line in lines))
 class TestSignalIntegrityAppHeadlessTest(unittest.TestCase):
     """tests of the headless (scripted) application calculations
 

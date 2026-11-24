@@ -47,6 +47,10 @@ class TestEquationsDialog(unittest.TestCase):
         cls.addClassCleanup(cls.root.destroy)
         cls.addClassCleanup(cls.root.update_idletasks)
 
+    def setUp(self):
+        scaling=self.root.tk.call('tk','scaling')
+        self.addCleanup(self.root.tk.call,'tk','scaling',scaling)
+
     def testLinuxStatusHeightSurvivesResizeAndScriptEditorHeight(self):
         equations=EquationsConfiguration()
         equations.PutTextString('x=1')

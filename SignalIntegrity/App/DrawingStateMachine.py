@@ -124,6 +124,8 @@ class DrawingStateMachine(object):
 
     def onMouseButton1TryToSelectSomething(self,event):
         self.parent.lift()
+        if self.parent.EditTextAt(event.x,event.y):
+            return
         self.Nothing()
         self.SaveButton1Coordinates(event)
         self.SelectSomethingAtButton1Coordinate()

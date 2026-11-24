@@ -679,173 +679,113 @@ class TestTheme(unittest.TestCase):
             toolbar.button.invoke()
             self.assertEqual(len(calls), count + 1)
 
-    def test_variables_dialog_icons_recolor_and_preserve_editing_commands(self):
-        from SignalIntegrity.App.VariablesDialog import VariablesDialog,VariablePropertyDialog
+    def makeVariablesDialog(self, specs):
+        from SignalIntegrity.App.VariablesDialog import VariablesDialog
         from SignalIntegrity.App.ProjectFile import VariableConfiguration
-        self.apply('Dark')
         parent = tk.Frame(self.root)
         parent.Drawing = SimpleNamespace(schematic=SimpleNamespace(CircuitDevices=Mock(return_value=[])), DrawSchematic=Mock())
         parent.statusbar = SimpleNamespace(set=Mock())
         parent.history = SimpleNamespace(Event=Mock())
         variables = []
-        for name, value, readonly in (('alpha', '1', False), ('beta', '2', True)):
+        for name, kind, value, readonly in specs:
             variable = VariableConfiguration()
-            variable['Name'], variable['Value'], variable['ReadOnly'] = name, value, readonly
+            variable['Name'], variable['Type'], variable['Value'], variable['ReadOnly'] = name, kind, value, readonly
             variables.append(variable)
-        dialog = VariablesDialog(parent, project=variables, top=parent)
+        return parent, variables, VariablesDialog(parent, project=variables, top=parent)
 
-        def buttons(row):
-            return [child for child in dialog.variablesFrame.winfo_children()[row].winfo_children()
-                    if hasattr(child, 'toolbarElement')]
-
+    def test_variables_dialog_icons_recolor_and_preserve_editing_commands(self):
+        from SignalIntegrity.App.VariablesDialog import VariablePropertyDialog
+        self.apply('Dark')
+        parent, variables, dialog = self.makeVariablesDialog(
+            (('alpha', 'float', '1', False), ('beta', 'float', '2', True), ('data', 'file', 'a.s2p', False)))
+        buttons = (dialog.addButton, dialog.editButton, dialog.deleteButton,
+                   dialog.upButton, dialog.downButton, dialog.browseButton)
         try:
-            row = buttons(0)
-            self.assertEqual([button.toolbarElement.iconKey[0] for button in row],
-                             ['edit-3', 'edit-delete-6', 'up', 'down'])
-            self.assertEqual(dialog.addButton.toolbarElement.iconKey[0], 'edit-add-2')
-            self.assertTrue(dialog.variableFrameList[1].readonly)
-            previous = dialog.variablesFrame
-            buttons(1)[2].invoke()
-            self.assertEqual([variable['Name'] for variable in variables], ['beta', 'alpha'])
-            self.assertFalse(previous.winfo_exists())
-            self.assertTrue(dialog.variableFrameList[0].readonly)
-            buttons(0)[3].invoke()
-            self.assertEqual([variable['Value'] for variable in variables], ['1', '2'])
+            self.assertEqual([button.toolbarElement.iconKey[0] for button in buttons],
+                             ['edit-add-2', 'edit-3', 'edit-delete-6', 'up', 'down', 'browse-file'])
+            self.assertEqual(dialog.tree.item('1', 'values')[4], 'float (output)')
+            self.assertEqual(str(dialog.upButton.cget('state')), 'disabled')
+            self.assertEqual(str(dialog.browseButton.cget('state')), 'disabled')
+            dialog.Select(1)
+            dialog.upButton.invoke()
+            self.assertEqual([variable['Name'] for variable in variables], ['beta', 'alpha', 'data'])
+            self.assertEqual(dialog.SelectedIndex(), 0)
+            dialog.downButton.invoke()
+            self.assertEqual([variable['Name'] for variable in variables], ['alpha', 'beta', 'data'])
             self.apply('Light')
             expected = tuple(value // 257 for value in self.root.winfo_rgb(PALETTES['Light']['foreground']))
-            self.assertTrue(all(button.toolbarElement.iconKey[1] == expected for button in buttons(0)))
-            buttons(0)[1].invoke()
-            self.assertEqual([variable['Name'] for variable in variables], ['beta'])
+            self.assertTrue(all(button.toolbarElement.iconKey[1] == expected
+                                for button in buttons if str(button.cget('state')) == 'normal'))
+            dialog.Select(2)
+            with patch.object(dialog, 'onFileBrowse') as browse:
+                dialog.browseButton.invoke()
+                browse.assert_called_once_with(2)
+            dialog.Select(0)
+            dialog.deleteButton.invoke()
+            self.assertEqual([variable['Name'] for variable in variables], ['beta', 'data'])
             parent.Drawing.DrawSchematic.assert_called_once()
             dialog.addButton.invoke()
             editor = next(child for child in dialog.winfo_children() if isinstance(child, VariablePropertyDialog))
             editor.project['Name'], editor.project['Value'] = 'gamma', '3'
             editor.ok(None)
-            self.assertEqual([variable['Name'] for variable in variables], ['beta', 'gamma'])
-            buttons(1)[0].invoke()
+            self.assertEqual([variable['Name'] for variable in variables], ['beta', 'data', 'gamma'])
+            self.assertEqual(dialog.SelectedIndex(), 2)
+            dialog.editButton.invoke()
             editor = next(child for child in dialog.winfo_children() if isinstance(child, VariablePropertyDialog))
             editor.project['Description'] = 'edited'
             editor.ok(None)
-            self.assertEqual(variables[1]['Description'], 'edited')
+            self.assertEqual(variables[2]['Description'], 'edited')
+            self.assertEqual(dialog.tree.item('2', 'values')[5], 'edited')
         finally:
             dialog.destroy()
 
-    def test_new_output_variable_entries_are_readable_and_remain_readonly(self):
-        from SignalIntegrity.App.VariablesDialog import VariablesDialog
-        from SignalIntegrity.App.ProjectFile import VariableConfiguration
+    def test_variables_dialog_edits_output_variables_and_toggles_visibility_in_the_table(self):
         self.apply('Dark')
         self.root.deiconify()
-        parent = tk.Frame(self.root)
-        parent.pack()
-        self.root.update()
-        variables = []
-        for name, kind, readonly in (('input', 'float', False), ('output', 'float', True),
-                                     ('count', 'int', True)):
-            variable = VariableConfiguration()
-            variable['Name'], variable['Type'], variable['ReadOnly'], variable['Value'] = name, kind, readonly, '42'
-            variables.append(variable)
-        dialog = VariablesDialog(parent, project=variables, top=parent)
+        parent, variables, dialog = self.makeVariablesDialog(
+            (('input', 'float', '42', False), ('output', 'float', '42', True), ('count', 'int', '42', True)))
         try:
-            for redraw in (False, True):
-                if redraw:
-                    dialog.DrawVariables()
-                self.root.update()
-                for field in dialog.variableFrameList[1:]:
-                    entry = field.entry
-                    self.assertTrue(entry.winfo_ismapped())
-                    self.assertEqual(entry.cget('readonlybackground'), PALETTES['Dark']['readonlybackground'])
-                    self.assertGreaterEqual(ContrastRatio(entry, entry.cget('foreground'),
-                                                         entry.cget('readonlybackground')), 4.5)
-                    self.assertEqual(str(entry.cget('state')), 'readonly')
-                    value = entry.get()
-                    entry.insert(0, 'changed')
-                    self.assertEqual(entry.get(), value)
-                self.assertEqual(str(dialog.variableFrameList[0].entry.cget('state')), 'normal')
-            self.apply('Legacy')
-            self.assertEqual(dialog.variableFrameList[1].entry.cget('readonlybackground'), 'light gray')
+            self.root.update()
+            for v, string, expected in ((1, '2.5k', '2500.0'), (2, '7', '7'), (2, 'x', '7'), (0, '=', '42')):
+                dialog.BeginCellEdit(v)
+                entry = dialog.cellEditor[1]
+                self.assertEqual(entry.winfo_manager(), 'place')
+                entry.delete(0, tk.END)
+                entry.insert(0, string)
+                dialog.CommitCellEdit()
+                self.assertIsNone(dialog.cellEditor)
+                self.assertEqual(variables[v]['Value'], expected)
+            self.assertEqual(dialog.tree.item('1', 'values')[2], '2500.0')
+            dialog.BeginCellEdit(1)
+            dialog.cellEditor[1].insert(0, '9')
+            dialog.CancelCellEdit()
+            self.assertEqual(variables[1]['Value'], '2500.0')
+            visible = variables[0]['Visible']
+            dialog.onPropertyVisible(0)
+            self.assertEqual(variables[0]['Visible'], not visible)
+            self.assertEqual(dialog.tree.item('0', 'values')[0], dialog.checked if not visible else dialog.unchecked)
         finally:
             dialog.destroy()
 
-    def test_variables_dialog_compact_controls_scale_and_keep_their_actions(self):
-        from SignalIntegrity.App.VariablesDialog import VariablesDialog
-        from SignalIntegrity.App.ProjectFile import VariableConfiguration
-        from SignalIntegrity.App import MenuSystemHelpers as helpers
-        import SignalIntegrity.App
+    def test_variables_dialog_row_height_scales_with_display(self):
         originalScaling = self.root.tk.call('tk', 'scaling')
+        heights = []
         try:
-            for platform in ('win32', 'linux'):
-                for scale in (1, 2):
-                    with self.subTest(platform=platform, scale=scale), \
-                            patch.object(helpers.sys, 'platform', platform), \
-                            patch.dict(os.environ, {'GDK_SCALE': '1'}):
-                        self.root.tk.call('tk', 'scaling', scale * 96 / 72)
-                        self.apply('Dark')
-                        parent = tk.Frame(self.root)
-                        variables = []
-                        for name, kind in (('one', 'float'), ('two', 'file'), ('three', 'file')):
-                            variable = VariableConfiguration()
-                            variable['Name'], variable['Type'], variable['Value'] = name, kind, '1'
-                            variable['Visible'] = False
-                            variables.append(variable)
-                        dialog = VariablesDialog(parent, project=variables, top=parent)
-                        toolbar = ToolBarElement(parent, iconfile=SignalIntegrity.App.IconsDir+'edit-3.gif')
-                        try:
-                            dialog.update_idletasks()
-                            row = dialog.variablesFrame.winfo_children()[0]
-                            buttons = [child for child in row.winfo_children() if isinstance(child, tk.Button)]
-                            checkbox = next(child for child in row.winfo_children() if isinstance(child, tk.Checkbutton))
-                            field = dialog.variableFrameList[0]
-                            self.assertEqual(len(buttons), 4)
-                            self.assertLess(buttons[0].toolbarElement.icon.width(), toolbar.icon.width())
-                            self.assertEqual(dialog.addButton.toolbarElement.icon.width(),
-                                             buttons[0].toolbarElement.icon.width())
-                            self.assertLessEqual(row.winfo_reqheight(),
-                                                 max(field.winfo_reqheight()+2,
-                                                     round(toolbar.button.winfo_reqheight()*0.9)))
-                            rowHeight = row.winfo_reqheight()
-                            for index, fileRow in enumerate(dialog.variablesFrame.winfo_children()[1:], 1):
-                                self.assertEqual(fileRow.winfo_reqheight(), rowHeight)
-                                browse = next(child for child in fileRow.winfo_children()
-                                              if hasattr(child, 'toolbarElement')
-                                              and child.toolbarElement.iconKey[0] == 'browse-file')
-                                self.assertEqual(browse.toolbarElement.icon.width(), buttons[0].toolbarElement.icon.width())
-                                self.assertTrue(browse.bind('<Enter>'))
-                                with patch.object(dialog, 'onFileBrowse') as onBrowse:
-                                    browse.invoke()
-                                    onBrowse.assert_called_once_with(index)
-                            size = checkbox._indicatorImages[0].width()
-                            self.assertLessEqual(size, max(10, round(
-                                tkfont.Font(root=checkbox, font=checkbox.cget('font')).metrics('linespace')*0.65)))
-                            checkbox.invoke()
-                            self.assertTrue(variables[0]['Visible'])
-                            checkbox.invoke()
-                            self.assertFalse(variables[0]['Visible'])
-                            with patch.object(dialog, 'onEditVariable') as edit:
-                                buttons[0].invoke()
-                                edit.assert_called_once_with(0)
-                            self.apply('Light')
-                            self.assertEqual(checkbox._indicatorImages[0].width(), size)
-                            self.assertEqual(checkbox._indicatorKey[1], tuple(
-                                value//256 for value in checkbox.winfo_rgb(checkbox.cget('foreground')))+(255,))
-                            self.assertEqual(buttons[0].toolbarElement.icon.width(),
-                                             buttons[0].toolbarElement.iconKey[2])
-                            self.assertEqual(browse.toolbarElement.iconKey[1], tuple(
-                                value//257 for value in browse.winfo_rgb(browse.cget('foreground'))))
-                            self.apply('Legacy')
-                            dialog.update_idletasks()
-                            self.assertTrue(all(row.winfo_reqheight() == rowHeight
-                                                for row in dialog.variablesFrame.winfo_children()))
-                            dialog.DrawVariables()
-                            dialog.update_idletasks()
-                            self.assertTrue(all(row.winfo_reqheight() == rowHeight
-                                                for row in dialog.variablesFrame.winfo_children()))
-                        finally:
-                            toolbar.button.destroy()
-                            dialog.destroy()
-                            parent.destroy()
+            for scale in (1, 2):
+                self.root.tk.call('tk', 'scaling', scale * 96 / 72)
+                self.apply('Dark')
+                parent, variables, dialog = self.makeVariablesDialog((('one', 'float', '1', False),))
+                try:
+                    heights.append(int(dialog.treeStyle.lookup('Variables.Treeview', 'rowheight')))
+                    self.assertGreaterEqual(heights[-1], dialog.treeFont.metrics('linespace'))
+                    self.apply('Light')
+                    self.assertEqual(int(dialog.treeStyle.lookup('Variables.Treeview', 'rowheight')), heights[-1])
+                finally:
+                    dialog.destroy()
+                    parent.destroy()
+            self.assertGreater(heights[1], heights[0])
         finally:
             self.root.tk.call('tk', 'scaling', originalScaling)
-
     def test_dialog_style_selection_persists_and_takes_effect_immediately(self):
         from SignalIntegrity.App.Theme import DialogStyleSelector
         from SignalIntegrity.App.Dialogs import UseThemedDialogs

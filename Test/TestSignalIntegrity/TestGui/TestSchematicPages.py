@@ -57,6 +57,7 @@ class TestSchematicPages(unittest.TestCase):
     def cleanup(self):
         import SignalIntegrity.App
         if hasattr(self,'app'):
+            self.app.root.update_idletasks()
             self.app.root.destroy()
         os.chdir(self.cwd)
         self.directory.cleanup()
@@ -379,6 +380,191 @@ class TestSchematicPages(unittest.TestCase):
         self.assertEqual(drawing.stateMachine.state,'MultipleItemsOnClipboard')
         self.assertEqual(len(drawing.schematic.deviceList),1)
         self.assertEqual(len(drawing.devicesToDuplicate),1)
+
+    def clickOnText(self,source):
+        drawing=self.app.Drawing
+        item=next(item for item,(itemSource,device) in drawing.editableTextItems.items() if itemSource is source)
+        x0,y0,x1,y1=drawing.canvas.bbox(item)
+        drawing.stateMachine.onMouseButton1_Nothing(SimpleNamespace(x=(x0+x1)//2,y=(y0+y1)//2))
+        return drawing.textEditor
+
+    def editText(self,source,string):
+        editor=self.clickOnText(source)
+        self.assertIsNotNone(editor)
+        editor[0].delete(0,tk.END)
+        editor[0].insert(0,string)
+        self.app.Drawing.CommitTextEdit()
+
+    def test_click_on_system_variable_text_edits_it_in_place(self):
+        import SignalIntegrity.App
+        drawing=self.app.Drawing
+        variable=SignalIntegrity.App.Project['Variables'].VariableByName('x')
+
+        editor=self.clickOnText(variable)
+        self.assertEqual(editor[0].get(),'2.0')
+        self.assertIn('x',[child.cget('text') for child in editor[5].winfo_children()
+                           if child.winfo_class() == 'TLabel'])
+        drawing.CancelTextEdit()
+        self.assertIsNone(drawing.textEditor)
+        self.assertEqual(variable['Value'],'2')
+
+        self.editText(variable,'5k')
+        variable=SignalIntegrity.App.Project['Variables'].VariableByName('x')
+        self.assertEqual(variable['Value'],'5000.0')
+        self.assertIsNone(drawing.textEditor)
+        self.assertIn('x 5000.0',[drawing.canvas.itemcget(item,'text').strip() for item in drawing.editableTextItems])
+        self.editText(variable,'bad')
+        self.assertEqual(variable['Value'],'5000.0')
+        self.app.history.Undo()
+        self.assertEqual(SignalIntegrity.App.Project['Variables'].VariableByName('x')['Value'],'2')
+
+    def test_click_on_device_text_edits_properties_and_variables_in_place(self):
+        import SignalIntegrity.App
+        from SignalIntegrity.App.ProjectFile import VariableConfiguration
+        drawing=self.app.Drawing
+        device=drawing.schematic.deviceList[0]
+        gain=VariableConfiguration()
+        gain['Name'],gain['Value']='gain','1'
+        device.variablesList.append(gain)
+        drawing.DrawSchematic()
+
+        self.editText(device['r'],'75')
+        device=drawing.schematic.deviceList[0]
+        self.assertEqual(device['r'].GetValue(),75.0)
+        self.editText(device.variablesList[0],'=x')
+        self.assertEqual(drawing.schematic.deviceList[0].variablesList[0]['Value'],'=x')
+        self.app.history.Undo()
+        self.assertEqual(drawing.schematic.deviceList[0].variablesList[0]['Value'],'1')
+        self.assertEqual(drawing.schematic.deviceList[0]['r'].GetValue(),75.0)
+
+        picture=device.partPicture.current
+        properties=SignalIntegrity.App.Project['Drawing.DrawingProperties']
+        grid=drawing.DisplayGrid()
+        drawing.stateMachine.onMouseButton1_Nothing(SimpleNamespace(
+            x=(properties['Originx']+picture.origin[0]+(picture.innerBox[0][0]+picture.innerBox[1][0])/2)*grid,
+            y=(properties['Originy']+picture.origin[1]+(picture.innerBox[0][1]+picture.innerBox[1][1])/2)*grid))
+        self.assertIsNone(drawing.textEditor)
+        self.assertEqual(drawing.stateMachine.state,'DeviceSelected')
+
+    def test_file_text_editor_browses_for_the_file(self):
+        import SignalIntegrity.App
+        drawing=self.app.Drawing
+        variables=SignalIntegrity.App.Project['Variables']
+        editor=self.clickOnText(variables.VariableByName('x'))
+        self.assertFalse([child for child in editor[5].winfo_children() if hasattr(child,'toolbarElement')])
+        drawing.CancelTextEdit()
+
+        editor=self.clickOnText(variables.VariableByName('channel'))
+        browse=next(child for child in editor[5].winfo_children() if hasattr(child,'toolbarElement'))
+        chosen=str(self.targetDir/'chosen.s2p')
+        with patch('SignalIntegrity.App.VariablesDialog.AskOpenFileName',return_value=None) as ask:
+            browse.invoke()
+        self.assertEqual(ask.call_args.kwargs['filetypes'][0],('s-parameters',('.s2p','.S2P')))
+        self.assertIs(drawing.textEditor,editor)
+        with patch('SignalIntegrity.App.VariablesDialog.AskOpenFileName',return_value=chosen):
+            browse.invoke()
+        self.assertIsNone(drawing.textEditor)
+        from SignalIntegrity.App.Files import FileParts
+        self.assertEqual(variables.VariableByName('channel')['Value'],FileParts(chosen).FullFilePathExtension())
+
+    def test_file_browse_starts_in_current_file_directory(self):
+        import SignalIntegrity.App
+        from SignalIntegrity.App.VariablesDialog import AskVariableFileName,VariablesDialog
+        project=SignalIntegrity.App.Project
+        path=self.targetDir/'data'/'channel.s2p'
+        path.parent.mkdir()
+        channel=project['Variables'].VariableByName('channel')
+        channel['Value']=str(path)
+        drawing=self.app.Drawing
+        drawing.DrawSchematic()
+        editor=self.clickOnText(channel)
+        browse=next(child for child in editor[5].winfo_children() if hasattr(child,'toolbarElement'))
+        with patch('SignalIntegrity.App.VariablesDialog.AskOpenFileName',return_value=None) as ask:
+            browse.invoke()
+        self.assertEqual(os.path.normcase(ask.call_args.kwargs['initialdir']),os.path.normcase(str(path.parent)))
+        self.assertEqual(ask.call_args.kwargs['initialfile'],'channel.s2p')
+        drawing.CancelTextEdit()
+
+        device=drawing.schematic.deviceList[0]
+        from SignalIntegrity.App.ProjectFile import VariableConfiguration
+        variable=VariableConfiguration()
+        variable['Name'],variable['Type'],variable['Value']='datafile','file','=channel'
+        device.variablesList.append(variable)
+        drawing.DrawSchematic()
+        editor=self.clickOnText(variable)
+        browse=next(child for child in editor[5].winfo_children() if hasattr(child,'toolbarElement'))
+        with patch('SignalIntegrity.App.VariablesDialog.AskOpenFileName',return_value=None) as ask:
+            browse.invoke()
+        self.assertEqual(os.path.normcase(ask.call_args.kwargs['initialdir']),os.path.normcase(str(path.parent)))
+        self.assertEqual(ask.call_args.kwargs['initialfile'],'channel.s2p')
+        self.assertEqual(ask.call_args.kwargs['filetypes'][0],('s-parameters',('.s2p','.S2P')))
+        self.assertEqual(editor[0].get(),'=channel')
+        drawing.CancelTextEdit()
+
+        dialog=VariablesDialog(self.app,project=device.variablesList,top=self.app)
+        try:
+            with patch('SignalIntegrity.App.VariablesDialog.AskOpenFileName',return_value=None) as ask:
+                dialog.onFileBrowse(0)
+            self.assertEqual(os.path.normcase(ask.call_args.kwargs['initialdir']),os.path.normcase(str(path.parent)))
+        finally:
+            dialog.destroy()
+        os.chdir(str(self.sourceDir))
+        with patch('SignalIntegrity.App.VariablesDialog.AskOpenFileName',return_value=None) as ask:
+            AskVariableFileName(os.path.join('data','channel.s2p'),
+                                SimpleNamespace(AbsoluteFilePath=lambda: str(self.targetDir)),self.app)
+        self.assertEqual(os.path.normcase(ask.call_args.kwargs['initialdir']),os.path.normcase(str(path.parent)))
+        for value in ('','=missing'):
+            with patch('SignalIntegrity.App.VariablesDialog.AskOpenFileName',return_value=None) as ask:
+                AskVariableFileName(value,SimpleNamespace(AbsoluteFilePath=lambda: str(self.targetDir)),self.app)
+            self.assertEqual(os.path.normcase(ask.call_args.kwargs['initialdir']),os.path.normcase(str(self.targetDir)))
+            self.assertEqual(ask.call_args.kwargs['initialfile'],'')
+
+    def test_edited_output_variable_is_overwritten_by_the_equations(self):
+        import SignalIntegrity.App
+        variable=SignalIntegrity.App.Project['Variables'].VariableByName('x')
+        variable['ReadOnly']=True
+        self.app.Drawing.DrawSchematic()
+        self.editText(variable,'5k')
+        self.assertEqual(SignalIntegrity.App.Project['Variables'].VariableByName('x')['Value'],'2')
+
+    def test_variables_dialog_updates_equations_and_schematic_on_value_changes(self):
+        import SignalIntegrity.App
+        from SignalIntegrity.App.ProjectFile import VariableConfiguration
+        from SignalIntegrity.App.VariablesDialog import VariablesDialog
+        project=SignalIntegrity.App.Project
+        output=VariableConfiguration()
+        output['Name'],output['Value'],output['ReadOnly']='result','0',True
+        project['Variables.Items'].append(output)
+        project['Equations'].PutTextString('result=x*2')
+        self.app.Drawing.DrawSchematic()
+        dialog=VariablesDialog(self.app)
+        try:
+            self.assertTrue(dialog.SetVariableFromString(0,'5'))
+            self.assertEqual(float(output['Value']),10)
+            self.assertEqual(dialog.tree.item('2','values')[2],output.EntryString())
+            text=[self.app.Drawing.canvas.itemcget(item,'text')
+                  for item in self.app.Drawing.editableTextItems]
+            self.assertTrue(any(value.startswith('result 10') for value in text))
+            self.assertTrue(dialog.SetVariableFromString(2,'99'))
+            self.assertEqual(float(output['Value']),10)
+            self.assertEqual(dialog.tree.item('2','values')[2],output.EntryString())
+            project['Variables.Items'][0]['Value']='7'
+            dialog.AddVariable(project['Variables.Items'][0],False)
+            self.assertEqual(float(output['Value']),14)
+            self.assertEqual(dialog.tree.item('2','values')[2],output.EntryString())
+            project['Equations'].PutTextString('result=len(channel)')
+            with patch('SignalIntegrity.App.VariablesDialog.AskVariableFileName',return_value='new.s2p'):
+                dialog.onFileBrowse(1)
+            self.assertEqual(float(output['Value']),7)
+            self.assertEqual(dialog.tree.item('2','values')[2],output.EntryString())
+        finally:
+            dialog.destroy()
+
+    def test_text_is_not_editable_in_a_read_only_project(self):
+        import SignalIntegrity.App
+        variable=SignalIntegrity.App.Project['Variables'].VariableByName('x')
+        with patch.object(self.app,'ReadOnly',return_value=True):
+            self.assertIsNone(self.clickOnText(variable))
 
     def test_duplicate_variable_aborts_before_page_or_script_changes(self):
         import SignalIntegrity.App

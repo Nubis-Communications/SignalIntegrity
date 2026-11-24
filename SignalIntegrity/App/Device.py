@@ -80,6 +80,8 @@ class Device(object):
         import SignalIntegrity.App.Project
         textLimit = SignalIntegrity.App.Preferences['Appearance.LimitText']
         visiblePartPropertyList=[]
+        # the property or variable that each visible string displays
+        visiblePartPropertySources=[]
         for partProperty in self.propertiesList:
             propertyString=partProperty.PropertyString(stype='attr')
             if propertyString != '':
@@ -87,13 +89,15 @@ class Device(object):
                     if len(propertyString) > textLimit:
                         propertyString = propertyString[:textLimit]+'...'
                 visiblePartPropertyList.append(propertyString)
+                visiblePartPropertySources.append(partProperty)
         for variable in self.variablesList:
             displayString=variable.DisplayString(True,True,False)
             if displayString != '':
                 if len(displayString) > textLimit:
                     displayString = displayString[:textLimit]+'...'
                 visiblePartPropertyList.insert(0,displayString)
-        self.partPicture.current.InsertVisiblePartProperties(visiblePartPropertyList)
+                visiblePartPropertySources.insert(0,variable)
+        self.partPicture.current.InsertVisiblePartProperties(visiblePartPropertyList,visiblePartPropertySources)
     def SetWaveform(self,wf):
         self.Wf=wf
     def Waveform(self,callback=None):

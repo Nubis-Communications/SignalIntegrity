@@ -20,15 +20,17 @@ VariablesDialog.py
 import os
 
 import tkinter as tk
+from tkinter import ttk
+import tkinter.font as tkfont
 from SignalIntegrity.App import MessageBox as messagebox
 
 import copy
 
-from SignalIntegrity.App.CalculationPropertiesProject import PropertiesDialog, CalculationPropertyTrueFalseButton, CalculationPropertySI, CalculationProperty, CalculationPropertyChoices
+from SignalIntegrity.App.CalculationPropertiesProject import PropertiesDialog, CalculationPropertyTrueFalseButton, CalculationProperty, CalculationPropertyChoices
 from SignalIntegrity.App.ProjectFile import VariableConfiguration
 import SignalIntegrity.App.Project
 from SignalIntegrity.App.InformationMessage import InformationMessage
-from SignalIntegrity.App.MenuSystemHelpers import ScrollableFrame,SizeSelectionIndicator,ToolBarElement,ToolTip
+from SignalIntegrity.App.MenuSystemHelpers import ToolBarElement,ToolTip
 from SignalIntegrity.App.Files import FileParts
 from SignalIntegrity.App.FilePicker import AskOpenFileName
 
@@ -91,6 +93,11 @@ class VariablePropertyDialog(PropertiesDialog):
 
 
 class VariablesDialog(PropertiesDialog):
+    columns=('visible','name','value','units','type','description')
+    headings={'visible':'Show','name':'Name','value':'Value','units':'Units','type':'Type','description':'Description'}
+    maxColumnChars={'name':30,'value':30,'units':8,'type':16,'description':40}
+    maxRows=20
+    checked,unchecked='\u2611','\u2610'
 
     def __init__(self, parent,project=None,top=None,title='System Variables',filename=None, parameterizable = False):
         # the system variables are edited when no project is supplied, otherwise these are device variables
@@ -99,6 +106,7 @@ class VariablesDialog(PropertiesDialog):
         if top == None: top = parent
         PropertiesDialog.__init__(self, parent, project, top, title)
         self.transient(self.top)
+        self.propertyListFrame.pack_configure(fill=tk.BOTH,expand=tk.YES)
 
         self.filename=filename
         self.device=getattr(parent,'device',None)
@@ -107,27 +115,24 @@ class VariablesDialog(PropertiesDialog):
                       and self.device['inputports'] is not None
                       and self.device['outputports'] is not None)
         self.savedVariables=copy.deepcopy(self.project)
+        self.cellEditor=None
 
-        self.useScrollbar=(len(self.project)>30)
+        self.controlFrame = tk.Frame(self.propertyListFrame)
+        self.controlFrame.pack(side=tk.TOP, fill=tk.X, expand=tk.NO)
 
-        if self.useScrollbar:
-            self.container=ScrollableFrame(self.propertyListFrame)
-        else:
-            self.container=tk.Frame(self.propertyListFrame)
-        self.container.pack(side=tk.TOP, fill=tk.BOTH,expand=tk.YES)
+        def ToolButton(icon,command,tip):
+            button=ToolBarElement(self.controlFrame,iconfile=SignalIntegrity.App.IconsDir+icon,
+                                  iconsize=16,padx=1,pady=0,borderwidth=1,highlightthickness=0,
+                                  command=command).Pack(side=tk.LEFT).button
+            ToolTip.createToolTip(button,tip)
+            return button
 
-        if self.useScrollbar:
-            self.controlFrame = tk.Frame(self.container.scrollable_frame)
-        else:
-            self.controlFrame = tk.Frame(self.container)
-
-        self.controlFrame.pack(side=tk.TOP, fill=tk.X, expand=tk.YES)
-
-        self.DrawVariables()
-
-        self.addButton=ToolBarElement(self.controlFrame,iconfile=SignalIntegrity.App.IconsDir+'edit-add-2.gif',
-                                      iconsize=16,padx=1,pady=0,borderwidth=1,highlightthickness=0,
-                                      command=self.onAddVariable).Pack(side=tk.LEFT).button
+        self.addButton=ToolButton('edit-add-2.gif',self.onAddVariable,'Add variable (Insert)')
+        self.editButton=ToolButton('edit-3.gif',lambda: self.onSelected(self.onEditVariable),'Edit variable properties (Ctrl+E)')
+        self.deleteButton=ToolButton('edit-delete-6.gif',lambda: self.onSelected(self.onDeleteVariable),'Delete variable (Delete)')
+        self.upButton=ToolButton('up.gif',lambda: self.onSelected(self.onUpVariable),'Move up (Ctrl+Up)')
+        self.downButton=ToolButton('down.gif',lambda: self.onSelected(self.onDownVariable),'Move down (Ctrl+Down)')
+        self.browseButton=ToolButton('browse-file.gif',lambda: self.onSelected(self.onFileBrowse),'Browse for file')
 
         if self.isWaveformProcessor:
             tk.Button(self.controlFrame, text='import from script', command=self.onImportFromScript).pack(side=tk.LEFT, expand=tk.NO, fill=tk.X)
@@ -137,125 +142,191 @@ class VariablesDialog(PropertiesDialog):
         elif parameterizable:
             tk.Button(self.controlFrame, text='parameterize project', command=self.onParameterizeProject).pack(side=tk.LEFT, expand=tk.NO, fill=tk.X)
 
+        tableFrame=tk.Frame(self.propertyListFrame)
+        tableFrame.pack(side=tk.TOP,fill=tk.BOTH,expand=tk.YES)
+        self.treeStyle=ttk.Style(self)
+        self.treeFont=tkfont.nametofont('TkDefaultFont')
+        self.UpdateStyle()
+        self.tree=ttk.Treeview(tableFrame,columns=self.columns,show='headings',selectmode='browse',style='Variables.Treeview')
+        scrollbar=ttk.Scrollbar(tableFrame,orient=tk.VERTICAL,command=self.tree.yview)
+        self.tree.configure(yscrollcommand=scrollbar.set)
+        scrollbar.pack(side=tk.RIGHT,fill=tk.Y)
+        self.tree.pack(side=tk.LEFT,fill=tk.BOTH,expand=tk.YES)
+        for column in self.columns:
+            self.tree.heading(column,text=self.headings[column],anchor=tk.W)
+            self.tree.column(column,anchor=tk.CENTER if column=='visible' else tk.W,stretch=(column=='description'))
+        self.tree.bind('<<ThemeChanged>>',self.UpdateStyle)
+        self.tree.bind('<<TreeviewSelect>>',lambda event: self.UpdateButtons())
+        self.tree.bind('<Button-1>',self.onTreeClick)
+        self.tree.bind('<Double-Button-1>',self.onTreeDoubleClick)
+        for key in ('<Return>','<KP_Enter>','<F2>'):
+            self.tree.bind(key,lambda event: self.onSelected(self.BeginCellEdit) or 'break')
+        self.tree.bind('<space>',lambda event: self.onSelected(self.onPropertyVisible) or 'break')
+        self.tree.bind('<Delete>',lambda event: self.onSelected(self.onDeleteVariable) or 'break')
+        self.tree.bind('<Insert>',lambda event: self.onAddVariable() or 'break')
+        self.tree.bind('<Control-e>',lambda event: self.onSelected(self.onEditVariable) or 'break')
+        self.tree.bind('<Control-Up>',lambda event: self.onSelected(self.onUpVariable) or 'break')
+        self.tree.bind('<Control-Down>',lambda event: self.onSelected(self.onDownVariable) or 'break')
+
+        self.DrawVariables()
+        if len(self.project) > 0:
+            self.Select(0)
+
         PropertiesDialog.bind(self, '<Return>', self.ok)
         PropertiesDialog.bind(self, '<Escape>', self.cancel)
         PropertiesDialog.protocol(self, "WM_DELETE_WINDOW", self.onClosing)
         self.attributes('-topmost', True)
         self.minsize(200, 1)
-        # self.Save()
         self.Finish()
+        self.tree.focus_set()
+
+    def UpdateStyle(self,event=None):
+        displayScale=max(1.0,float(self.tk.call('tk','scaling'))/(96.0/72.0))
+        self.treeStyle.configure('Variables.Treeview',
+            rowheight=self.treeFont.metrics('linespace')+round(4*displayScale))
+
+    def RowValues(self,variable):
+        return (self.checked if variable['Visible'] else self.unchecked,
+                variable['Name'],
+                variable.EntryString(),
+                variable['Units'] if variable['Type']=='float' else '',
+                variable['Type']+(' (output)' if variable['ReadOnly'] else ''),
+                variable['Description'])
 
     def DrawVariables(self):
-        if hasattr(self, 'variablesFrame'):
-            self.variablesFrame.destroy()
+        """refreshes the table rows from the variables (no widgets are created per variable)"""
+        self.CancelCellEdit()
+        selected=self.SelectedIndex()
+        self.tree.delete(*self.tree.get_children())
+        rows=[self.RowValues(variable) for variable in self.project]
+        for v,values in enumerate(rows):
+            self.tree.insert('','end',iid=str(v),values=values)
+        self.tree.configure(height=max(3,min(len(rows),self.maxRows)))
+        pad=self.treeFont.measure('0')*2
+        self.tree.column('visible',width=self.treeFont.measure(self.headings['visible'])+pad,minwidth=10)
+        for c,column in enumerate(self.columns[1:],1):
+            longest=max([self.treeFont.measure(self.headings[column])]+
+                        [self.treeFont.measure(str(values[c])) for values in rows])
+            width=min(longest,self.treeFont.measure('0')*self.maxColumnChars[column])+pad
+            self.tree.column(column,width=width,minwidth=pad)
+        if selected is not None and len(rows) > 0:
+            self.Select(min(selected,len(rows)-1))
+        self.UpdateButtons()
 
-        if self.useScrollbar:
-            self.variablesFrame = tk.Frame(self.container.scrollable_frame)
+    def RefreshRow(self,v):
+        self.tree.item(str(v),values=self.RowValues(self.project[v]))
+        self.UpdateButtons()
+
+    def SelectedIndex(self):
+        selection=self.tree.selection()
+        return int(selection[0]) if selection else None
+
+    def Select(self,v):
+        iid=str(v)
+        self.tree.selection_set(iid)
+        self.tree.focus(iid)
+        self.tree.see(iid)
+        self.UpdateButtons()
+
+    def onSelected(self,action):
+        v=self.SelectedIndex()
+        if v is not None:
+            action(v)
+
+    def UpdateButtons(self):
+        v=self.SelectedIndex()
+        selected=v is not None
+        for button,active in ((self.editButton,selected),
+                              (self.deleteButton,selected),
+                              (self.upButton,selected and v > 0),
+                              (self.downButton,selected and v < len(self.project)-1),
+                              (self.browseButton,selected and self.project[v]['Type']=='file')):
+            button.toolbarElement.Activate(active)
+
+    def onTreeClick(self,event):
+        if self.tree.identify_region(event.x,event.y) == 'cell' and self.tree.identify_column(event.x) == '#1':
+            row=self.tree.identify_row(event.y)
+            if row:
+                self.onPropertyVisible(int(row))
+
+    def onTreeDoubleClick(self,event):
+        if self.tree.identify_region(event.x,event.y) != 'cell':
+            return
+        row=self.tree.identify_row(event.y)
+        if not row:
+            return
+        v=int(row)
+        column=self.columns[int(self.tree.identify_column(event.x)[1:])-1]
+        if column == 'visible':
+            self.onPropertyVisible(v)
+        elif column == 'value':
+            self.BeginCellEdit(v)
         else:
-            self.variablesFrame = tk.Frame(self.container)
-        self.variablesFrame.pack(side=tk.TOP, fill=tk.X, expand=tk.NO)
+            self.onEditVariable(v)
+        return 'break'
 
-        self.variableFrameList = []
-        self.previousValues = {id(variable):variable['Value'] for variable in self.project}
+    def BeginCellEdit(self,v):
+        self.CancelCellEdit()
+        iid=str(v)
+        self.Select(v)
+        self.tree.update_idletasks()
+        bbox=self.tree.bbox(iid,'value')
+        if not bbox:
+            return
+        x,y,width,height=bbox
+        entry=tk.Entry(self.tree,borderwidth=1)
+        entry.insert(0,self.project[v].EntryString())
+        entry.place(x=x,y=y,width=width,height=height)
+        entry.select_range(0,tk.END)
+        entry.icursor(tk.END)
+        entry.focus_set()
+        for key in ('<Return>','<KP_Enter>','<Tab>'):
+            entry.bind(key,lambda event: self.CommitCellEdit())
+        entry.bind('<Escape>',lambda event: self.CancelCellEdit())
+        entry.bind('<FocusOut>',lambda event: self.CommitCellEdit())
+        self.cellEditor=(v,entry)
 
+    def CancelCellEdit(self):
+        if self.cellEditor is not None:
+            v,entry=self.cellEditor
+            self.cellEditor=None
+            entry.destroy()
+            self.tree.focus_set()
+        return 'break'
+
+    def CommitCellEdit(self):
+        if self.cellEditor is None:
+            return 'break'
+        v,entry=self.cellEditor
+        string=entry.get()
+        self.CancelCellEdit()
+        self.SetVariableFromString(v,string)
+        return 'break'
+
+    def SetVariableFromString(self,v,string):
+        """sets the value of variable v from an edited string, returning whether it was accepted"""
+        variable=self.project[v]
+        previousValue=variable['Value']
+        if not variable.SetValueFromEntryString(string):
+            self.bell()
+            return False
+        if variable['Value'] != previousValue:
+            self.onVariableEntered(v,previousValue)
+            self.RefreshValues()
+        else:
+            self.RefreshRow(v)
+        return True
+
+    def RefreshValues(self):
+        self.top.Drawing.DrawSchematic()
         for v in range(len(self.project)):
-            variable = self.project[v]
-
-            variableFrame = tk.Frame(self.variablesFrame)
-            variableFrame.pack(side=tk.TOP, fill=tk.X, expand=tk.YES)
-
-            for icon,command in (
-                    ('edit-3.gif',lambda v=v: self.onEditVariable(v)),
-                    ('edit-delete-6.gif',lambda v=v: self.onDeleteVariable(v)),
-                    ('up.gif',lambda v=v: self.onUpVariable(v)),
-                    ('down.gif',lambda v=v: self.onDownVariable(v))):
-                ToolBarElement(variableFrame,iconfile=SignalIntegrity.App.IconsDir+icon,
-                               iconsize=16,padx=1,pady=0,borderwidth=1,highlightthickness=0,
-                               command=command).Pack(side=tk.LEFT,expand=tk.NO,fill=tk.X)
-
-            visible=SizeSelectionIndicator(tk.Checkbutton(variableFrame,variable=lambda v=v: variable['Visible'],onvalue=True,offvalue=False,command=lambda v=v: self.onPropertyVisible(v)),sizeFactor=0.65)
-            visible.pack(side=tk.LEFT,expand=tk.NO,fill=tk.X)
-            if variable['Visible']: visible.select()
-            else: visible.deselect()
-
-            if (variable['Type'] == 'float'):
-                self.variableFrameList.append(CalculationPropertySI(variableFrame,
-                                          variable['Name'],
-                                          self.onVariableEntered,
-                                          None, self.project[v],
-                                          'Value',
-                                          variable['Units'], variable['Description'],
-                                          allowEquals=True))
-            elif (variable['Type'] in ['int','string','enum','file']):
-                if variable['Type'] == 'file':
-                    # Don't expose file view because it's difficult to determine how the best way to deal with this is for variables.
-                    # The main problem is for projects that are typically opened from devices with the device arguments.  Here, we have
-                    # no real context for the arguments, so let them be viewed for now only from the device itself that references this
-                    # variable.
-                    # self.propertyFileViewButton = tk.Button(variableFrame,text='view',command=lambda v=v: self.onFileView(v))
-                    # self.propertyFileViewButton.pack(side=tk.RIGHT,expand=tk.NO,fill=tk.X)
-                    self.propertyFileBrowseButton = ToolBarElement(
-                        variableFrame,iconfile=SignalIntegrity.App.IconsDir+'browse-file.gif',
-                        iconsize=16,padx=1,pady=0,borderwidth=1,highlightthickness=0,
-                        command=lambda v=v: self.onFileBrowse(v)).Pack(side=tk.RIGHT,expand=tk.NO,fill=tk.X).button
-                    ToolTip.createToolTip(self.propertyFileBrowseButton,'Browse for file')
-
-                self.variableFrameList.append(CalculationProperty(variableFrame,
-                                                                  variable['Name'],
-                                                                  self.onVariableEntered,
-                                                                  None, self.project[v],
-                                                                  'Value', variable['Description']))
-            self.variableFrameList[-1].SetReadOnly(variable['ReadOnly'])
+            self.RefreshRow(v)
 
     def onFileBrowse(self,v):
-        variable=self.project[v]
-        filename=variable['Value']
-        if isinstance(filename,str):
-            extension=os.path.splitext(filename)[-1]
-            if (len(extension)>=4) and (extension[0:2] in ['.s','.S']) and (extension[-1] in ['p','P']):
-                try:
-                    ports=int(extension[2:-1])
-                    filetypename='s-parameters'
-                    fileextension=('.s'+str(ports)+'p','.S'+str(ports)+'P')
-                except ValueError:
-                    filetypename='all'
-                    fileextension=('.*')
-            elif extension in ['.txt','.trc']:
-                fileextension=('.txt','.trc')
-                filetypename='waveforms'
-            elif extension == '.cal':
-                fileextension=('.cal')
-                filetypename='calibration file'
-            else:
-                filetypename='all'
-                fileextension=('.*')
-        else:
-            filetypename='all'
-            fileextension=('.*')
-        currentFileParts=FileParts(filename)
-        extension=currentFileParts.fileext
-        if currentFileParts.filename=='':
-            initialDirectory=self.top.fileparts.AbsoluteFilePath()
-            initialFile=''
-        else:
-            initialDirectory=currentFileParts.AbsoluteFilePath()
-            if currentFileParts.fileext in ['.si',extension]:
-                initialFile=currentFileParts.FileNameWithExtension()
-            else:
-                initialFile=currentFileParts.filename+extension
-        filename=AskOpenFileName(parent=self,
-                                 filetypes=[(filetypename,fileextension),('project','.si'),('all','.*')],
-                                 initialdir=initialDirectory,
-                                 initialfile=initialFile)
-        if filename is None:
-            filename=''
-        if isinstance(filename,tuple):
-            filename=''
-        filename=str(filename)
-        if filename != '':
-            filename=FileParts(filename).FullFilePathExtension()
-            variable['Value']=filename
-            self.variableFrameList[v].UpdateStrings()
+        filename=AskVariableFileName(self.project[v]['Value'],self.top.fileparts,self)
+        if filename != '' and filename != self.project[v]['Value']:
+            self.project[v]['Value']=filename
+            self.RefreshValues()
     def onFileView(self,v):
         pass
 
@@ -326,25 +397,18 @@ class VariablesDialog(PropertiesDialog):
         del self.project[v]
         self.project.insert(max(v-1,0),variable)
         self.DrawVariables()
+        self.Select(max(v-1,0))
 
     def onDownVariable(self,v):
         variable=copy.deepcopy(self.project[v])
         del self.project[v]
         self.project.insert(min(v+1,len(self.project)),variable)
         self.DrawVariables()
+        self.Select(min(v+1,len(self.project)-1))
 
-    def onVariableEntered(self, v):
-        vc=v.widget.master.project
-        string=vc['Value']
-        previousValue=self.previousValues.get(id(vc),vc['Value'])
-        self.previousValues[id(vc)]=string
-        if (not self.systemVariables) and isinstance(string,str) and (len(string)>1) and (string[0]=='=') and not (string[1:] in SignalIntegrity.App.Project['Variables'].Names()):
-            doit =  messagebox.askyesnocancel('System Variables','Do you want to add the new variable: '+string[1:]+ ' to the system variables?',parent=self)
-            if doit:
-                variableToAdd=copy.deepcopy(vc)
-                variableToAdd['Name']=string[1:]
-                variableToAdd['Value']=self.SystemVariableValue(vc,previousValue)
-                SignalIntegrity.App.Project['Variables.Items'].append(variableToAdd)
+    def onVariableEntered(self, v, previousValue):
+        if not self.systemVariables:
+            OfferToAddSystemVariable(self.project[v],previousValue,self)
 
     @staticmethod
     def SystemVariableValue(variable,previousValue):
@@ -357,17 +421,22 @@ class VariablesDialog(PropertiesDialog):
             value=VariableConfiguration()['Value'] if variable['Type'] in ['float','int'] else ''
         return value
 
-
     def onAddVariable(self):
+        self.CancelCellEdit()
         variablePropertyDialog = VariablePropertyDialog(self, VariableConfiguration(), self.top, add=True)
         variablePropertyDialog.grab_set()
 
     def AddVariable(self, variable, add):
-        if add and variable.CheckValidity():
+        added=add and variable.CheckValidity()
+        if added:
             self.project.append(variable)
+        self.top.Drawing.DrawSchematic()
         self.DrawVariables()
+        if added:
+            self.Select(len(self.project)-1)
 
     def onEditVariable(self, v):
+        self.CancelCellEdit()
         variablePropertyDialog = VariablePropertyDialog(self, self.project[v], self.top)
         variablePropertyDialog.grab_set()
 
@@ -389,6 +458,7 @@ class VariablesDialog(PropertiesDialog):
 
     def onPropertyVisible(self, v):
         self.project[v]['Visible'] = not self.project[v]['Visible']
+        self.RefreshRow(v)
 
     def onImportFromProject(self):
         from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
@@ -410,6 +480,7 @@ class VariablesDialog(PropertiesDialog):
         self.ok(None)
 
     def ok(self, event):
+        self.CommitCellEdit()
         for variable in self.project:
             if not variable.CheckValidity():
                 self.cancel(event)
@@ -425,3 +496,55 @@ class VariablesDialog(PropertiesDialog):
     def cancel(self, event):
         self.project=self.savedVariables
         PropertiesDialog.destroy(self)
+
+def AskVariableFileName(filename,defaultFileParts,parent):
+    """asks for a file to replace filename, filtered by its extension, returning '' if cancelled"""
+    if isinstance(filename,str) and filename.startswith('='):
+        project=SignalIntegrity.App.Project
+        if project is not None and filename[1:] in project['Variables'].Names():
+            filename=project['Variables'].VariableByName(filename[1:]).Value()
+        if not isinstance(filename,str) or filename.startswith('='):
+            filename=''
+    filetypename,fileextension='all',('.*')
+    if isinstance(filename,str):
+        extension=os.path.splitext(filename)[-1]
+        if (len(extension)>=4) and (extension[0:2] in ['.s','.S']) and (extension[-1] in ['p','P']):
+            try:
+                ports=int(extension[2:-1])
+                filetypename='s-parameters'
+                fileextension=('.s'+str(ports)+'p','.S'+str(ports)+'P')
+            except ValueError:
+                pass
+        elif extension in ['.txt','.trc']:
+            fileextension=('.txt','.trc')
+            filetypename='waveforms'
+        elif extension == '.cal':
+            fileextension=('.cal')
+            filetypename='calibration file'
+    initialDirectory=defaultFileParts.AbsoluteFilePath()
+    initialFile=''
+    if filename:
+        currentFileParts=FileParts(os.path.join(initialDirectory,filename))
+        initialDirectory=currentFileParts.AbsoluteFilePath()
+        initialFile=currentFileParts.FileNameWithExtension()
+    filename=AskOpenFileName(parent=parent,
+                             filetypes=[(filetypename,fileextension),('project','.si'),('all','.*')],
+                             initialdir=initialDirectory,
+                             initialfile=initialFile)
+    if filename is None or isinstance(filename,tuple):
+        filename=''
+    filename=str(filename)
+    if filename != '':
+        filename=FileParts(filename).FullFilePathExtension()
+    return filename
+
+def OfferToAddSystemVariable(variable,previousValue,parent):
+    """when a device variable now references a system variable that does not exist, offer to add it"""
+    string=variable['Value']
+    if isinstance(string,str) and (len(string)>1) and (string[0]=='=') and not (string[1:] in SignalIntegrity.App.Project['Variables'].Names()):
+        doit =  messagebox.askyesnocancel('System Variables','Do you want to add the new variable: '+string[1:]+ ' to the system variables?',parent=parent)
+        if doit:
+            variableToAdd=copy.deepcopy(variable)
+            variableToAdd['Name']=string[1:]
+            variableToAdd['Value']=VariablesDialog.SystemVariableValue(variable,previousValue)
+            SignalIntegrity.App.Project['Variables.Items'].append(variableToAdd)

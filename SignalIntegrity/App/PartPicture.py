@@ -116,8 +116,9 @@ class PartPicture(object):
         return CoordinateTranslater(((drawingOrigin[0]+self.origin[0]+self.rotationPoint[0])*grid,
                                 (drawingOrigin[1]+self.origin[1]+self.rotationPoint[1])*grid),
                                 self.orientation,self.mirroredHorizontally,self.mirroredVertically)
-    def InsertVisiblePartProperties(self,visiblePartPropertyList):
+    def InsertVisiblePartProperties(self,visiblePartPropertyList,visiblePartPropertySources=None):
         self.visiblePartPropertyList=visiblePartPropertyList
+        self.visiblePartPropertySources=visiblePartPropertySources
     def SetOrigin(self,xy):
         self.origin=tuple(xy)
     def IsAt(self,coord,augmentor,distanceAllowed):
@@ -205,9 +206,8 @@ class PartPicture(object):
             locations=[((drawingOrigin[0]+self.origin[0]+self.propertiesLocation[0])*grid,
             (drawingOrigin[1]+self.origin[1]+self.propertiesLocation[1])*grid+textSpacing*(V-v)-textSpacing) for v in range(V)]
 
-        for v in range(V):
-            canvas.create_text(locations[v][0],locations[v][1],
-                text=self.visiblePartPropertyList[v],anchor=anchorString,fill=self.color)
+        self.visiblePartPropertyItems=[canvas.create_text(locations[v][0],locations[v][1],
+                text=self.visiblePartPropertyList[v],anchor=anchorString,fill=self.color) for v in range(V)]
     def PinCoordinates(self):
         return [(pin['ConnectionPoint'][0]+self.origin[0],pin['ConnectionPoint'][1]+self.origin[1]) for pin in self.pinList]
     def Selected(self,selected,unselected_color = 'black'):

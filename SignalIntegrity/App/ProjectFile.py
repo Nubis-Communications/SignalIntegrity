@@ -19,7 +19,7 @@ ProjectFile.py
 # If not, see <https://www.gnu.org/licenses/>
 from SignalIntegrity.App.ProjectFileBase import XMLConfiguration,XMLPropertyDefaultFloat,XMLPropertyDefaultString,XMLPropertyDefaultInt,XMLPropertyDefaultBool,XMLPropertyDefaultCoord
 from SignalIntegrity.App.ProjectFileBase import ProjectFileBase,XMLProperty
-from SignalIntegrity.Lib.ToSI import ToSI
+from SignalIntegrity.Lib.ToSI import ToSI,FromSI
 import SignalIntegrity.Lib as si
 
 import copy
@@ -149,11 +149,23 @@ class SchematicConfiguration(XMLConfiguration):
         self.Add(XMLProperty('Devices',[DeviceConfiguration() for _ in range(0)],'array',arrayType=DeviceConfiguration()))
         self.Add(XMLProperty('Wires',[WireConfiguration() for _ in range(0)],'array',arrayType=WireConfiguration()))
     def Device(self,name):
-        for device in self['Devices']:
-            for part_property in device.dict['PartProperties']['value']:
-                if part_property.dict['Keyword']['value'] == 'ref':
-                    if part_property.dict['Value']['value'] == name:
-                        return device
+        """Find a device locally, then on other pages of the current project.
+
+        Standalone schematic configurations remain local to their own devices.
+        """
+        import SignalIntegrity.App
+        schematics=[self]
+        project=SignalIntegrity.App.Project
+        if project is not None:
+            pages=[drawing['Schematic'] for drawing in project.PageDrawings()]
+            if any(page is self for page in pages):
+                schematics.extend(page for page in pages if page is not self)
+        for schematic in schematics:
+            for device in schematic['Devices']:
+                for part_property in device.dict['PartProperties']['value']:
+                    if part_property.dict['Keyword']['value'] == 'ref':
+                        if part_property.dict['Value']['value'] == name:
+                            return device
         return None
 
 class DrawingConfiguration(XMLConfiguration):
@@ -400,6 +412,37 @@ class VariableConfiguration(XMLConfiguration):
         if (len(self['Value'])>0) and (self['Value'][0]== '=') and (len(self['Value']) == 1): return False
         if not isinstance(self['Units'],str): return False
         return True
+    def EntryString(self):
+        """the string used to edit the value, with floats in SI notation"""
+        value=self.GetValue('Value')
+        if value is None:
+            return ''
+        if self.GetValue('Type') == 'float' and not value.startswith('='):
+            try:
+                return ToSI(float(value),self.GetValue('Units'),round=12).strip()
+            except ValueError:
+                return ''
+        return str(value)
+    def SetValueFromEntryString(self,string):
+        """sets the value from an edited string, returning False if it is not valid"""
+        string=string.strip()
+        if string.startswith('='):
+            if len(string) == 1:
+                return False
+            self['Value']=string
+            return True
+        if self.GetValue('Type') == 'float':
+            value=FromSI(string,self.GetValue('Units'))
+            if value is None:
+                return False
+            string=str(value)
+        elif self.GetValue('Type') == 'int':
+            try:
+                string=str(int(string))
+            except ValueError:
+                return False
+        self['Value']=string
+        return True
     def Value(self,forDisplay=False,resolveVariable=True):
         value=self.GetValue('Value')
         type=self.GetValue('Type')
@@ -493,6 +536,9 @@ class VariablesConfiguration(XMLConfiguration):
         else:
             return []
     def DisplayStrings(self,displayVariable=True,resolveVariable=True,visible=True):
+        return [displayString for _,displayString in self.DisplayItems(displayVariable,resolveVariable,visible)]
+    def DisplayItems(self,displayVariable=True,resolveVariable=True,visible=True):
+        """(variable,display string) for each variable that displays"""
         import SignalIntegrity.App.Project
         textLimit = SignalIntegrity.App.Preferences['Appearance.LimitText']
         result=[]
@@ -501,7 +547,7 @@ class VariablesConfiguration(XMLConfiguration):
             if displayString != '':
                 if len(displayString) > textLimit:
                     displayString = displayString[:textLimit]+'...'
-                result.append(displayString)
+                result.append((variable,displayString))
         return result
     def Dictionary(self,variableList=None):
         if variableList == None:

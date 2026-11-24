@@ -66,6 +66,9 @@ class Drawing(tk.Frame):
         self.canvas.pack(side=tk.TOP, fill=tk.BOTH, expand=tk.YES)
         self.schematic = Schematic()
         self.pendingPageImport = None
+        self.textEditor = None
+        self.textEditBrowsing = False
+        self.editableTextItems = {}
         self.BuildTearOffMenus()
         self.stateMachine = None
         self.InstallStateMachine()
@@ -126,6 +129,10 @@ class Drawing(tk.Frame):
         if canvas is None:
             canvas=self.canvas
             canvas.delete(tk.ALL)
+        onScreen = canvas is getattr(self,'canvas',None)
+        if onScreen:
+            self.CancelTextEdit()
+            self.editableTextItems={}
         if SignalIntegrity.App.Project is None:
             return canvas
         drawingPropertiesProject=SignalIntegrity.App.Project['Drawing.DrawingProperties']
@@ -137,11 +144,14 @@ class Drawing(tk.Frame):
         originy=drawingPropertiesProject['Originy']
         if evaluateEquations:
             SignalIntegrity.App.Project.EvaluateEquations()
-        schematicPropertiesList=SignalIntegrity.App.Project['Variables'].DisplayStrings(True,False,False)
-        V=len(schematicPropertiesList)
+        schematicPropertiesItems=SignalIntegrity.App.Project['Variables'].DisplayItems(True,False,False)
+        V=len(schematicPropertiesItems)
         locations=[(7*displayScale,PartPicture.textSpacing*(v+1)*displayScale+3*displayScale) for v in range(V)]
         for v in range(V):
-            canvas.create_text(locations[v][0],locations[v][1],text=schematicPropertiesList[v],anchor='sw',fill='black')
+            variable,displayString=schematicPropertiesItems[v]
+            item=canvas.create_text(locations[v][0],locations[v][1],text=displayString,anchor='sw',fill='black')
+            if onScreen:
+                self.editableTextItems[item]=(variable,None)
         devicePinConnectedList=self.schematic.DevicePinConnectedList()
         numPortsFound=0
         foundAPort=False
@@ -158,6 +168,7 @@ class Drawing(tk.Frame):
         visible={id(device):connected for device,connected in zip(self.schematic.deviceList,devicePinConnectedList)}
         for device in self.schematic.CircuitDevices():
             visiblePins=visible.get(id(device))
+            originalDevice=device
             if device['element_state'] != None:
                 if device['element_state'].GetValue() in ['thru','thru_wires']:
                     from SignalIntegrity.App.Device import DeviceThru
@@ -169,6 +180,8 @@ class Drawing(tk.Frame):
             foundSomething=True
             if visiblePins is not None:
                 device.DrawDevice(canvas,grid,originx,originy,visiblePins)
+                if onScreen and device is originalDevice:
+                    self.RecordEditableDeviceText(device)
             deviceType = device['partname'].GetValue()
             if deviceType == 'WaveformProcessorVariable' and not device.IsProcessingEnabled():
                 continue
@@ -243,6 +256,174 @@ class Drawing(tk.Frame):
                 self.schematic.Consolidate()
                 self.DrawSchematic()
                 self.parent.history.Event('edit device')
+    def RecordEditableDeviceText(self,device):
+        picture=device.partPicture.current
+        sources=getattr(picture,'visiblePartPropertySources',None)
+        items=getattr(picture,'visiblePartPropertyItems',None)
+        if sources is None or items is None or len(sources) != len(items):
+            return
+        for item,source in zip(items,sources):
+            if self.IsEditableText(source):
+                self.editableTextItems[item]=(source,device)
+    @staticmethod
+    def IsEditableText(source):
+        from SignalIntegrity.App.ProjectFile import VariableConfiguration
+        if isinstance(source,VariableConfiguration):
+            return True
+        return (bool(source['InProjectFile']) and not source['Hidden']
+                and source['Keyword'] not in ('ports','inputports','outputports'))
+    def EditableTextAt(self,x,y):
+        """the (item, source, device) of editable text under canvas window coordinate x,y, if any"""
+        x,y=self.canvas.canvasx(x),self.canvas.canvasy(y)
+        for item in reversed(self.canvas.find_overlapping(x-1,y-1,x+1,y+1)):
+            if item in self.editableTextItems:
+                source,device=self.editableTextItems[item]
+                return item,source,device
+        return None
+    def EditTextAt(self,x,y):
+        """opens an in-place editor if editable text (and no device body) is at x,y"""
+        if self.parent.ReadOnly() or SignalIntegrity.App.Project is None:
+            return False
+        hit=self.EditableTextAt(x,y)
+        if hit is None:
+            return False
+        coord=self.NearestGridCoordinate(x,y)
+        augmentor=self.AugmentorToGridCoordinate(x,y)
+        if any(device.IsAt(coord,augmentor,0.1) for device in self.schematic.deviceList):
+            return False
+        item,source,device=hit
+        bbox=self.canvas.bbox(item)
+        self.stateMachine.Nothing()
+        self.BeginTextEdit(source,device,bbox)
+        return True
+    def BeginTextEdit(self,source,device,bbox):
+        from tkinter import ttk
+        import tkinter.font as tkfont
+        from SignalIntegrity.App.ProjectFile import VariableConfiguration
+        self.CancelTextEdit()
+        isVariable=isinstance(source,VariableConfiguration)
+        if isVariable:
+            name,initial,choices=source['Name'],source.EntryString(),None
+        else:
+            name,initial=source['Keyword'],source.PropertyString(stype='entry')
+            choices=getattr(source,'validEntries',None)
+        font=tkfont.nametofont('TkDefaultFont')
+        frame=ttk.Frame(self.canvas)
+        label=ttk.Label(frame,text=str(name))
+        label.pack(side=tk.LEFT,padx=(2,4))
+        if choices:
+            widget=ttk.Combobox(frame,values=list(choices),state='readonly')
+            widget.set(initial)
+            widget.bind('<<ComboboxSelected>>',lambda event: self.CommitTextEdit())
+            width=max(font.measure(str(choice)) for choice in choices)+font.measure('0')*6
+        else:
+            widget=tk.Entry(frame,borderwidth=1)
+            widget.insert(0,initial)
+            widget.select_range(0,tk.END)
+            widget.icursor(tk.END)
+            width=font.measure(initial)+font.measure('0')*6
+        width=max(width,font.measure('0')*12)
+        widget.pack(side=tk.LEFT,fill=tk.X,expand=True)
+        if not choices and source['Type'] == 'file':
+            from SignalIntegrity.App.MenuSystemHelpers import ToolBarElement,ToolTip
+            browse=ToolBarElement(frame,iconfile=SignalIntegrity.App.IconsDir+'browse-file.gif',
+                                  iconsize=16,padx=1,pady=0,borderwidth=1,highlightthickness=0,
+                                  command=self.BrowseTextEditFile).Pack(side=tk.LEFT).button
+            ToolTip.createToolTip(browse,'Browse for file')
+            width+=browse.winfo_reqwidth()
+        width=max(width+font.measure(str(name))+8,bbox[2]-bbox[0])
+        # keep the application's root-bound shortcuts (Delete, Ctrl-Z, ...) from acting while typing
+        widget.bindtags((str(widget),widget.winfo_class(),'all'))
+        for key in ('<Return>','<KP_Enter>','<Tab>'):
+            widget.bind(key,lambda event: self.CommitTextEdit())
+        widget.bind('<Escape>',lambda event: self.CancelTextEdit())
+        widget.bind('<FocusOut>',lambda event: self.after_idle(self.CommitTextEditIfUnfocused))
+        window=self.canvas.create_window(bbox[0],bbox[1],anchor='nw',window=frame,width=width)
+        self.textEditor=(widget,window,source,device,initial,frame)
+        widget.focus_set()
+        self.parent.statusbar.set('Editing '+str(name)+': Enter to accept, Escape to cancel')
+    def BrowseTextEditFile(self):
+        if self.textEditor is None:
+            return
+        from SignalIntegrity.App.VariablesDialog import AskVariableFileName
+        widget=self.textEditor[0]
+        # the file dialog takes the focus, which must not commit or close the editor
+        self.textEditBrowsing=True
+        try:
+            filename=AskVariableFileName(widget.get(),self.parent.fileparts,self)
+        finally:
+            self.textEditBrowsing=False
+        if self.textEditor is None or self.textEditor[0] is not widget:
+            return
+        if filename == '':
+            widget.focus_set()
+            return
+        widget.delete(0,tk.END)
+        widget.insert(0,filename)
+        self.CommitTextEdit()
+    def CommitTextEditIfUnfocused(self):
+        if self.textEditor is not None and not self.textEditBrowsing:
+            widget=self.textEditor[0]
+            focus=self.focus_get()
+            # a readonly combobox's dropdown list takes the focus while it is open
+            if focus is None or not (str(focus) == str(widget) or str(focus).startswith(str(widget)+'.')
+                                     or 'popdown' in str(focus)):
+                self.CommitTextEdit()
+    def CancelTextEdit(self):
+        if self.textEditor is not None:
+            frame=self.textEditor[5]
+            window=self.textEditor[1]
+            self.textEditor=None
+            self.canvas.delete(window)
+            frame.destroy()
+            self.canvas.focus_set()
+        return 'break'
+    def CommitTextEdit(self):
+        if self.textEditor is None:
+            return 'break'
+        from SignalIntegrity.App.ProjectFile import VariableConfiguration
+        widget,window,source,device,initial,frame=self.textEditor
+        string=widget.get()
+        self.CancelTextEdit()
+        if string == initial:
+            return 'break'
+        previousValue=source['Value']
+        if isinstance(source,VariableConfiguration):
+            if not source.SetValueFromEntryString(string):
+                self.bell()
+                return 'break'
+            if device is not None:
+                from SignalIntegrity.App.VariablesDialog import OfferToAddSystemVariable
+                OfferToAddSystemVariable(source,previousValue,self)
+        else:
+            stripped=string.strip()
+            if not stripped.startswith('='):
+                valid=True
+                if source['Type'] == 'int':
+                    try: int(stripped)
+                    except ValueError: valid=False
+                elif source['Type'] == 'float':
+                    from SignalIntegrity.Lib.ToSI import FromSI
+                    valid=FromSI(stripped,source['Unit']) is not None
+                if not valid:
+                    self.bell()
+                    return 'break'
+            source.SetValueFromString(stripped,True)
+            if source['PropertyName'] == 'waveformfilename':
+                from SignalIntegrity.App.Files import FileParts
+                isProject=FileParts(source.GetValue()).fileext == '.si'
+                for prop in device.propertiesList:
+                    if prop['PropertyName'] == 'wfprojname':
+                        prop['Hidden']=not isProject
+        if source['Value'] == previousValue:
+            return 'break'
+        if device is not None:
+            device.Wf=None
+            self.schematic.Consolidate()
+        self.DrawSchematic()
+        self.parent.history.Event('modify system variables' if device is None else 'edit device')
+        self.parent.statusbar.set('System Variables Modified' if device is None else 'Part Modified')
+        return 'break'
     def ViewSelectedDevice(self,action):
         if self.stateMachine.state=='DeviceSelected':
             from SignalIntegrity.App.DeviceProperties import PerformDeviceViewAction

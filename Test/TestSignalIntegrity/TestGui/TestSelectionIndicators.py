@@ -43,6 +43,10 @@ class TestSelectionIndicators(unittest.TestCase):
         cls.addClassCleanup(cls.root.destroy)
         cls.addClassCleanup(cls.root.update_idletasks)
 
+    def setUp(self):
+        scaling=self.root.tk.call('tk','scaling')
+        self.addCleanup(self.root.tk.call,'tk','scaling',scaling)
+
     def tearDown(self):
         for widget in self.root.winfo_children():
             widget.destroy()
