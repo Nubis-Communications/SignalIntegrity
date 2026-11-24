@@ -138,6 +138,8 @@ class ToolTip(object):
         x = x + self.widget.winfo_rootx() + 27
         y = y + self.widget.winfo_rooty() - 27
         self.tipwindow = tw = tk.Toplevel(self.widget)
+        # Kept withdrawn until laid out: shown at Tk's default 200x200 size it can briefly cover the pointer.
+        tw.withdraw()
         tw.wm_overrideredirect(1)
         tw.transient(self.widget.winfo_toplevel())
         tw.attributes('-topmost', True)
@@ -155,6 +157,13 @@ class ToolTip(object):
         label = tk.Label(tw, text=self.text, justify=tk.LEFT,
                          background=background, foreground=foreground, relief=tk.SOLID, borderwidth=1)
         label.pack(ipadx=1)
+        tw.update_idletasks()
+        # A tooltip under the pointer gives the widget <Leave>, which hides it, then <Enter> shows it
+        # again, endlessly; this happens when a dialog opens under the pointer (e.g. under Xvfb).
+        px, py = tw.winfo_pointerxy()
+        if x <= px < x + tw.winfo_reqwidth() and y <= py < y + tw.winfo_reqheight():
+            tw.wm_geometry("+%d+%d" % (x, py + 20))
+        tw.deiconify()
         tw.lift()
 
     def hidetip(self):
