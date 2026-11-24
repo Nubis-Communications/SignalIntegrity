@@ -689,6 +689,32 @@ class TestTheme(unittest.TestCase):
             tooltip.hidetip()
             dialog.destroy()
 
+    def test_tooltip_is_never_placed_under_the_pointer(self):
+        # A tooltip under the pointer makes the widget get <Leave>, hiding it, then <Enter>, endlessly.
+        top = tk.Toplevel(self.root)
+        top.geometry('+200+200')
+        entry = tk.Entry(top, width=40)
+        entry.pack(padx=40, pady=40)
+        top.update()
+        entry.event_generate('<Motion>', warp=True, x=60, y=2)
+        top.update()
+        px, py = entry.winfo_pointerxy()
+        if (px, py) != (entry.winfo_rootx() + 60, entry.winfo_rooty() + 2):
+            top.destroy()
+            self.skipTest('pointer cannot be warped on this display')
+        tooltip = ToolTip(entry)
+        try:
+            tooltip.showtip('first line\nsecond line\nthird line\nfourth line')
+            tip = tooltip.tipwindow
+            tip.update()
+            x, y = tip.winfo_rootx(), tip.winfo_rooty()
+            self.assertFalse(x <= px < x + tip.winfo_width() and y <= py < y + tip.winfo_height(),
+                             'tooltip at ({},{}) {}x{} covers the pointer at ({},{})'.format(
+                                 x, y, tip.winfo_width(), tip.winfo_height(), px, py))
+        finally:
+            tooltip.hidetip()
+            top.destroy()
+
     def test_tooltip_text_remains_readable_in_named_themes(self):
         entry = tk.Entry(self.root)
         tooltip = ToolTip(entry)
