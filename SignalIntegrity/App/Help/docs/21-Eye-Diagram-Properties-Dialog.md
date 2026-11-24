@@ -6,9 +6,47 @@
 
 </div>
 
+*Overview of the traditional grouped controls. This older screenshot predates
+the visibility/binding controls shown below and uses Bits per Symbol where the
+current dialog uses Number of Levels.*
+
 The Eye Diagram Properties are accessed either from the device properties dialog for an [Eye Probe](23-Built-in-Devices-Parts.md#device:Eye-Probe) or [Differential Eye Probe](23-Built-in-Devices-Parts.md#device:Differential-Eye-Probe) placed in the schematic, or by using the [Eye Diagram Properties](16-Eye-Diagram-Dialog.md#Control-Help:Eye-Diagram-Properties) command in an [Eye Diagram Dialog](16-Eye-Diagram-Dialog.md#sec:Eye-Diagram-Dialog) from an already created eye.
 
 The properties control the [Eye Diagram Calculation](17-Eye-Diagram-Calculation.md#sec:Eye-Diagram-Calculation).
+
+## Showing and editing configuration fields on the schematic {#sub:Configuration-Fields}
+
+![Illustration of visibility, system-variable binding, and schematic editing](media/ConfigurationFields.svg)
+
+The dialog retains its grouped image, clock, jitter/noise, alignment, measurement,
+and annotation controls, including radio buttons, True/False buttons, and the
+color picker. Click the unlabeled checkbox beside a property to display it beside that eye
+probe on the schematic. Hover over its label or control for its description and
+exact enum keywords. Hover over the checkbox for its visibility tooltip.
+Visible configuration fields are drawn below the normal device properties and
+variables, rather than above the reference designator.
+
+Click **=** beside a dialog control to enter `=system_variable_name`. A bound
+property displays its reference in a text entry instead of its normal control.
+Entering a literal detaches the binding and restores the original control.
+
+Click the displayed property text on the schematic to edit just that value.
+Enter a literal or `=system_variable_name`; a bound label shows both the reference
+and its current resolved value. Boolean entries accept `True`, `False`, `0`, or
+`1`; enum keywords are case-sensitive. Entering a literal removes that field's
+binding without changing the system variable. Enter or Tab accepts an edit,
+Escape cancels, and invalid input keeps the editor open with an explanation.
+
+Calculated fields, including external noise, total noise, and transmitter input
+power in dBm, may be displayed but not edited or input-bound. Checked fields
+that are inactive in the current mode disappear temporarily and reappear when
+applicable. Visibility and bindings are saved with each device and support undo.
+Old projects display no additional configuration labels unless you explicitly
+check a property's visibility checkbox; all their configuration items remain available in the dialog.
+
+**Save Properties to Global Preferences** saves resolved literal defaults and
+visibility for newly created devices, not links to this project's variables.
+It does not change the visibility of devices loaded from an older project.
 
 When an [Eye Probe](23-Built-in-Devices-Parts.md#device:Eye-Probe) or [Differential Eye Probe](23-Built-in-Devices-Parts.md#device:Differential-Eye-Probe) is placed in a schematic, the properties are initialized by values held in the [Preferences](29-Preferences.md#sec:Preferences) file. Once initialized however, any changes to the properties are for the particular device (i.e. unique settings can be used for multiple [Eye Probe](23-Built-in-Devices-Parts.md#device:Eye-Probe)s in a schematic). If you like, the settings for a particular device may be saved globally to the preferences file, causing all new eye probe devices to default to these new settings.
 
@@ -22,11 +60,14 @@ The Eye Diagram Properties can be broken into several categories:
 
 The main image is controlled by the properties in the upper left of the dialog:
 
-- [Bits per Symbol](22-Eye-Diagram-Properties.md#sub:Eye-Diagram-Bits-per-Symbol) – defines the type of signaling used. This is really only important for automatic alignment and measurements made from the eye diagram:
+- [Number of Levels](22-Eye-Diagram-Properties.md#sub:Number-of-Levels) - defines the PAM order for alignment and measurements:
 
-  - 1 = NRZ, or PAM-2,
+  - 2 levels = NRZ, or PAM-2,
 
-  - 2 = PAM-4.
+  - 4 levels = PAM-4; other supported level counts can be entered directly.
+
+  Older projects that stored Bits per Symbol are converted to the corresponding
+  level count when loaded.
 
 - [Eye Diagram Color](22-Eye-Diagram-Properties.md#sub:Eye-Diagram-Color) – any 24 bit RGB color can be selected. If the plot is inverted, then this is the color of the eye against a black background. If not inverted, the eye is black against the background color specified.
 
@@ -41,6 +82,17 @@ The main image is controlled by the properties in the upper left of the dialog:
 - [Scale X](22-Eye-Diagram-Properties.md#sub:Scale-X) – determines the initial scaling horizontally of the resulting bitmap.
 
 - [Scale Y](22-Eye-Diagram-Properties.md#sub:Scale-Y) – determines the initial scaling vertically of the resulting bitmap.
+
+**Upsample Method**
+
+The **Upsample Method** selector, immediately above **Recover Clock**, controls
+how the waveform is resampled onto the eye diagram's horizontal pixel grid.
+Choose **sinx** (the default) for sin(x)/x interpolation or **linear** for
+straight-line interpolation between samples. This is a per-eye setting,
+independent of the global waveform interpolation preference, and is saved with
+the eye properties. Changing the method regenerates the cached eye bitmap.
+The exact keywords for text entry or a system-variable binding are `SinX` and
+`Linear`; the radio-button captions are `sinx` and `linear`.
 
 **Clock Recovery<span id="sub:clock-recovery" data-label="sub:clock-recovery"></span>**
 
@@ -75,6 +127,9 @@ Eyes can be generated from only the input supplied waveform by specifying the [E
 The kernel is specified as the convolution of two 2D kernels (to produce a 3D kernel). The vertical 2D kernel is a Gaussian determined by the specified amount of [Noise](22-Eye-Diagram-Properties.md#sub:Noise) (in rms voltage). The horizontal 2D kernel is again two kernels convolved with each other horizontally. The first is a Gaussian determined by the amount of [Random Jitter](22-Eye-Diagram-Properties.md#sub:Random-Jitter) specified (as rms jitter), and the other is a dual Dirac, where each delta function is $1/2$ in area, separated by the amount of [Deterministic Jitter](22-Eye-Diagram-Properties.md#sub:Deterministic-Jitter) specified.
 
 The vertical [Noise](22-Eye-Diagram-Properties.md#sub:Noise) is entered as an **Inherent Noise** value. A companion read-only **External Noise** box holds the total integrated output noise computed by a [Statistical Noise Analysis](31-Statistical-Noise-Dialog.md#sub:Statistical-Noise-Analysis) for this eye probe. The noise used to build the vertical kernel is the root-sum-square of the two, $\sqrt{\mathrm{Inherent\ Noise}^{2}+\mathrm{External\ Noise}^{2}}$, so any noise integrated by the statistical noise analysis is automatically added to the eye diagram.
+
+External and total noise are calculated results and are display-only; this is
+different from an editable **Output Variable** in the variables table.
 
 
 
@@ -156,6 +211,31 @@ There are two properties that effect how the eye diagram measurements are made:
   - Best Decision Point – the least likely vertical location in the eye.
 
 Note that the best decision point is always calculated and shown in the [Vertical/Horizontal](18-Eye-Diagram-Measurements-Dialog.md#sub:Vertical/Horizontal) tab of the [Eye Diagram Measurements Dialog](18-Eye-Diagram-Measurements-Dialog.md#sec:Eye-Diagram-Measurements-Dialog), but if Best Decision Point is chosen, the eye width will be calculated at this vertical location.
+
+### Waveform Type and Optical Measurements {#sub:Optical-Measurement-Configuration}
+
+The **Waveform Type** selector determines measurement units and whether optical
+measurements are applicable. The exact stored and text-entry keywords are:
+
+| Keyword | Quantity |
+|:---|:---|
+| `V` | Voltage. |
+| `A` | Current. |
+| `W` | Optical power in watts. |
+| `FW` | Fractional optical power. |
+| `AW` | Current proportional to optical power. |
+| `VW` | Voltage proportional to optical power. |
+
+For `W`, choose **Transmitter** (`Tx`) or **Receiver** (`Rx`). If transmitter
+input power is known, enable **Input Power Available** and enter **Input Power
+(W)**. Its dBm companion is calculated, not an independent editable input.
+These settings allow insertion loss and transmission penalty to be reported
+along with the output power measurements.
+
+With **Measure Eye Parameters** enabled and successful optical measurements,
+the [Optical tab](18-Eye-Diagram-Measurements-Dialog.md#sub:Optical-Measurements)
+is available on the first eye calculation, with or without bitmap caching.
+Recalculating only the eye is not required to enable it.
 
 ### Bathtub Curve Measurement Properties {#pc:Bathtub-Curve-Measurement-Properties}
 

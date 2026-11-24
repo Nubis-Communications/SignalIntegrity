@@ -1,9 +1,6 @@
 # Waveform Processors {#sec:Waveform-Processors}
 
 A waveform processor is a simulation device that transforms measured circuit
-# Waveform Processors {#sec:Waveform-Processors}
-
-A waveform processor is a simulation device that transforms measured circuit
 waveforms and uses the transformed waveforms as sources on subsequent processing
 iterations. It is an application-level device, not a standalone component in
 `SignalIntegrity.Lib`.
@@ -18,8 +15,23 @@ project; the project does not depend on the selected script file remaining at
 its original path.
 
 The processor symbol places input pins down its left side and output pins down
-its right side. Port counts are at least one. Changing counts preserves the
+its right side. There must be at least one input; the output count can be zero.
+Changing counts preserves the
 device's position and orientation.
+
+The **element state** property follows the S-parameter-device rules:
+
+- Leave it empty for normal script processing.
+- `disabled` removes the device from the circuit and skips its script, noise
+  inputs, and output-variable updates. The symbol is shown in salmon.
+- `thru` replaces it with a passive ideal thru; `thru_wires` replaces it with
+  wires and shows the bypass symbol in salmon. Neither runs the script.
+
+Thru conversion requires an even total port count, as for S-parameter devices.
+It pairs the first half of the numbered ports with the second half, preserving
+their schematic locations. With an odd total (including a one-input,
+zero-output trainer), thru conversion is ignored and processing remains active;
+use `disabled` to turn that processor off. The state is stored in the project.
 
 ## Script Editor
 
@@ -58,13 +70,137 @@ output_waveform_1 = (input_waveform_1 - input_waveform_2) * gain
 output_waveform_2 = input_waveform_1 * gain
 ```
 
-The same script is evaluated for each dependent output waveform on each
-iteration. Keep transforms free of side effects, and assign all declared outputs
-on every run.
+The script is evaluated once per processor on each iteration, returning all its
+waveforms and output variables together. Assign all declared waveform outputs on
+every run.
+
+Processor input ordering follows the device's pin numbers, including processors
+on other schematic pages. Internal source and noise ordering are preserved when
+system-variable feedback rebuilds the circuit.
+
+A processor with zero output ports still executes once per processing iteration.
+It can analyze its input waveforms and noise spectra and update persistent output
+variables without assigning any `output_waveform_*` values. No source or visible
+waveform is generated. Such a processor also permits simulation without a separate
+output probe. Script-editor previews execute it without displaying a waveform.
+
+### Persistent Output Variables
+
+Mark a device variable as **Output Variable** in the variable editor, or set
+`"read_only": true` in its interface metadata, to use it as persistent script
+state. Its current value is passed into the script like any other device
+variable. After a successful execution, the returned value is stored back in
+that device variable and supplied to the next iteration. Changes to input-only
+variables inside the script are not stored.
+
+Despite the legacy metadata name `read_only`, output variables can be edited in
+the variables table and on the schematic. A subsequent script execution can
+overwrite an edited value.
+
+For example, define `dfe_tap` as a float output variable initially set to `0`,
+and `optimize` as an integer input variable:
+
+```python
+if optimize:
+    dfe_tap = 0.1  # Use the adaptation result here.
+output_waveform_1 = input_waveform_1 - dfe_tap
+```
+
+The next execution receives `dfe_tap == 0.1`. Normal project **Save** stores the
+updated value in the project file. Simulation does not automatically save the
+project to disk. Set `optimize` to `0` to reuse the saved setting without
+recalculating it; output variables may be left unchanged by the script.
+
+Returned numeric values must match the declared interface and destination types;
+fractional integer outputs are rejected. For coefficient lists, use a string
+variable, store
+`repr(list_of_taps)`, and read it with `ast.literal_eval`. If an output variable
+contains `=system_variable`, the resolved system-variable value is passed in,
+and the returned value updates that system variable. The device's reference is
+preserved for subsequent iterations and project saves. For example, an output
+named `X` set to `=Y` receives `0.3` when system variable `Y` is `0.3`. Returning
+`X = 0.4` updates `Y` to `0.4`; the schematic displays `X=Y (0.4)`. Normal project
+Save stores both the reference and `Y`'s updated value.
+
+After each processor pass, the simulator compares hashes of the system-variable
+values before and after script execution. A change reruns the system equations,
+regenerates device/source definitions and transfer matrices, and adds one waveform
+processing iteration. Existing processor output waveforms and learned variables
+are preserved across this rebuild. Unchanged values, including equivalent numeric
+spellings such as `1` and `1.0`, and changes to unlinked device output variables do
+not trigger a rebuild.
+
+The **Maximum Processing Iterations** preference limits these extra iterations,
+even when **Stop On Convergence** is off. Waveform convergence cannot stop a pass
+whose system variables changed. If they still change at the limit, simulation
+fails rather than returning waveforms from an outdated system definition.
+These preferences are described in
+[Waveform Processing Iterations](29-Preferences.md#sub:Waveform-Processing-Iterations).
+
+Script errors, missing outputs, and invalid numeric output variables leave that
+execution's saved values unchanged. Script-editor debug runs and automatic
+previews use copied device and system variables and do not modify saved state.
+
+### Input Noise Spectra
+
+Each input also receives an independent `SpectralDensity` object as
+`input_noise_1`, `input_noise_2`, and so on. `Values()` gives amplitude density
+in V/sqrt(Hz), `Frequencies()` gives Hz, and `TotalRMS()` gives integrated volts.
+The simulator calculates these spectra before the processor scripts on each
+iteration, using the current waveforms and the simulation calculation frequency
+grid. Inputs without noise receive a zero spectrum, not `None`. Editor previews
+use zero spectra on their example waveforms' frequency grid.
 
 Scripts run with Python `exec` and are not sandboxed. The active project folder
 is added to Python's import path, so a script can import a trusted helper module
 stored beside the project. Only run scripts you trust.
+
+## Equalizer Training and Replay {#sub:Scripted-Equalizer-Training}
+
+Waveform processors can implement blind PAM equalizer training without a known
+transmitted pattern. A useful arrangement is a zero-output trainer that observes
+the received waveform and writes settings into shared system variables, followed
+by ordinary circuit CTLE/FFE devices and a scripted DFE.
+
+![Illustration of a zero-output trainer feeding settings to CTLE, FFE, and DFE](media/EqualizerTraining.svg)
+
+The repository's `Test/TestSignalIntegrity/TestEqualizer/TestEqualizer.si`
+illustrates both a combined equalizer processor and a separate trainer/CTLE/FFE/
+DFE chain. The scripts are embedded in that example project; **DFE is not a
+separate built-in part in the Add Part palette**. Create a scripted processor or
+import an appropriate script interface when using this arrangement.
+
+The example's controls include:
+
+| Variable | Meaning |
+|:---|:---|
+| `train_equalizer` | `True` learns settings; `False` applies the supplied settings without optimization. |
+| `consider_noise` | Includes the filtered input noise in the fitting objective when `True`. Turning it off uses signal error alone. |
+| `GDC_choices`, `GDC2_choices` | Python lists of CTLE gain candidates in dB. Candidate combinations are compared on held-out validation data. |
+| `num_ffe_taps`, `num_precursor_taps`, `num_dfe_taps` | Training tap counts and FFE precursor placement. |
+| `max_dfe_tap` | Bound on the magnitude of learned DFE coefficients, not a replacement for the saved coefficients in replay mode. |
+| `*_input`, `*_output` | Supplied and learned gains, tap lists, normalization, bias, and sampling delay. Link outputs to system variables using `=name`. |
+
+Use **Output Variable** for learned settings and normal project Save to persist
+them. Change `train_equalizer` to `False` to reuse those settings. Normalization,
+bias, and sampling delay are part of the learned state, not just the tap lists.
+Updating linked system variables causes another waveform pass through the newly
+configured circuit.
+
+The example DFE consumes the waveform **after** the physical CTLE and FFE.
+Its `ffe_taps_input` is used only to account for the upstream FFE's summed gain
+in offset normalization; it does not apply another FFE. Its `train_sample_time`
+option optimizes decision timing using the supplied DFE taps, without retraining
+those taps. `sample_time_output` is the applied waveform delay in seconds,
+normalized to one UI; feed it back into `sample_time_input` to replay that timing.
+
+Training cost depends on the script, candidate count, tap count, and number of
+symbols. A larger CTLE candidate grid requires more fits. To bound training cost,
+a script can expose separate training and validation UI counts as interface
+variables, keeping validation distinct from fitting. Such counts are
+**script-defined**, not global simulator preferences: their names and defaults
+must be declared by that script. **Maximum Processing Iterations** limits
+waveform/feedback passes; it does not limit the symbols examined within a fit.
 
 ## Interface Metadata
 
@@ -95,8 +231,8 @@ normally:
 output_waveform_1 = input_waveform_1 * gain
 ```
 
-The block must occur once and declare `version` 1, positive integer input and
-output counts, and a `variables` list. Every variable requires `name`, `type`,
+The block must occur once and declare `version` 1, a positive integer input count,
+a nonnegative integer output count, and a `variables` list. Every variable requires `name`, `type`,
 and `default`. Names must be unique Python identifiers. Supported types are
 `int`, `float`, `string`, `enum`, and `file`. Optional fields are `description`,
 `units`, `visible`, `read_only`, and `in_cache`. The default becomes the initial

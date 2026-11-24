@@ -16,7 +16,95 @@ When ***SignalIntegrityApp*** opens, the user sees a dialog with a menu bar, a t
 
 - [Variables](15-Main-Schematic-Dialog.md#sub:Variables) – tasks for dealing with schematic variables.
 
+- [Pages](15-Main-Schematic-Dialog.md#sub:Schematic-Pages) - tasks for organizing one circuit across schematic tabs.
+
 - [Help](15-Main-Schematic-Dialog.md#sub:Help) – tasks dealing with the help system.
+
+## Schematic Pages {#sub:Schematic-Pages}
+
+A project can contain several schematic pages, selected using the tabs above the
+canvas. **Main** is the initial page. All pages form **one circuit**: calculation,
+simulation, noise analysis, and eye generation use devices on every page, not
+just the visible tab. Pages are not separate simulations or hierarchical
+subcircuits.
+
+![Illustration of page-local wires and a shared named net](media/SchematicPages.svg)
+
+Wires and coincident pins connect only within their own page. To connect pages,
+place [Net Name](23-Built-in-Devices-Parts.md#device:Net-Name) elements with the
+same name at the desired nodes. Equal coordinates on different pages do not
+connect. Conversely, matching net names connect throughout the project; use
+different net names for circuits you intend to keep separate.
+
+System variables, equations, calculation properties, and post-processing are
+shared. Reference designators and port numbers must be unique across the entire
+project. Each page retains its drawing position, grid, devices, and wires.
+Legacy single-page projects open as a Main tab without changing their circuit.
+
+Use the **Pages** menu or right-click the tab strip:
+
+| Command | Effect |
+|:---|:---|
+| Add Page | Adds an empty page with the name you enter. |
+| Rename Page | Changes the selected page's name. |
+| Duplicate Page | Copies the page, assigning unique device references and port numbers. Named nets retain their names, so the copy can remain connected to the original circuit. |
+| Delete Page | Removes the page and its drawing after confirmation. The last remaining page cannot be deleted. |
+| Add Page from Project... | Copies the first page of another saved project into a new tab. |
+
+Drag a tab left or right to reorder pages. Page creation, duplication, deletion,
+renaming, and reordering support Undo/Redo and are saved with the project.
+Read-only projects allow tab selection but not page editing.
+
+### Importing and Saving Pages {#sub:Import-Export-Schematic-Pages}
+
+Save the destination project before importing a page. In addition to
+**Pages > Add Page from Project...**, the context menu on an existing tab offers
+**Import Page from Project...** and **Save Page to Project...**.
+
+- **Import Page from Project...** copies the source project's **first page**
+  onto the chosen destination page. It enters placement mode: click to place
+  the imported devices and wires, or press Escape to cancel. It does not replace
+  the page's existing drawing.
+- **Add Page from Project...** creates a new tab rather than entering placement
+  mode.
+- Both import commands offer independent **System variables** and **Equations
+  script** checkboxes, initially unchecked. Imported equations are appended to
+  the destination's shared script. When variables are selected, duplicate
+  system-variable names are reported as an error rather than silently replacing
+  existing variables.
+- Imported device references and port numbers are adjusted to avoid collisions
+  across all destination pages. Configuration references to renamed probes are
+  updated; if a probe name is supplied through a system-variable binding, import
+  the variables that own that binding too.
+- Relative file references are rebased so they still refer to the same files.
+  Import copies the drawing, not its dependency files; use an archive to
+  distribute the complete project.
+- **Save Page to Project...** writes that page as a standalone, single-page
+  project, including the shared variables, equations, and calculation settings.
+  Other page drawings are omitted. Connections that relied on a named net on
+  another page therefore need an appropriate source or termination in the
+  exported project. File paths are rebased for the destination folder.
+
+## Editing Text on the Schematic {#sub:Schematic-Inline-Editing}
+
+Click the text of a visible system variable, device variable, or editable device
+property to edit that value without opening the full properties dialog. Clicking
+the device body still selects the device. Reference designators and other
+non-value labels are not edited this way.
+
+Enter or Tab accepts the value; Escape cancels. Numeric values use the normal
+entry conventions, including SI prefixes where applicable. A variable reference
+is entered as `=name`. File-valued entries include a Browse button; ordinary
+device properties with fixed choices use a selection list.
+
+Eye and statistical-noise configuration properties can also be shown and edited
+here. First enable their visibility in the
+[configuration dialog](21-Eye-Diagram-Properties-Dialog.md#sub:Configuration-Fields).
+Configuration values use text entry even for enums, with exact accepted keywords
+listed in the tooltip. Their labels appear below the existing device properties
+and variables, keeping the reference designator above the configuration fields.
+Calculated configuration results are display-only. Inline editing is disabled
+in read-only projects; accepted edits participate in Undo/Redo.
 
 ## File {#sub:File}
 
@@ -460,7 +548,9 @@ The items selected to be cut are shown as blue items in the schematic.
 
 When invoked, the selections are copied to memory and removed from the schematic and the mouse cursor changes to a finger indicating that the new copied parts will be placed where the finger points on the next mouse click.
 
-This command is also available by right clicking while multiple devices are selected through a context sensitive menu.
+This command also works when only one device is selected. Right-click the
+selected device or a multiple-item selection and choose **Cut Selected** from
+the context menu. You can switch pages before placing the cut items.
 
 ## Parts {#sub:Parts}
 
@@ -1296,37 +1386,28 @@ The Variables tasks are a category in the [Main Schematic Dialog](15-Main-Schema
 |   *Toolbar*    |                        None                         |
 | *Availability* |                       Always                        |
 
-Invoking the Schematic Variables brings up a dialog containing the currently defined variables. If none have been defined, the dialog looks like this:
+The dialog uses one scrollable table with **Show**, **Name**, **Value**, **Units**,
+**Type**, and **Description** columns, instead of a separate set of controls for
+every variable. These are global variables shared by all schematic pages.
+Device Variables dialogs use the same table for a device's own interface.
 
-<div class="center">
+![Illustration of the variables table and selected-row actions](media/VariablesTable.svg)
 
-<img src="media/SchematicVariablesDialogNone.png" alt="SchematicVariablesDialogNone" width="69" height="97" />
+Select a row, then use the shared toolbar or these shortcuts:
 
-</div>
+| Task | Action |
+|:---|:---|
+| Add a variable | Add button or Insert. |
+| Edit its value | Double-click the Value cell, or press Enter or F2 on the selected row. |
+| Edit its definition | Edit button, Ctrl+E, or double-click another data column. |
+| Show/hide its schematic label | Click the Show cell, or press Space on the selected row. |
+| Delete | Delete button or Delete key. |
+| Move up/down | Arrow buttons or Ctrl+Up / Ctrl+Down. |
+| Browse for a file | Browse button; available when the selected variable's type is file. |
 
-If there are variables defined, the dialog looks something like shown in the example below:
-
-<div class="center">
-
-<img src="media/schematicvariablesdialog.png" alt="schematicvariablesdialog" width="731" height="199" />
-
-</div>
-
-These are global variables defined for the entire system.
-
-From within this dialog, you can:
-
-- [Add Schematic Variable](15-Main-Schematic-Dialog.md#par:Add-Schematic-Variable)– Add a variable by pressing <img src="media/edit-add-2.png" alt="edit-add-2" width="16" height="16" />.
-
-- [Edit the Value](15-Main-Schematic-Dialog.md#par:Edit-the-Value) – Edit the value of a variable by entering a new value in the entry box.
-
-- [Edit a Variable](15-Main-Schematic-Dialog.md#par:Edit-a-Variable) – Edit a variable definition by pressing <img src="media/edit-3.png" alt="edit-3" width="16" height="16" /> next to the desired variable.
-
-- Delete a Variable – Delete a variable by pressing <img src="media/edit-delete-6.png" alt="edit-delete-6" width="16" height="16" /> next to the desired variable.
-
-- Move a Variable Up – Move a variable up in the list by pressing <img src="media/up.png" alt="up" width="16" height="16" /> next to the desired variable.
-
-- Move a Variable Down – Move a variable down in the list by pressing <img src="media/down.png" alt="down" width="16" height="16" /> next to the desired variable.
+The editor shows the full value even when the displayed text is truncated.
+Output variables remain editable; **Output Variable** identifies a value that
+equations or a processor may update, not a read-only restriction.
 
 #### Add Schematic Variables {#par:Add-Schematic-Variable}
 
@@ -1364,13 +1445,17 @@ Before a variable is added, it is checked for validity, meaning mostly that it h
 
 <div class="center">
 
-<img src="media/schematicvariablesdialog.png" alt="schematicvariablesdialog" width="731" height="199" />
+<img src="media/VariablesTable.svg" alt="Illustration of editing a selected variable's Value cell" width="900" />
 
 </div>
 
-When in the schematic variable dialog, enter variables directly in the entry box. If they have units, you should use SI units. For example, the capacitance 10 pF can be entered as 10p.
+Edit the Value cell in the variables table. Enter or Tab accepts the edit;
+Escape cancels. For numeric variables with units, SI prefixes are accepted:
+for example, capacitance 10 pF can be entered as `10p`.
 
-Files will have a browse button that allows you to browse to the file chosen.
+File variables can be edited as text or selected with the shared Browse button.
+Visible values can also be edited directly on the
+[schematic surface](15-Main-Schematic-Dialog.md#sub:Schematic-Inline-Editing).
 
 #### Edit a Variable Definition {#par:Edit-a-Variable}
 
@@ -1380,7 +1465,10 @@ Files will have a browse button that allows you to browse to the file chosen.
 
 </div>
 
-Pressing <img src="media/edit-3.png" alt="edit-3" width="16" height="16" /> next to the desired variable allows you to edit the definition. See [Add Schematic Variable](15-Main-Schematic-Dialog.md#par:Add-Schematic-Variable) for a discussion of these entries.
+Select the variable and press the Edit toolbar button or Ctrl+E to edit its
+definition. See [Add Schematic Variable](15-Main-Schematic-Dialog.md#par:Add-Schematic-Variable)
+for a discussion of these entries. Renaming a system variable updates device
+property, device-variable, and configuration-field references on every page.
 
 ### Schematic Equations {#Control-Help:Edit-Schematic-Equations}
 

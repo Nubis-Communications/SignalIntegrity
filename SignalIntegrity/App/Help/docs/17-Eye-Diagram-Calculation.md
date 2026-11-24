@@ -8,6 +8,11 @@ The reciprocal of the baud rate specifies the unit interval, or the length of on
 
 The eye is generated starting with an empty array that is the [Number of Rows](22-Eye-Diagram-Properties.md#sub:Number-of-Rows) in height, and the [Number of Columns](22-Eye-Diagram-Properties.md#sub:Number-of-Columns) in width. In order to count the hits in each column of pixels, the waveform is upsampled such that every waveform point is a column of the array. Because this upsampling is expensive in both processing time and memory, it is useful for the upsample factor to not be too large (hence the default [Number of Columns](22-Eye-Diagram-Properties.md#sub:Number-of-Columns) = 200). It is also useful for the upsample factor to be a nice ratio of the original sample rate of the waveform.
 
+Each eye's [Upsample Method](22-Eye-Diagram-Properties.md#sub:Upsample-Method)
+selects `SinX` or `Linear` interpolation for this step, independently of the
+global waveform interpolation preference. The default remains `SinX`; changing
+the eye-specific choice invalidates that eye's bitmap cache.
+
 For a given sample rate, $Fs$, number of columns, $C$, and baudrate, $R$, the upsample factor $U$ is given by: $$U=\frac{R\cdot C}{Fs}\mbox{.}$$
 
 For example, if the incoming waveform is at $20\:GS/s$ sample rate, at a baud rate of $5\:GBaud$, and there are 200 columns in the eye diagram, the upsample factor is $5\cdot200/20=50$. What you definitely want to avoid is for the upsample factor to be a ratio of numbers, especially with a large number in the numerator.
@@ -24,7 +29,7 @@ At this point, the processing joins where it would resume following the ISI Only
 
 The bitmap is now duplicated according the [Number of UI](22-Eye-Diagram-Properties.md#sub:Number-of-UI) specified. If Jitter & Noise were not specified for the [Eye Mode](22-Eye-Diagram-Properties.md#sub:Eye-Mode) and [Log Intensity](22-Eye-Diagram-Properties.md#sub:Log-Intensity) was not specified, the eye is then re-saturated using a spline such that the maximum intensity is achieved at a value at or above the [Saturation](22-Eye-Diagram-Properties.md#sub:Saturation).
 
-The eye is then inverted or not, depending on the setting of [Invert Plot](22-Eye-Diagram-Properties.md#sub:Invert-Plot), and colorized according to the specified [Bits per Symbol](22-Eye-Diagram-Properties.md#sub:Eye-Diagram-Bits-per-Symbol).
+The eye is then inverted or not, depending on the setting of [Invert Plot](22-Eye-Diagram-Properties.md#sub:Invert-Plot), and colorized according to the specified [Eye Diagram Color](22-Eye-Diagram-Properties.md#sub:Eye-Diagram-Color).
 
 Finally, the image is scaled according to the [Scale X](22-Eye-Diagram-Properties.md#sub:Scale-X) and [Scale Y](22-Eye-Diagram-Properties.md#sub:Scale-Y) settings. Further re-scaling is possible by simply resizing the final canvas.
 

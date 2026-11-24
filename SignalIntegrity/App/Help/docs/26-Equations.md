@@ -36,7 +36,11 @@ Opening the [Schematic Variables](15-Main-Schematic-Dialog.md#Control-Help:Schem
 
 </div>
 
-Here, the variables H and R are grayed out, indicating that they are not writable and and are output variables. Editing H, for example, shows this:
+Here, H and R are **output variables**: the equations calculate their values.
+They can be edited in the current variables table or on the schematic, but the
+next equation evaluation can overwrite those edits. The older illustration
+above shows the former grayed-out presentation; output does not mean read-only.
+Editing H's definition, for example, shows this:
 
 <div class="center">
 
@@ -53,6 +57,17 @@ So, for this example, We can see that there are input variables L, D, and ur, al
 </div>
 
 Here, we see that the script assumes that the variables L, D, and ur are defined prior to the script running. All the script does is produce the intermediate value A, along with the two variables H and R. When this script exits, the output variables H and R are updated, and any references to these values in the schematics are used.
+
+The variables and equations belong to the project, not an individual
+[schematic page](15-Main-Schematic-Dialog.md#sub:Schematic-Pages). A device lookup
+such as `schematic.Device('R1')` on the project's schematic configuration can
+find a device on another page by its unique reference designator.
+
+[Waveform processors](35-Waveform-Processors.md#persistent-output-variables)
+can also return values into referenced system variables. When those values
+change, simulation reevaluates the equations and rebuilds the circuit before
+the next waveform pass, so a trained setting can affect an ordinary CTLE or FFE
+device elsewhere in the project.
 
 ## Referencing External Files in Equations {#sub:ArchiveFile}
 

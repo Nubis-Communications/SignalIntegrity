@@ -158,6 +158,27 @@ result = app.Simulate()
 
 SetValueFromString accepts the value as it would be typed in the [Edit Properties](15-Main-Schematic-Dialog.md#Control-Help:Edit-Properties) dialog, including = followed by a variable name. The change is to the open project only; it is saved only if the project was opened writable and is saved.
 
+`app.Device(ref)` searches all
+[schematic pages](15-Main-Schematic-Dialog.md#sub:Schematic-Pages). Calculation
+and returned waveform/noise/eye results also include every page, regardless of
+the tab last selected in the graphical application.
+
+Eye and statistical-noise configuration fields can be set through their shared
+adapters. For example, after defining system variable `noise_bandwidth`:
+
+```python
+noise = app.Device('VN1')
+field = noise.configuration.configurationFields['WhiteNoise.NoiseBandwidth']
+field.SetEntry('=noise_bandwidth')
+field.visible = True
+```
+
+`SetEntry` validates a literal or variable binding. Configuration reads resolve
+the current variable value, so passing a different `noise_bandwidth` argument
+changes the noise model without replacing the binding. Directly assigning a
+literal with `noise.configuration['WhiteNoise.NoiseBandwidth'] = 2e9` detaches
+the binding. Presentation visibility does not change numerical results.
+
 ## Calculating {#sub:Scripting-Calculating}
 
 A project is drawn for a particular kind of calculation, determined by the parts it contains, in the same way that ***SignalIntegrityApp*** enables only certain calculations for a schematic. After app.Drawing.DrawSchematic() has been called (each calculation calls it if it has not been), the following flags of app.Drawing indicate which calculations are possible:
@@ -206,7 +227,9 @@ result = app.Simulate(callback=progress)
 
 ## Results {#sub:Scripting-Results}
 
-Each calculation returns a result dictionary (an instance of `SignalIntegrity.App.Result.Result`, which is a Python dict). If the calculation could not be performed, the dictionary is empty, so a result is tested with:
+Calculations return a result dictionary (an instance of
+`SignalIntegrity.App.Result.Result`, which is a Python dict). Many calculation
+failures return an empty dictionary, so test a returned result with:
 
 ```python
 result = app.Simulate()
@@ -214,7 +237,18 @@ if not result:
     print('the simulation failed')
 ```
 
-A calculation fails if the project is not drawn for it, if its equations fail, if a part cannot be calculated (for example, because a file it references cannot be read, or a [Scripted Source](23-Built-in-Devices-Parts.md#device:Voltage-Scripted-Source) script raises an error), or if it is aborted by the callback. Unlike ***SignalIntegrityApp***, the headless application does not report why a calculation failed; opening the project in ***SignalIntegrityApp*** and performing the same calculation shows the error.
+A calculation fails if the project is not drawn for it, if its equations fail,
+if a part cannot be calculated (for example, a referenced file cannot be read or
+a [Scripted Source](23-Built-in-Devices-Parts.md#device:Voltage-Scripted-Source)
+script fails), or if the callback aborts it. For an empty result with no error
+detail, opening the project in ***SignalIntegrityApp*** and performing the same
+calculation can show the cause.
+
+Some errors are raised explicitly rather than returned as an empty dictionary.
+Invalid active eye/noise configuration bindings raise `ConfigurationError`;
+system-variable feedback that still changes at the maximum processing iteration
+count raises `SignalIntegrityExceptionSimulator`. Callers should handle these
+exceptions as failed calculations, not substitute an empty or successful result.
 
 Every non-empty result contains:
 
@@ -244,11 +278,22 @@ Simulate returns a result of type simulation, and VirtualProbe returns a result 
 | output waveform labels | list of the names of the output waveforms (see below) |
 | transfer matrices | the transfer matrices (`si.fd.TransferMatrices`), relating each source to each output probe |
 | output waveforms | list of the output waveforms (`si.td.wf.Waveform`), in the order of output waveform labels. Not present when only the transfer matrices are calculated. |
+| other waveform labels, other waveforms | (simulation only) standalone waveforms and shown source/processor waveforms, as parallel lists; shown processor outputs are named `REF_out1`, etc. Not present when only transfer matrices are calculated. |
 | noise | (simulation only) the [Statistical Noise Results](34-Scripting-SignalIntegrity.md#sub:Scripting-Noise-Results). Not present when only the transfer matrices are calculated. |
 | eye diagram labels | (only when eye diagrams are calculated) list of the names of the eye diagrams |
 | eye diagrams | (only when eye diagrams are calculated) list of the [eye diagrams](34-Scripting-SignalIntegrity.md#sub:Scripting-Eye-Diagram-Results), in the order of eye diagram labels |
 
 The output waveform labels are the reference designators of the output probes, in the order of the outputs of the transfer matrices, followed by the names of any [Waveform](23-Built-in-Devices-Parts.md#device:Waveform) parts, followed by the reference designators of any sources whose show property is true. The waveforms of sources that are shown are the waveforms the sources produce. Only the output probes have rows in the transfer matrices, so the transfer matrices may have fewer outputs than there are output waveform labels.
+
+Shown processor waveforms are available in `other waveforms` but excluded from
+the circuit's `output waveforms` and its final transfer-matrix rows. A zero-output
+processor creates no waveform entry. Learned output variables linked to system
+variables appear in the result's `variables` dictionary; unlinked device output
+variables remain on the device and are persisted only by saving the project.
+
+When **Ignore Missing Other Waveforms** is enabled, an unavailable standalone
+waveform is omitted from the results, but subsequent available waveforms and
+eyes remain included and correctly named.
 
 The output waveforms are produced as they are displayed in the [Simulator Dialog](14-Simulator-Dialog.md#sec:Simulator-Dialog): the gain, offset, delay, and AC coupling of each output probe are applied, and the waveforms of the output probes are at the UserSampleRate of the [Calculation Properties](15-Main-Schematic-Dialog.md#Control-Help:Calculation-Properties).
 
@@ -445,6 +490,11 @@ Regression archives record the results of a project and the projects it uses, so
 |:---|:---|
 | `GenerateRegression(regressionArchiveFile=None, archiveNonRelativeFiles=None, args=None, artifacts=None, callback=None)` | generates a regression archive for the open project, named, if regressionArchiveFile is not supplied, after the project with \_regression.siz appended. Returns the name of the regression archive. |
 | `RunRegression(regressionArchiveFile=None, archiveNonRelativeFiles=None, args=None, artifacts=None, callback=None, openDiffTool=None)` | checks the open project against its regression archive. Returns a list of results, one for each file checked; each is true if the file matched, and has the members filename, ok, message (describing the difference), and written. If openDiffTool is True (by default, as set by the Regression.OpenDiffToolOnFailure preference), the differing files are opened in meld, if it is installed. |
+
+Artifacts for referenced projects outside the archive root remain inside the
+regression root. Their paths mirror the absolute project path without a drive
+prefix rather than using `..` to escape the regression directory. This also
+handles projects on another Windows drive.
 
 ## Preferences and Caching {#sub:Scripting-Preferences}
 

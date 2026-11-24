@@ -14,9 +14,46 @@ The statistical noise dialog displays the output noise spectral densities comput
 
 Statistical noise is an optional feature that must be enabled in the [Preferences](29-Preferences.md#sec:Preferences).
 
+## Source configuration fields on the schematic
+
+Open a voltage or current statistical noise source's configuration and select
+the unlabeled checkboxes beside properties you want to see on the schematic, such as noise
+type, noise density, bandwidth, lanes, or a spectral-density filename. Only
+properties applicable to the selected model are shown; inactive properties retain
+their checked state. Hover over a checkbox for its visibility tooltip. Visible
+configuration fields appear below the normal device properties and variables,
+keeping the reference designator above them.
+
+![Illustration of native configuration controls, binding, and schematic labels](media/ConfigurationFields.svg)
+
+Click a displayed property to edit it directly, using a literal or
+`=system_variable_name`. The label shows a binding and its resolved value.
+The configuration dialogs retain their grouped radio buttons, True/False buttons,
+and file controls. Click **=** beside a control to enter a system-variable binding;
+only bound properties replace their native control with a text entry. Hover over
+a control for descriptions and exact enum keywords.
+Invalid entries retain the editor and show an error; a missing or
+invalid active system-variable binding must be corrected before calculation.
+Entering a literal detaches only that field's binding, leaving the variable
+unchanged. Time-varying shot noise's calculated mean current is display-only;
+its original input binding is retained for returning to Mean mode.
+
+Spectral-density file entries include a **Browse** button with `.txt`, `.csv`,
+and `.json` filters. Browsing starts beside the current file, including when
+its path comes from a system variable. Selecting a file saves a project-relative
+literal path and replaces that field's binding; canceling changes nothing.
+The file is included when archiving the project.
+
+These settings are per device and survive save/reopen and undo. Existing projects
+start with no additional configuration labels; open their configuration and
+select a property's visibility checkbox to opt in. Saving global defaults stores resolved literals, not
+project-specific variable bindings.
+
 The main part of the dialog is a MatPlotLib plot (see <http://matplotlib.org>) with control of panning and zooming. The plot shows the output noise spectral density in dBm/Hz (or dBm per displayed frequency unit) on the y axis versus frequency on the x axis, with a legend in the upper right naming each displayed output probe. The **autoscale** button below the plot returns to the automatic scaling of the axes.
 
 This dialog has a menu and toolbar with commands that handle:
+
+- [Statistical Noise File Menu](31-Statistical-Noise-Dialog.md#sub:Statistical-Noise-File-Menu)
 
 - [Statistical Noise Selection Menu](31-Statistical-Noise-Dialog.md#sub:Statistical-Noise-Selection-Menu)
 
@@ -64,9 +101,50 @@ Use the **Selection** menu to show or hide the total and individual source trace
 
 Selecting *full breakdown* changes only the graphical presentation. Compared with *yes*, it does not change the noise calculations, the noise applied to eye diagrams, or the measurements dictionary returned by headless calls.
 
+## Statistical Noise File Menu {#sub:Statistical-Noise-File-Menu}
+
+### Save Noise Spectral Densities {#Control-Help:Save-Noise-Spectral-Densities}
+
+**File > Save Noise Spectral Densities**, also available from the toolbar, prompts for a file for each selected trace. The default `.txt` files contain frequency-domain amplitude spectral density, not the plotted dB values. Voltage traces are in V/√Hz and current traces are in A/√Hz. A file can be selected as the **Spectral Density File** of a corresponding voltage or current statistical noise source. The same command is available in full breakdown windows for their selected traces.
+
+The first save starts in the project folder. Subsequent saves start in the folder chosen for the preceding saved trace.
+In the themed save dialog, **New Folder** creates and opens a folder in the current directory.
+
+### Spectral-Density File Formats {#sub:Noise-Spectral-Density-Files}
+
+The **Spectral Density File** noise model accepts native `.txt` files, `.csv`
+files, and `.json` data. These contain amplitude spectral density, not plotted
+dBm/Hz values: use V/sqrt(Hz) for a voltage source and A/sqrt(Hz) for a current
+source, with frequency in Hz.
+
+CSV files use frequency and amplitude density in two columns. JSON accepts
+frequency/density arrays directly at the root:
+
+```json
+{"x": [0, 1000000000, 2000000000], "y": [1e-9, 1e-9, 5e-10]}
+```
+
+The same arrays may be wrapped in a `noise` or `wave` object:
+
+```json
+{
+  "description": "Example voltage noise, V/sqrt(Hz)",
+  "noise": {"x": [0, 1000000000, 2000000000], "y": [1e-9, 1e-9, 5e-10]}
+}
+```
+
+The reader uses `noise` first, then `wave`, then root-level `x`/`y`; wrapped data
+takes precedence if several forms are present. Within a wrapper, the pairs
+`frequency`/`density` and `frequencies`/`densities` are also accepted. Additional
+metadata is ignored. The frequency and density arrays must be nonempty, have the
+same length, and contain finite numeric values.
+
 ## Statistical Noise Selection Menu {#sub:Statistical-Noise-Selection-Menu}
 
-The selection menu shows the selection tasks along with a list of all displayed output probes. This is a tear-off menu; clicking in the dotted line area causes this menu to be permanently displayed, which is useful for turning individual noise traces on and off. Clicking on any output in the list toggles its display. The selection tasks are:
+The selection menu shows the selection tasks along with a list of all displayed
+output probes. Clicking an output toggles its display. On Tk versions that
+provide a dotted tear-off entry, that entry can detach the menu; Tk 9 has no
+tear-off entry by default. Trace selection works in either case. The selection tasks are:
 
 - [Display All](14-Simulator-Dialog.md#Control-Help:Display-All) - selects all noise traces for displaying.
 

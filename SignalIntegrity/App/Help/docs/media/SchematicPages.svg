@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="380" viewBox="0 0 900 380" role="img" aria-labelledby="title desc">
+  <title id="title">Schematic pages: one project, one circuit</title>
+  <desc id="desc">Illustration of Main and Receiver tabs. Wires stay local to each page, while matching LINK net names connect the pages. System variables, equations, and calculations are shared.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0 L10 5 L0 10" fill="#247b91"/></marker>
+  </defs>
+  <rect width="900" height="380" rx="12" fill="#f5f7fb"/>
+  <g font-family="sans-serif" fill="#22334b">
+    <text x="24" y="32" font-size="21" font-weight="bold">Schematic pages</text>
+    <text x="876" y="32" text-anchor="end" font-size="14" fill="#52647d">Illustration</text>
+    <rect x="24" y="52" width="852" height="228" rx="8" fill="white" stroke="#b8c5d6"/>
+    <rect x="24" y="52" width="130" height="38" rx="6" fill="#247b91"/>
+    <text x="89" y="77" text-anchor="middle" font-size="17" fill="white">Main</text>
+    <rect x="160" y="52" width="155" height="38" rx="6" fill="#e6edf6"/>
+    <text x="237" y="77" text-anchor="middle" font-size="17">Receiver</text>
+    <text x="343" y="77" font-size="15" fill="#52647d">Drag tabs to reorder; right-click for page commands</text>
+    <rect x="44" y="110" width="360" height="136" rx="8" fill="#f5f7fb"/>
+    <text x="60" y="134" font-size="16" font-weight="bold">Main drawing</text>
+    <rect x="70" y="154" width="100" height="42" rx="5" fill="white" stroke="#52647d"/>
+    <text x="120" y="181" text-anchor="middle" font-size="16">VG1</text>
+    <path d="M170 175 H272" stroke="#22334b" stroke-width="3" fill="none"/>
+    <circle cx="272" cy="175" r="4" fill="#247b91"/>
+    <text x="280" y="180" font-size="18" fill="#247b91">LINK</text>
+    <text x="60" y="228" font-size="15" fill="#52647d">Wire connections are page-local</text>
+    <rect x="496" y="110" width="360" height="136" rx="8" fill="#f5f7fb"/>
+    <text x="512" y="134" font-size="16" font-weight="bold">Receiver drawing</text>
+    <text x="520" y="180" font-size="18" fill="#247b91">LINK</text>
+    <circle cx="583" cy="175" r="4" fill="#247b91"/>
+    <path d="M583 175 H688" stroke="#22334b" stroke-width="3" fill="none"/>
+    <rect x="688" y="154" width="135" height="42" rx="5" fill="white" stroke="#52647d"/>
+    <text x="755" y="181" text-anchor="middle" font-size="16">Receiver / Eye</text>
+    <text x="512" y="228" font-size="15" fill="#52647d">Unique references across all pages</text>
+    <path d="M365 175 H477" fill="none" stroke="#247b91" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#arrow)"/>
+    <text x="450" y="263" text-anchor="middle" font-size="16" fill="#247b91">Same Net Name = same circuit node, even on another page</text>
+    <rect x="24" y="298" width="852" height="60" rx="8" fill="#e6edf6"/>
+    <text x="450" y="323" text-anchor="middle" font-size="17" font-weight="bold">Shared project settings</text>
+    <text x="450" y="346" text-anchor="middle" font-size="16">System variables   |   Equations   |   Calculation properties   |   One circuit solve</text>
+  </g>
+</svg>

@@ -56,6 +56,9 @@ Reading waveforms is not implemented
 
 Saves an output [Waveform](28-Waveform.md#sec:Waveform) from [Simulation](08-Simulation.md#sec:Simulation) and [Virtual Probing](10-Virtual-Probing.md#sec:Virtual-Probing).
 
+The first save starts in the project folder. When saving multiple displayed waveforms, each subsequent save starts in the folder chosen for the preceding saved waveform.
+In the themed save dialog, **New Folder** creates and opens a folder in the current directory.
+
 ### Read Waveforms {#sub:Read-Waveforms}
 
 | *Dialog* | Simulator and Virtual Probe Dialog |
@@ -102,7 +105,10 @@ For .png or other rasterized graphics use the disk button on the plot toolbar.
 
 ## Simulator Selection Menu {#sub:Simulator-Selection-Menu}
 
-The selection menu shows the selection tasks along with a list of all available waveforms. This is a tear-off menu and clicking in the dotted line area will cause this menu to be permanently displayed, which is useful for turning on and off waveform displays. Clicking on any waveform in the list of available waveforms causes them to turn on or off. The section tasks are:
+The selection menu lists the available waveforms; click one to show or hide it.
+On Tk versions that provide a dotted tear-off entry, that entry detaches the menu
+for repeated selection. Tk 9 has no tear-off entry by default; waveform selection
+still works normally. The selection tasks are:
 
 - [Display All](14-Simulator-Dialog.md#Control-Help:Display-All) - selects all waveforms for displaying.
 

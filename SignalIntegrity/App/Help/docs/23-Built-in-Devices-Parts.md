@@ -2262,6 +2262,12 @@ The equalizer element is constructed like an active device which has infinite in
 
 ## Feed-Forward Linear Equalizer {#device:FFE}
 
+CTLE gains and FFE tap lists can be bound to system variables updated by a
+[scripted equalizer trainer](35-Waveform-Processors.md#sub:Scripted-Equalizer-Training).
+The separate trainer can choose noise-aware gain candidates and persist learned
+settings for fixed replay. The DFE used in that workflow is a scripted waveform
+processor, not an additional built-in CTLE/FFE part.
+
 <img src="media/FFE.png" alt="FFE" width="126" height="171" />
 
 | Property Name            | Type          | Keyword | Units | (Default) Value |
@@ -2479,9 +2485,20 @@ In these equivalent circuits, ports 1 and 2 are the + and − conductors on one 
 
 Its noise is configured through the [Edit Properties](15-Main-Schematic-Dialog.md#Control-Help:Edit-Properties) command, which opens the statistical noise properties dialog with the following fields:
 
+Use the checkboxes beside configuration properties to display selected settings on
+the schematic and click their labels to edit literals or system-variable links.
+See [source configuration fields on the schematic](31-Statistical-Noise-Dialog.md#source-configuration-fields-on-the-schematic)
+for binding, validation, and spectral-density file browsing.
+
 - **Enable Noise** - enables noise generation for this device. When disabled, the source contributes no noise.
 
 - **Noise Type** - one of `WhiteNoise`, `SpectralDensityFile` (read the spectral density from a file), `WaveformFile` (derive the spectral density from a waveform file), or `Crosstalk` (use another output probe's waveform as the noise source).
+
+For `SpectralDensityFile`, use the configuration's Browse button to choose a
+`.txt`, `.csv`, or `.json` file. See
+[spectral-density file formats](31-Statistical-Noise-Dialog.md#sub:Noise-Spectral-Density-Files)
+for units and JSON layouts. A trace saved using **Save Noise Spectral Densities**
+can be reused as an input file.
 
 - **Lanes** - the number of identical, uncorrelated lanes of noise represented by this source; the spectral density is scaled by $\sqrt{\mathrm{Lanes}}$.
 

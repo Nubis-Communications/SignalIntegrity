@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="388" viewBox="0 0 900 388" role="img" aria-labelledby="title desc">
+  <title id="title">Equalizer training through persistent system-variable feedback</title>
+  <desc id="desc">Illustration of a received waveform driving CTLE, FFE, and scripted DFE. A zero-output processor fits the waveform and its noise, returns learned settings to system variables, and triggers equations and circuit rebuilding before the next pass.</desc>
+  <defs>
+    <marker id="signal" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0 L10 5 L0 10" fill="#247b91"/></marker>
+    <marker id="feedback" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0 L10 5 L0 10" fill="#7758a0"/></marker>
+  </defs>
+  <rect width="900" height="388" rx="12" fill="#f5f7fb"/>
+  <g font-family="sans-serif" fill="#22334b">
+    <text x="24" y="32" font-size="21" font-weight="bold">Train once, persist settings, replay</text>
+    <text x="876" y="32" text-anchor="end" font-size="14" fill="#52647d">Workflow illustration</text>
+    <g fill="white" stroke="#b8c5d6">
+      <rect x="24" y="67" width="150" height="67" rx="8"/>
+      <rect x="242" y="67" width="136" height="67" rx="8"/>
+      <rect x="446" y="67" width="136" height="67" rx="8"/>
+      <rect x="650" y="67" width="146" height="67" rx="8"/>
+    </g>
+    <g font-size="18" font-weight="bold" text-anchor="middle">
+      <text x="99" y="95">Received</text><text x="99" y="118">waveform</text>
+      <text x="310" y="108">CTLE</text><text x="514" y="108">FFE</text>
+      <text x="723" y="95">Scripted</text><text x="723" y="118">DFE</text>
+    </g>
+    <g fill="none" stroke="#247b91" stroke-width="3" marker-end="url(#signal)">
+      <path d="M174 101 H230"/><path d="M378 101 H434"/><path d="M582 101 H638"/><path d="M796 101 H861"/>
+    </g>
+    <text x="828" y="82" font-size="15">Eye</text>
+    <path d="M99 134 V193" stroke="#247b91" stroke-width="2" fill="none" marker-end="url(#signal)"/>
+    <text x="112" y="164" font-size="15" fill="#247b91">input1</text>
+    <rect x="24" y="204" width="280" height="100" rx="8" fill="#def0f5" stroke="#247b91"/>
+    <text x="43" y="231" font-size="18" font-weight="bold">Zero-output trainer</text>
+    <text x="43" y="255" font-size="15">Waveform + input_noise_1</text>
+    <text x="43" y="279" font-size="15">Fit signal; optionally consider noise</text>
+    <path d="M304 254 H409" fill="none" stroke="#7758a0" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#feedback)"/>
+    <text x="320" y="228" font-size="14" fill="#7758a0">linked outputs</text>
+    <rect x="422" y="204" width="454" height="100" rx="8" fill="#eee8f5" stroke="#7758a0"/>
+    <text x="441" y="231" font-size="18" font-weight="bold">Shared system variables</text>
+    <text x="441" y="255" font-size="15">Gains, FFE/DFE taps, normalization, bias, delay</text>
+    <text x="441" y="279" font-size="15">Saved with the project; reused when training is False</text>
+    <g fill="none" stroke="#7758a0" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#feedback)">
+      <path d="M649 204 V169 H310 V145"/>
+      <path d="M514 169 V145"/>
+      <path d="M649 169 H723 V145"/>
+    </g>
+    <text x="735" y="177" font-size="14" fill="#7758a0">next pass</text>
+    <text x="24" y="340" font-size="16">Changed settings: reevaluate equations, rebuild circuit / transfer matrices, process again.</text>
+    <text x="24" y="368" font-size="15" fill="#52647d">The trainer need not return a waveform. DFE scripts and training controls are defined by the project.</text>
+  </g>
+</svg>

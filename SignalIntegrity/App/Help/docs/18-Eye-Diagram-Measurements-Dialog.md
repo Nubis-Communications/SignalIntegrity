@@ -8,11 +8,36 @@ Eye diagram measurements are available by selecting [Eye Measurements](16-Eye-Di
 
 If [Eye Measurements](16-Eye-Diagram-Dialog.md#Control-Help:Eye-Measurements) is not available in the dialog, then either the [Measure Eye Parameters](22-Eye-Diagram-Properties.md#sub:Measure-Eye-Parameters) property is set to False, or the measurements could not be made.
 
-There are two tabs in the Eye Measurements Dialog:
+There are three tabs in the Eye Measurements Dialog:
 
 - [Vertical/Horizontal](18-Eye-Diagram-Measurements-Dialog.md#sub:Vertical/Horizontal) – standard measurements of eye height, eye width, etc.
 
 - [Error Rates](18-Eye-Diagram-Measurements-Dialog.md#sub:Error-Rates) - measurements of, and the breakdown of bit error rate (BER) calculations.
+
+- [Optical](18-Eye-Diagram-Measurements-Dialog.md#sub:Optical-Measurements) -
+  optical power and transmitter measurements, when applicable.
+
+Tabs are disabled when their measurement data are unavailable. In particular,
+the Optical tab requires an optical Waveform Type and successful optical
+measurements; it is not enabled merely because an eye image exists.
+
+## Optical {#sub:Optical-Measurements}
+
+Choose **Power**, **Fractional Power**, **Current proportional to Power**, or
+**Voltage proportional to Power** in the eye's
+[Waveform Type](21-Eye-Diagram-Properties-Dialog.md#sub:Optical-Measurement-Configuration)
+control and enable **Measure Eye Parameters**. Optical results are calculated
+on the initial run as well as cached and uncached reruns.
+
+The table reports high and low power levels, average power, optical modulation
+amplitude (OMA), and extinction ratio. Power waveforms use watts and dBm;
+fractional power uses ratios and dB; proportional current or voltage uses its
+corresponding linear unit.
+
+When transmitter input power is supplied, input power, insertion loss, loss
+relative to average output power, and transmission penalty are also reported.
+Q/BER rows are shown when the required error-rate results are available.
+Average power uses the original waveform, not the histogram's mean eye levels.
 
 ## Vertical/Horizontal {#sub:Vertical/Horizontal}
 
@@ -26,7 +51,10 @@ The vertical/horizontal measurements are, as the name implies, various vertical 
 
 The very first thing to note is the BER that the measurements are taken at. This is shown on top of the dialog and is the value configured in [BER Exponent for Measure](22-Eye-Diagram-Properties.md#sub:BER-Exponent-for-Measure) in the [Eye Diagram Properties Dialog](21-Eye-Diagram-Properties-Dialog.md#sec:Eye-Diagram-Properties-Dialog). (see [Eye Measurement Properties](21-Eye-Diagram-Properties-Dialog.md#pc:Eye-Measurement-Properties)). This value is the probability contour used to denote the perimeter of the eye.
 
-The first section of the measurements regards the eye itself, with measurements in each column representing the eye number (from 0 to $2^{BitsPerSymbol}-1$), where eye zero is on the bottom. The measurements are broken into two sections:
+The first section contains one column per eye opening, numbered from 0 to
+$Levels-2$, where eye zero is on the bottom. With
+[Number of Levels](22-Eye-Diagram-Properties.md#sub:Number-of-Levels) set to 4,
+there are three eye openings. The measurements are broken into two sections:
 
 1.  [Timing](18-Eye-Diagram-Measurements-Dialog.md#sub:Timing) – Horizontal (time) measurements of the eye.
 
@@ -84,7 +112,8 @@ Vertical measurements are made from a line that spans the contour vertically. Th
 
 The vertical extents are measurements made not directly from the eye itself, but from the vertical levels that surround the eye. These levels are the intended voltages representing each bit. The measurements are made vertically between probabilities based on the [BER Exponent for Measure](22-Eye-Diagram-Properties.md#sub:BER-Exponent-for-Measure). See [Eye Measurement Properties](21-Eye-Diagram-Properties-Dialog.md#pc:Eye-Measurement-Properties).
 
-There are $2^{BitsPerSymbol}$ vertical extents. The lowest extent is extent zero.
+There are $Levels$ vertical extents, one for each symbol level. The lowest
+extent is extent zero.
 
 For each extent, the following measurements are made:
 
@@ -148,7 +177,10 @@ Note that even if the actual symbol probabilities are all equal, small errors in
 
 The interpretation table has the symbol transmitted along each row and the probability of the symbol interpretation along each column. If PAM-4 and above are employed, then Gray coding information is also provided (with the normal bit identification as 00, 01, 10, 11 first, with the Gray code as 00, 01, 11, 10, second).
 
-If the user is unfamiliar with Gray coding, it is a method of encoding the bits employed so that on each side of a symbol, there is only a single bit transition. Gray coding is always employed for PAM-4 and above and tends to make the BER identical the SER divided by the [Bits per Symbol](22-Eye-Diagram-Properties.md#sub:Eye-Diagram-Bits-per-Symbol). This is because symbol errors are usually such that a symbol is accidentally interpreted as an adjacent Gray coded symbol, thus causing a single bit error.
+Gray coding assigns adjacent symbol levels codes that differ by a single bit.
+For power-of-two PAM levels, adjacent-symbol errors therefore tend to give
+$BER = SER / \log_2(Levels)$. The dialog reports both normal binary and
+Gray-coded error rates.
 
 The probabilities for interpretation is derived from the vertical bathtub curve (see [Bathtub Curves Dialog](19-Bathtub-Curves-Dialog.md#sec:Bathtub-Curves-Dialog)).
 
@@ -156,7 +188,9 @@ The probabilities for interpretation is derived from the vertical bathtub curve 
 
 The nominal error rate table shows each transmitted symbol in each row (along with its Gray coded symbol), and in each column provides:
 
-- Probability – the probability that a given symbol is transmitted. Nominally, this is the reciprocal of the [Bits per Symbol](22-Eye-Diagram-Properties.md#sub:Eye-Diagram-Bits-per-Symbol).
+- Probability - the probability that a given symbol is transmitted. Nominally,
+  this is `1 / Levels`, the reciprocal of
+  [Number of Levels](22-Eye-Diagram-Properties.md#sub:Number-of-Levels).
 
 - SER – the symbol error rate. Based on the [Interpretation](18-Eye-Diagram-Measurements-Dialog.md#pc:Interpretation), this is the probability that, if the symbol is transmitted, it is transmitted in error.
 

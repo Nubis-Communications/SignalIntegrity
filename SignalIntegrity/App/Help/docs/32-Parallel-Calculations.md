@@ -16,6 +16,11 @@ For this reason, enabling parallelization is best thought of as granting *permis
 
 When the calculation does run in parallel, it uses a number of worker processes appropriate to the machine (typically the number of available processor cores). The final results are identical, to within numerical precision, to those produced by a serial calculation; only the wall-clock time changes.
 
+Workers receive the current application's numerical preferences when the pool
+is initialized, rather than relying on separate worker defaults. Settings such
+as condition-number checking and multi-port tee handling therefore remain
+consistent with the serial calculation.
+
 ## Enabling Parallel Calculations {#sub:Enabling-Parallel-Calculations}
 
 Parallelization is gated by **two** settings, and it is permitted only when **both** of them are enabled:

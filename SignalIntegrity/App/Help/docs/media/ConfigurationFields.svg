@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="392" viewBox="0 0 900 392" role="img" aria-labelledby="title desc">
+  <title id="title">Configuration visibility, native controls, and bindings</title>
+  <desc id="desc">Illustration of an unlabeled visibility checkbox and native interpolation radio buttons for a literal value. An equals button changes the row to a system-variable text binding. Visible labels stay below the reference designator and ordinary device properties.</desc>
+  <defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0 L10 5 L0 10" fill="#247b91"/></marker></defs>
+  <rect width="900" height="392" rx="12" fill="#f5f7fb"/>
+  <g font-family="sans-serif" fill="#22334b">
+    <text x="24" y="32" font-size="21" font-weight="bold">Configuration fields: controls in the dialog, text on the drawing</text>
+    <text x="876" y="55" text-anchor="end" font-size="14" fill="#52647d">Illustration</text>
+    <rect x="24" y="70" width="530" height="244" rx="8" fill="white" stroke="#b8c5d6"/>
+    <text x="43" y="97" font-size="17" font-weight="bold">Eye properties: literal value</text>
+    <rect x="44" y="116" width="18" height="18" rx="2" fill="white" stroke="#52647d"/>
+    <path d="M47 124 L51 130 L60 119" fill="none" stroke="#247b91" stroke-width="2"/>
+    <text x="77" y="131" font-size="16">Upsample Method</text>
+    <circle cx="267" cy="125" r="8" fill="white" stroke="#52647d"/><circle cx="267" cy="125" r="4" fill="#247b91"/>
+    <text x="281" y="131" font-size="16">sinx</text>
+    <circle cx="347" cy="125" r="8" fill="white" stroke="#52647d"/><text x="361" y="131" font-size="16">linear</text>
+    <rect x="487" y="110" width="39" height="29" rx="4" fill="#e6edf6" stroke="#b8c5d6"/><text x="506" y="131" text-anchor="middle" font-size="19">=</text>
+    <rect x="43" y="149" width="334" height="28" rx="5" fill="#e6edf6"/>
+    <text x="53" y="169" font-size="14">Checkbox tooltip: show this on the schematic</text>
+    <path d="M289 185 V214" stroke="#247b91" stroke-width="2" marker-end="url(#arrow)"/>
+    <text x="309" y="205" font-size="15" fill="#247b91">Click = to bind</text>
+    <text x="43" y="239" font-size="17" font-weight="bold">Same row: system-variable binding</text>
+    <rect x="44" y="258" width="18" height="18" rx="2" fill="white" stroke="#52647d"/>
+    <path d="M47 266 L51 272 L60 261" fill="none" stroke="#247b91" stroke-width="2"/>
+    <text x="77" y="274" font-size="16">Upsample Method</text>
+    <rect x="251" y="252" width="276" height="31" rx="3" fill="white" stroke="#247b91" stroke-width="2"/>
+    <text x="262" y="274" font-size="16">=eye_interp</text>
+    <text x="43" y="303" font-size="14" fill="#52647d">A literal restores the native control; it does not edit the variable.</text>
+    <path d="M561 193 H597" stroke="#247b91" stroke-width="2" marker-end="url(#arrow)"/>
+    <rect x="607" y="70" width="269" height="244" rx="8" fill="white" stroke="#b8c5d6"/>
+    <text x="623" y="97" font-size="17" font-weight="bold">Schematic text</text>
+    <rect x="627" y="112" width="56" height="40" rx="4" fill="#e6edf6" stroke="#52647d"/>
+    <path d="M635 138 Q645 115 655 138 Q665 115 675 138" stroke="#247b91" fill="none" stroke-width="2"/>
+    <text x="623" y="185" font-size="18" font-weight="bold">EYE1</text>
+    <text x="623" y="212" font-size="16">baudrate 25 GHz</text>
+    <path d="M623 225 H860" stroke="#b8c5d6"/>
+    <text x="623" y="247" font-size="15">Upsample Method</text>
+    <text x="623" y="269" font-size="16" fill="#247b91">=eye_interp (SinX)</text>
+    <text x="623" y="298" font-size="14" fill="#52647d">Click the value text to edit it.</text>
+    <text x="24" y="344" font-size="16">Legacy projects show no extra configuration labels until you enable their visibility.</text>
+    <text x="24" y="372" font-size="15" fill="#52647d">Literal radio / True-False / color controls remain available. Calculated results are display-only.</text>
+  </g>
+</svg>

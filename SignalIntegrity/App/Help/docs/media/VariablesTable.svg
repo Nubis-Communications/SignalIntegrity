@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="348" viewBox="0 0 900 348" role="img" aria-labelledby="title desc">
+  <title id="title">Variables table and shared row actions</title>
+  <desc id="desc">Illustration, not a screenshot. A shared toolbar operates on the selected variable. The table includes Show, Name, Value, Units, Type, and Description. A selected gain output variable remains editable.</desc>
+  <rect width="900" height="348" rx="12" fill="#f5f7fb"/>
+  <g font-family="sans-serif" fill="#22334b">
+    <text x="24" y="32" font-size="21" font-weight="bold">Variables: select a row, then edit</text>
+    <text x="876" y="32" text-anchor="end" font-size="14" fill="#52647d">Illustration</text>
+    <rect x="24" y="52" width="852" height="39" rx="6" fill="#e6edf6"/>
+    <text x="43" y="77" font-size="16">Add   |   Edit definition   |   Delete   |   Move up / down   |   Browse (file)</text>
+    <rect x="24" y="106" width="852" height="134" fill="white" stroke="#b8c5d6"/>
+    <rect x="24" y="106" width="852" height="32" fill="#e6edf6"/>
+    <rect x="25" y="171" width="850" height="34" fill="#def0f5"/>
+    <path d="M95 106 V240 M262 106 V240 M392 106 V240 M467 106 V240 M563 106 V240 M24 138 H876 M24 171 H876 M24 205 H876" stroke="#b8c5d6" fill="none"/>
+    <g font-size="15" font-weight="bold">
+      <text x="41" y="127">Show</text><text x="111" y="127">Name</text><text x="277" y="127">Value</text>
+      <text x="408" y="127">Units</text><text x="482" y="127">Type</text><text x="578" y="127">Description</text>
+    </g>
+    <g font-size="16">
+      <text x="111" y="161">baudrate</text><text x="277" y="161">25G</text><text x="408" y="161">Hz</text><text x="482" y="161">float</text><text x="578" y="161">Symbol rate</text>
+      <text x="111" y="194">gain</text><text x="408" y="194">dB</text><text x="482" y="194">float</text><text x="578" y="194">Learned gain (output variable)</text>
+      <text x="111" y="228">noise_file</text><text x="277" y="228">noise.json</text><text x="482" y="228">file</text><text x="578" y="228">Measured noise density</text>
+    </g>
+    <g fill="white" stroke="#52647d">
+      <rect x="50" y="146" width="17" height="17" rx="2"/><rect x="50" y="179" width="17" height="17" rx="2"/><rect x="50" y="213" width="17" height="17" rx="2"/>
+    </g>
+    <path d="M53 154 L57 159 L65 149 M53 187 L57 192 L65 182" stroke="#247b91" stroke-width="2" fill="none"/>
+    <rect x="272" y="175" width="110" height="27" rx="2" fill="white" stroke="#247b91" stroke-width="2"/>
+    <text x="281" y="194" font-size="16">-3</text><path d="M303 180 V198" stroke="#22334b"/>
+    <text x="24" y="270" font-size="16">Enter / F2: edit value   |   Ctrl+E: edit definition   |   Space: show / hide</text>
+    <text x="24" y="296" font-size="16">Enter / Tab: accept an in-cell edit   |   Escape: cancel</text>
+    <text x="24" y="326" font-size="15" fill="#52647d">Output variables are editable; equations or processors may overwrite their values on reevaluation.</text>
+  </g>
+</svg>

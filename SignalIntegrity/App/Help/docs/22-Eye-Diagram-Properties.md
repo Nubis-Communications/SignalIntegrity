@@ -4,8 +4,8 @@ The Eye Diagram Properties are:
 
 | **Preference Description** | **Preference Name** | **Type** | **(Default) Value** | **Availability** |
 |:---|:---|:---|:---|:---|
-| Bits per Symbol | [Bits per Symbol](22-Eye-Diagram-Properties.md#sub:Eye-Diagram-Bits-per-Symbol) | Int | 1 | Always |
-| Color | [Bits per Symbol](22-Eye-Diagram-Properties.md#sub:Eye-Diagram-Bits-per-Symbol) | RGB color (string) | ’#ffffff’ (white) | Always |
+| Number of Levels | [Number of Levels](22-Eye-Diagram-Properties.md#sub:Number-of-Levels) | Int | 2 | Always |
+| Color | [Eye Diagram Color](22-Eye-Diagram-Properties.md#sub:Eye-Diagram-Color) | RGB color (string) | ’#ffffff’ (white) | Always |
 | Number of UI | [Number of UI](22-Eye-Diagram-Properties.md#sub:Number-of-UI) | Int | 3 | Always |
 | Number of Rows | [Number of Rows](22-Eye-Diagram-Properties.md#sub:Number-of-Rows) | Int | 200 | Always |
 | Number of Columns | [Number of Columns](22-Eye-Diagram-Properties.md#sub:Number-of-Columns) | Int | 200 | Always |
@@ -16,6 +16,7 @@ The Eye Diagram Properties are:
 | Maximum Y | [Maximum Y](22-Eye-Diagram-Properties.md#sub:Maximum-Y) | Float | 1.0 | Y Axis is Fixed |
 | Minimum Y | [Minimum Y](22-Eye-Diagram-Properties.md#sub:Minimum-Y) | Float | 0.0 | Y Axis is Fixed |
 | Recover Clock | [Recover Clock](22-Eye-Diagram-Properties.md#sub:Recover-Clock) | Bool | False | Always |
+| Upsample Method | [Upsample Method](22-Eye-Diagram-Properties.md#sub:Upsample-Method) | Enum | SinX | Always |
 | Points to Trim From Both Side | [Points to Trim From Both Sides](22-Eye-Diagram-Properties.md#sub:Points-to-Trim) | Int | 20 | Recover Clock is True |
 | Enhanced Precision Mode | [Enhanced Precision Mode](22-Eye-Diagram-Properties.md#sub:Enhanced-Precision-Mode) | Enum | Auto | Always |
 | Enhanced Precision Steps | [Enhanced Precision Steps](22-Eye-Diagram-Properties.md#sub:Enhanced-Precision-Steps) | Int | 10 | Enhanced Precision Mode is Fixed |
@@ -34,6 +35,10 @@ The Eye Diagram Properties are:
 | Horizonal Alignment | [Horizontal Alignment](22-Eye-Diagram-Properties.md#sub:Horizontal-Alignment) | Enum | Middle | Auto Align Eye is True and Alignment Mode is Horizontal |
 | Vertical Alignment | [Vertical Alignment](22-Eye-Diagram-Properties.md#sub:Vertical-Alignment) | Enum | MaxMin | Auto Align Eye is True and Alignment Mode is Vertical |
 | Measure Eye Parameters | [Measure Eye Parameters](22-Eye-Diagram-Properties.md#sub:Measure-Eye-Parameters) | Bool | False | Always |
+| Waveform Type | [Waveform Type and Optical Measurements](21-Eye-Diagram-Properties-Dialog.md#sub:Optical-Measurement-Configuration) | Enum | V | Measurements enabled |
+| Receiver/Transmitter | [Waveform Type and Optical Measurements](21-Eye-Diagram-Properties-Dialog.md#sub:Optical-Measurement-Configuration) | Enum | Rx | Waveform Type is W |
+| Input Power Available | [Waveform Type and Optical Measurements](21-Eye-Diagram-Properties-Dialog.md#sub:Optical-Measurement-Configuration) | Bool | False | Waveform Type is W and Receiver/Transmitter is Tx |
+| Input Power (W) | [Waveform Type and Optical Measurements](21-Eye-Diagram-Properties-Dialog.md#sub:Optical-Measurement-Configuration) | Float | 0 | Transmitter input power available |
 | BER Exponent for Measure | [BER Exponent for Measure](22-Eye-Diagram-Properties.md#sub:BER-Exponent-for-Measure) | Float | -6 | Measure Eye Parameters is True |
 | Decision Level | [Decision Level](22-Eye-Diagram-Properties.md#sub:Decision-Level) | Enum | Mid | Measure Eye Parameters is True |
 | Measure Bathtub Curves | [Measure Bathtub Curves](22-Eye-Diagram-Properties.md#sub:Measure-Bathtub-Curves) | Bool | False | Measure Eye Parameters is True |
@@ -49,7 +54,16 @@ The Eye Diagram Properties are:
 | Annotate Contour | [Annotate Contour](22-Eye-Diagram-Properties.md#sub:Annotate-Contour) | Bool | False | Measure Eye Parameters is True and Annotate Eye with Measurements is True |
 | Which Contours to Show | [Which Contours to Show](22-Eye-Diagram-Properties.md#sub:Which-Contours-to-Show) | Enum | Eye | Measure Eye Parameters is True and Annotate Eye with Measurements is True and Annotate Contour is True |
 
-## Bits per Symbol {#sub:Eye-Diagram-Bits-per-Symbol}
+## Number of Levels {#sub:Number-of-Levels}
+
+<span id="sub:Eye-Diagram-Bits-per-Symbol"></span>
+
+The current control is **Number of Levels** (`EyeDiagram.Alignment.Levels`),
+with a default of 2. Enter 2 for NRZ/PAM-2, 4 for PAM-4, or the PAM level count
+required by your waveform. Alignment and measurements use that level count.
+Legacy projects using `Alignment.BitsPerSymbol` remain supported and are
+converted with `Levels = 2 ** BitsPerSymbol`. The table below describes that
+legacy property.
 
 <table>
 <thead>
@@ -78,6 +92,13 @@ This sets the number of bits per symbol and defines the type of signaling used. 
 - 1 = NRZ, or PAM-2,
 
 - 2 = PAM-4.
+
+## Upsample Method {#sub:Upsample-Method}
+
+`EyeDiagram.UpsampleMethod` selects `SinX` (default) or `Linear` resampling onto
+the eye's horizontal pixel grid. The dialog displays these as **sinx** and
+**linear**. This setting is independent of `Calculation.UseSinX` and is included
+in the eye bitmap's cache definition. A change regenerates the bitmap.
 
 ## Eye Diagram Color {#sub:Eye-Diagram-Color}
 
@@ -403,7 +424,9 @@ When [Eye Mode](22-Eye-Diagram-Properties.md#sub:Eye-Mode) is set to ISI Only, o
 </tbody>
 </table>
 
-If Invert is set to True, then the background is black and the eye diagram traces are shown in the color specified by the [Bits per Symbol](22-Eye-Diagram-Properties.md#sub:Eye-Diagram-Bits-per-Symbol). Otherwise, if Invert is set to False, the background is set to the color specified by the [Bits per Symbol](22-Eye-Diagram-Properties.md#sub:Eye-Diagram-Bits-per-Symbol) and the eye diagram traces are shown in black.
+If Invert is set to True, the background is black and the traces use the
+[Eye Diagram Color](22-Eye-Diagram-Properties.md#sub:Eye-Diagram-Color).
+Otherwise, that color is used for the background and the traces are black.
 
 ## Auto Align Eye {#sub:Auto-Align-Eye}
 

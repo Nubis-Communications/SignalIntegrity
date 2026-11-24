@@ -43,6 +43,9 @@ The standard preferences are listed below along with the tab where each setting 
 | enable parallelization of calculations (experimental) | [Calculation.AllowParallelization](29-Preferences.md#sub:Calculation.AllowParallelization) | Calculation | Bool | False |
 | enable maximum impulse response length | [Calculation.AllowMaximumImpulseResponseLength](29-Preferences.md#sub:Calculation.AllowMaximumImpulseResponseLength) | Calculation | Bool | False |
 | ignore missing other waveforms in calculations | [Calculation.IgnoreMissingOtherWaveforms](29-Preferences.md#sub:Calculation.IgnoreMissingOtherWaveforms) | Calculation | Bool | True |
+| stop processing based on convergence | [Calculation.Processing.StopOnConvergence](29-Preferences.md#sub:Waveform-Processing-Iterations) | Calculation | Bool | False |
+| maximum processing iterations | [Calculation.Processing.MaximumProcessingIterations](29-Preferences.md#sub:Waveform-Processing-Iterations) | Calculation | Int | 100 |
+| processing convergence threshold | [Calculation.Processing.ConvergenceThreshold](29-Preferences.md#sub:Waveform-Processing-Iterations) | Calculation | Float | 0.001 |
 | maximum waveform size | [Calculation.MaximumWaveformPoints](29-Preferences.md#sub:Calculation.MaximumWaveformPoints) | Calculation | Float | 5 Mpts |
 | retain recent project files | [ProjectFiles.RetainLastFilesOpened](29-Preferences.md#sub:RetainLastFilesOpened) | Plots and Files | Bool | True |
 | open last file on start | [ProjectFiles.OpenLastFile](29-Preferences.md#sub:OpenLastFile) | Plots and Files | Bool | True |
@@ -60,6 +63,28 @@ The standard preferences are listed below along with the tab where each setting 
 | archive non-relative files | [ProjectFiles.ArchiveNonRelativeFiles](29-Preferences.md#sub:ArchiveNonRelativeFiles) | Archive and Regression | Bool | False |
 | use online help | [OnlineHelp.UseOnlineHelp](29-Preferences.md#sub:OnlineHelp.UseOnlineHelp) | Appearance | Bool | True |
 | online help url | [OnlineHelp.URL](29-Preferences.md#sub:OnlineHelp.URL) | Appearance | String | http://nubis-communications.github.io/SignalIntegrity/SignalIntegrity/App |
+
+## Waveform Processing Iterations {#sub:Waveform-Processing-Iterations}
+
+These settings apply to iterative
+[Waveform Processors](35-Waveform-Processors.md#sec:Waveform-Processors):
+
+- **Stop processing based on convergence** (`StopOnConvergence`, default
+  `False`) allows processing to stop once consecutive waveform passes meet the
+  convergence threshold.
+- **Maximum processing iterations** (`MaximumProcessingIterations`, default
+  `100`, minimum `2` in the dialog) caps convergence-based processing and extra
+  passes required by changed system variables. The latter cap applies even when
+  Stop On Convergence is off.
+- **Processing convergence threshold** (`ConvergenceThreshold`, default
+  `0.001`) is the relative waveform-error threshold used for convergence.
+
+A processor that updates linked system variables causes equations and transfer
+matrices to be regenerated. A pass that changed the system is not considered
+converged merely because its waveforms look unchanged. If variables are still
+changing at the iteration limit, simulation reports an error instead of returning
+results calculated from obsolete settings. These are iteration limits, not
+training/validation symbol limits inside a script.
 
 <div id="sub:Appearance.FontSize"></div>
 
@@ -91,6 +116,10 @@ Choose `Legacy`, `Light`, or `Dark` from the theme preference:
 
 The selected theme is used throughout the application.
 
+Theme changes apply to current and subsequently opened application dialogs,
+including variables and configuration controls. User-selected background and
+foreground colors can be customized through the Appearance controls.
+
 <div id="sub:Appearance.DialogStyle"></div>
 
 ## Appearance.DialogStyle {#appearance.dialogstyle .unnumbered}
@@ -105,6 +134,13 @@ The `Appearance.DialogStyle` preference controls how modal dialogs are rendered.
 - `Themed` - use SignalIntegrity's themed dialog appearance.
 
 The selected color theme also applies to themed dialogs.
+
+Themed save dialogs include **New Folder**: enter a single folder name to create
+it in the current directory and enter that folder. Canceling leaves the directory
+unchanged; invalid names and filesystem errors are reported.
+
+The file filter continues to select the requested file extensions on Tk 9.
+Native dialogs retain their operating-system-specific appearance and controls.
 
 <div id="sub:Appearance.Themes.Light.Palette"></div>
 
@@ -401,6 +437,8 @@ When the cap is enabled for a project, it limits the impulse response length use
 | ignore missing other waveforms in calculations | [Calculation.IgnoreMissingOtherWaveforms](29-Preferences.md#sub:Calculation.IgnoreMissingOtherWaveforms) | Bool | True |
 
 This preference allows [Virtual Probing](10-Virtual-Probing.md#sec:Virtual-Probing) and [Simulation](08-Simulation.md#sec:Simulation) calculations to complete, even if missing waveforms specified by the special devices [Waveform](23-Built-in-Devices-Parts.md#device:Waveform) and [Eye Waveform](23-Built-in-Devices-Parts.md#device:Eye-Waveform) are not found on the disk. If this preference is false, missing waveforms specified by these devices cause the calculation to fail.
+
+When enabled, only the missing waveforms are omitted; later available waveforms and their eyes are still displayed.
 
 <div id="sub:Calculation.MaximumWaveformPoints"></div>
 
