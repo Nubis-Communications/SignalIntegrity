@@ -21,6 +21,9 @@ TestHeaders.py
 import unittest
 
 import os
+import tokenize
+import tempfile
+from unittest.mock import patch
 
 exclusionList=[
     'doxypy.py','Zoomer.py']
@@ -53,11 +56,38 @@ class TestHeadersTest(unittest.TestCase):
         pass
     def __init__(self, methodName='runTest'):
         unittest.TestCase.__init__(self,methodName)
+    def testApplicationFoldersAreChecked(self):
+        with tempfile.TemporaryDirectory() as rootDir:
+            testFile=os.path.join(rootDir,'Test','TestSignalIntegrity','TestHeaders','TestHeaders.py')
+            os.makedirs(os.path.dirname(testFile))
+            for directory in ('.hidden','environment'):
+                path=os.path.join(rootDir,directory)
+                os.makedirs(path)
+                with open(os.path.join(path,'unlicensed.py'),'w',encoding='utf-8') as f:
+                    f.write('value=1\n')
+            with open(os.path.join(rootDir,'environment','pyvenv.cfg'),'w',encoding='utf-8') as f:
+                f.write('home=python\n')
+            with patch(__name__+'.__file__',testFile):
+                checker=TestHeadersTest('testFiles')
+                for folder in ('App','Lib','Utilities'):
+                    with self.subTest(folder=folder):
+                        path=os.path.join(rootDir,'SignalIntegrity',folder)
+                        os.makedirs(path)
+                        filename=os.path.join(path,'HeaderFixture.py')
+                        with open(filename,'w',encoding='utf-8') as f:
+                            f.write('"""Header fixture."""\n\nvalue=1\n')
+                        with self.assertRaises(AssertionError):
+                            checker.testFiles()
+                        with open(filename,'w',encoding='utf-8') as f:
+                            f.write('"""Header fixture."""\n\n'+''.join(license)+'\n')
+                        checker.testFiles()
     def testFiles(self):
         errors=[]
-        thisDir=os.getcwd()
-        rootDir=thisDir+'/../..'
+        rootDir=os.path.abspath(os.path.join(os.path.dirname(__file__),'..','..','..'))
         for r, d, f in os.walk(rootDir):
+            d[:]=[directory for directory in d
+                  if not directory.startswith('.') and directory!='__pycache__'
+                  and not os.path.isfile(os.path.join(r,directory,'pyvenv.cfg'))]
             for file in f:
                 if file in exclusionList:
                     continue
@@ -76,7 +106,7 @@ class TestHeadersTest(unittest.TestCase):
                 if True:
                     foundone=False
                     newlines=[]
-                    with open(pythonFileName) as f:
+                    with tokenize.open(pythonFileName) as f:
                         lines=f.readlines()
 
                         for line in lines:

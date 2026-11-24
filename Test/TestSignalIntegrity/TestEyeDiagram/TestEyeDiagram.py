@@ -160,6 +160,48 @@ class TestEyeDiagramTest(unittest.TestCase,
                 self.assertEqual(bitmap.call_args.kwargs['UpsampleMethod'],method)
                 self.assertEqual(eye.BitMap().shape,(32,16))
 
+    def testBoundConfigurationMatchesLiteralEyeAndRejectsBadInputsBeforeCalculation(self):
+        import copy
+        from unittest.mock import patch
+        from SignalIntegrity.App.ConfigurationProperty import BindConfiguration,ConfigurationError
+        from SignalIntegrity.App.ProjectFile import VariablesConfiguration,VariableConfiguration
+        from SignalIntegrity.App.EyeDiagramConfiguration import EyeDiagramConfiguration
+        from SignalIntegrity.App.EyeDiagram import EyeDiagram
+        import SignalIntegrity.App as siapp
+        variables=VariablesConfiguration()
+        for name,value,type in [('rows','32','int'),('noise','.02','float'),('mode','JitterNoise','enum')]:
+            variable=VariableConfiguration()
+            variable['Name'],variable['Value'],variable['Type']=name,value,type
+            variables['Items'].append(variable)
+        config=BindConfiguration(EyeDiagramConfiguration(),variables,'E1')
+        config['Rows'],config['Columns']=32,16
+        config['Alignment.AutoAlign']=False
+        config['EnhancedPrecision.Mode']='None'
+        config['Rows'],config['Mode'],config['JitterNoise.Noise']='=rows','=mode','=noise'
+        literal=copy.deepcopy(config)
+        literal['Rows'],literal['Mode'],literal['JitterNoise.Noise']=32,'JitterNoise',.02
+        waveform=si.td.wf.Waveform(si.td.wf.TimeDescriptor(0.,512,4.e9),
+                                 np.tile([-1.,-1.,1.,1.],128).tolist())
+        bitmaps=[]
+        cache=siapp.Preferences['Cache.CacheResults']
+        try:
+            siapp.Preferences['Cache.CacheResults']=False
+            for configuration in (config,literal):
+                eye=EyeDiagram(None,'eye',headless=True)
+                eye.config,eye.prbswf,eye.baudrate=configuration,waveform,1.e9
+                eye.CalculateEyeDiagram('eye')
+                self.assertIsNotNone(eye.Image())
+                bitmaps.append(eye.BitMap())
+            np.testing.assert_array_equal(*bitmaps)
+            variables.VariableByName('rows')['Value']='32.5'
+            eye.config=config
+            with patch('SignalIntegrity.App.EyeDiagram.EyeDiagramBitmap') as calculate:
+                with self.assertRaisesRegex(ConfigurationError,'E1.*Rows.*integer'):
+                    eye.CalculateEyeDiagram('eye')
+                calculate.assert_not_called()
+        finally:
+            siapp.Preferences['Cache.CacheResults']=cache
+
     def testEyeDiagram(self):
         self.SimulationEyeDiagramResultsChecker('EyeDiagramTest.si')
     def testEyeDiagramTransferMatrices(self):

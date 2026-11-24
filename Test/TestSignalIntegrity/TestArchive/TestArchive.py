@@ -258,6 +258,50 @@ class TestArchive(unittest.TestCase):
             self.assertFalse(os.path.exists(archiveDir),self.id()+' archive directory not removed')
         finally:
             os.chdir(currentDir)
+
+    def testArchiveIncludesBoundConfigurationSpectralDensityFile(self):
+        import copy
+        from SignalIntegrity.App.SignalIntegrityAppHeadless import SignalIntegrityAppHeadless
+        from SignalIntegrity.App.Device import DeviceList
+        from SignalIntegrity.App.ProjectFile import VariableConfiguration
+        import SignalIntegrity.App
+        source=os.path.join(self.path,'..','TestSParameterFile','IdealFourPort.si')
+        project=os.path.join(self.tempDir,'Noise.si')
+        shutil.copy2(source,project)
+        spectrum=os.path.join(self.tempDir,'noise.density.csv')
+        with open(spectrum,'w') as stream:
+            stream.write('frequency,density\n0,0\n1000000000,1e-9\n')
+        app=SignalIntegrityAppHeadless()
+        from SignalIntegrity.App.SignalIntegrityAppHeadless import ProjectStack
+        original=SignalIntegrity.App.Project
+        app.projectStack=ProjectStack()
+        try:
+            self.assertTrue(app.OpenProjectFile(project,writable=True))
+            device=copy.deepcopy(next(device for device in DeviceList
+                                      if device['partname'].GetValue()=='VoltageStatisticalNoiseSource'))
+            device['ref']['Value']='VN1'
+            device.configuration['Enable']=True
+            device.configuration['Type']='SpectralDensityFile'
+            device.configuration['SpectralDensityFile.FileName']='=spectrum'
+            device.configuration.configurationFields['SpectralDensityFile.FileName'].visible=True
+            app.Drawing.schematic.deviceList.append(device)
+            variable=VariableConfiguration()
+            variable['Name'],variable['Type'],variable['Value']='spectrum','file','noise.density.csv'
+            SignalIntegrity.App.Project['Variables.Items'].append(variable)
+            app.SaveProjectToFile(project)
+            self.assertTrue(app.Archive())
+            Archive.ExtractArchive(os.path.join(self.tempDir,'Noise.siz'))
+            extracted=os.path.join(self.tempDir,'Noise_Archive')
+            self.assertTrue(os.path.isfile(os.path.join(extracted,'noise.density.csv')))
+            self.assertTrue(app.OpenProjectFile(os.path.join(extracted,'Noise.si')))
+            restored=next(device for device in app.Drawing.schematic.deviceList
+                          if device['ref'] is not None and device['ref'].GetValue()=='VN1')
+            field=restored.configuration.configurationFields['SpectralDensityFile.FileName']
+            self.assertEqual(field.reference,'spectrum')
+            self.assertTrue(field.visible)
+            self.assertTrue(os.path.isfile(os.path.abspath(field.Value())))
+        finally:
+            SignalIntegrity.App.Project=original
     def WriteMiniProjectWithEquationFile(self,directory,csvName='dep.csv'):
         """Writes a minimal project whose equations pull csvName in via ArchiveFile()."""
         with open(os.path.join(directory,csvName),'w') as f:

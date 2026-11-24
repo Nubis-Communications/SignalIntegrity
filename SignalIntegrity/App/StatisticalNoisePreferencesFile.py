@@ -331,7 +331,11 @@ class VoltageNoiseConfiguration(XMLConfiguration):
         self.SubDir(NoiseWaveformFileConfiguration())
         self.SubDir(CrosstalkNoiseFromProbeConfiguration())
         self.Add(XMLPropertyDefaultFloat('Lanes',1.0))
+        from SignalIntegrity.App.ConfigurationProperty import InitializeConfiguration
+        InitializeConfiguration(self)
     def SpectralDensity(self, EndFrequency, FrequencyPoints, output_waveforms=None, output_waveform_names=None, output_types=None):
+        from SignalIntegrity.App.ConfigurationProperty import ValidateConfiguration
+        ValidateConfiguration(self)
         from SignalIntegrity.Lib.FrequencyDomain.SpectralDensity import SpectralDensity
         from SignalIntegrity.Lib.FrequencyDomain.FrequencyList import EvenlySpacedFrequencyList
         import math
@@ -368,7 +372,11 @@ class CurrentNoiseConfiguration(XMLConfiguration):
         self.SubDir(CrosstalkNoiseFromProbeConfiguration())
         self.SubDir(ShotNoiseConfiguration(parent=self))
         self.Add(XMLPropertyDefaultFloat('Lanes',1.0))
+        from SignalIntegrity.App.ConfigurationProperty import InitializeConfiguration
+        InitializeConfiguration(self)
     def SpectralDensity(self, EndFrequency, FrequencyPoints, output_waveforms=None, output_waveform_names=None, output_types=None):
+        from SignalIntegrity.App.ConfigurationProperty import ValidateConfiguration
+        ValidateConfiguration(self)
         from SignalIntegrity.Lib.FrequencyDomain.SpectralDensity import SpectralDensity
         from SignalIntegrity.Lib.FrequencyDomain.FrequencyList import EvenlySpacedFrequencyList
         import math

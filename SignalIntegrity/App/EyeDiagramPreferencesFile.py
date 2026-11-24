@@ -133,5 +133,7 @@ class EyeConfiguration(XMLConfiguration):
         self.SubDir(EyeAnnotationConfiguration())
         self.SubDir(DecisionConfiguration())
         self.SubDir(BathtubConfiguration())
+        from SignalIntegrity.App.ConfigurationProperty import InitializeConfiguration
+        InitializeConfiguration(self)
     def HandleBackwardsCompatibility(self):
         self['Alignment'].HandleBackwardsCompatibility()

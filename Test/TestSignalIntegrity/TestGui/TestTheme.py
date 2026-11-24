@@ -643,6 +643,27 @@ class TestTheme(unittest.TestCase):
         with patch.object(tk.Toplevel, 'wait_window', autospec=True, side_effect=choose):
             self.assertEqual(SignalIntegrityApp.MakeWritableChoice(SimpleNamespace(root=self.root)), 'keep')
 
+    def test_tooltip_stays_above_topmost_dialog_without_taking_focus(self):
+        dialog = tk.Toplevel(self.root)
+        dialog.attributes('-topmost', True)
+        entry = tk.Entry(dialog)
+        entry.pack()
+        tooltip = ToolTip(entry)
+        try:
+            dialog.update()
+            entry.focus_force()
+            dialog.update()
+            tooltip.showtip('Settings')
+            dialog.update()
+            self.assertTrue(dialog.tk.getboolean(dialog.tk.call(
+                'wm', 'stackorder', tooltip.tipwindow._w, 'isabove', dialog._w)))
+            self.assertIs(dialog.focus_get(), entry)
+            tooltip.hidetip()
+            self.assertIsNone(tooltip.tipwindow)
+        finally:
+            tooltip.hidetip()
+            dialog.destroy()
+
     def test_tooltip_text_remains_readable_in_named_themes(self):
         entry = tk.Entry(self.root)
         tooltip = ToolTip(entry)

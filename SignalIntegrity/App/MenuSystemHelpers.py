@@ -139,6 +139,8 @@ class ToolTip(object):
         y = y + self.widget.winfo_rooty() - 27
         self.tipwindow = tw = tk.Toplevel(self.widget)
         tw.wm_overrideredirect(1)
+        tw.transient(self.widget.winfo_toplevel())
+        tw.attributes('-topmost', True)
         tw.wm_geometry("+%d+%d" % (x, y))
         try:
             # For Mac OS
@@ -153,6 +155,7 @@ class ToolTip(object):
         label = tk.Label(tw, text=self.text, justify=tk.LEFT,
                          background=background, foreground=foreground, relief=tk.SOLID, borderwidth=1)
         label.pack(ipadx=1)
+        tw.lift()
 
     def hidetip(self):
         tw = self.tipwindow

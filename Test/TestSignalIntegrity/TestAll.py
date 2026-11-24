@@ -71,6 +71,7 @@ from TestPRBS import *
 from TestPrbsSpecial import *
 from TestProbeOnOff import *
 from TestProbes import *
+from TestProjectFile.TestProjectFile import TestConfigurationFields
 from TestRefImp import *
 from TestRegressionFiles import *
 from TestResultsCache import *

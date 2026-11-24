@@ -45,26 +45,32 @@ class EyeDiagram(object):
         self.measDict=None
         self.annotationBitmap=None
         SignalIntegrity.App.Preferences['Cache'].ApplyPreferences()
+        if hasattr(self.config,'configurationFields'):
+            from SignalIntegrity.App.ConfigurationProperty import ValidateConfiguration
+            ValidateConfiguration(self.config)
 
         if not self.headless: self.parent.statusbar.set('Creating Eye Diagram')
         # calculate the bitmap directly from the serial data waveform supplied
         try:
+            optional={}
+            for path,argument in (('YAxis.Max','YMax'),('YAxis.Min','YMin'),
+                                  ('EnhancedPrecision.FixedEnhancement','EnhancementSteps'),
+                                  ('ClockRecovery.TrimLeftRight','clock_recovery_trim_left_right')):
+                if self.config.configurationFields[path].Active():
+                    optional[argument]=self.config[path]
             eyeDiagramBitmap=EyeDiagramBitmap(
                 callback=callback,
                 cacheFileName=cacheFileName+'_'+self.name if SignalIntegrity.App.Preferences['Cache.CacheResults'] else None,
                 YAxisMode=self.config['YAxis.Mode'],
-                YMax=self.config['YAxis.Max'],
-                YMin=self.config['YAxis.Min'],
                 Rows=self.config['Rows'],
                 Cols=self.config['Columns'],
                 BaudRate=self.baudrate,
                 prbswf=self.prbswf,
                 EnhancementMode=self.config['EnhancedPrecision.Mode'],
-                EnhancementSteps=self.config['EnhancedPrecision.FixedEnhancement'],
                 Levels=self.config['Alignment.Levels'], # PAM
                 recover_clock=self.config['ClockRecovery.Recover'],
-                clock_recovery_trim_left_right=self.config['ClockRecovery.TrimLeftRight'],
-                UpsampleMethod=self.config['UpsampleMethod']
+                UpsampleMethod=self.config['UpsampleMethod'],
+                **optional
                 )
         except Exception as e:
             raise SignalIntegrityExceptionEyeDiagram('Eye Diagram Creation Failed.')
@@ -113,7 +119,7 @@ class EyeDiagram(object):
             #raise SignalIntegrityExceptionEyeDiagram('Eye Diagram Measurement Failed.')
 
         try:
-            if self.config['Bathtub.Measure']:
+            if self.config['Measure.Measure'] and self.config['Bathtub.Measure']:
                 if not self.headless: self.parent.statusbar.set('Calculating Bathtub Curves')
                 eyeDiagramBitmap.Bathtub(
                     DecadesFromJoin=self.config['Bathtub.DecadesFromJoinForFit'],
@@ -151,18 +157,22 @@ class EyeDiagram(object):
 
         try:
             if not self.headless: self.parent.statusbar.set('Creating Image')
+            optional={}
+            for path,argument in (('JitterNoise.LogIntensity.MinExponent','MinExponentLogIntensity'),
+                                  ('JitterNoise.LogIntensity.MaxExponent','MaxExponentLogIntensity'),
+                                  ('Annotation.Color','AnnotationColor'),
+                                  ('Annotation.LabelMeanLevels','LabelMeanLevels')):
+                if self.config.configurationFields[path].Active():
+                    optional[argument]=self.config[path]
             eyeDiagramBitmap.CreateImage(
                         LogIntensity=self.config['JitterNoise.LogIntensity.LogIntensity'],
-                        MinExponentLogIntensity=self.config['JitterNoise.LogIntensity.MinExponent'],
-                        MaxExponentLogIntensity=self.config['JitterNoise.LogIntensity.MaxExponent'],
                         NumUI=self.config['UI'],
                         Saturation=self.config['Saturation'],
                         InvertImage=self.config['Invert'],
                         Color=self.config['Color'],
-                        AnnotationColor=self.config['Annotation.Color'],
                         ScaleX=self.config['ScaleX'],
                         ScaleY=self.config['ScaleY'],
-                        LabelMeanLevels=self.config['Annotation.LabelMeanLevels']
+                        **optional
                         )
         except Exception as e:
             pass

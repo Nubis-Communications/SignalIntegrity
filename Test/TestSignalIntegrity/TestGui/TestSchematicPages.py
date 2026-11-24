@@ -446,6 +446,388 @@ class TestSchematicPages(unittest.TestCase):
         self.assertIsNone(drawing.textEditor)
         self.assertEqual(drawing.stateMachine.state,'DeviceSelected')
 
+    def configurationDevice(self,eye=False,current=False):
+        from SignalIntegrity.App.Device import DeviceList
+        part='CurrentStatisticalNoiseSource' if current else 'VoltageStatisticalNoiseSource'
+        if eye:
+            device=copy.deepcopy(next(device for device in DeviceList
+                                      if getattr(device.configuration,'name',None)=='EyeDiagram'))
+        else:
+            device=copy.deepcopy(next(device for device in DeviceList if device['partname'].GetValue()==part))
+        device['ref']['Value']='CFG1'
+        device.partPicture.current.SetOrigin((18,18))
+        if not eye:
+            device.configuration['Enable']=True
+            device.configuration['WhiteNoise.NoiseBandwidth']=2.e9
+        self.app.Drawing.schematic.deviceList.append(device)
+        self.app.Drawing.DrawSchematic()
+        return device
+
+    def test_configuration_text_is_below_device_properties(self):
+        drawing=self.app.Drawing
+        for options,path in (({},'WhiteNoise.NoiseBandwidth'),
+                             ({'current':True},'WhiteNoise.NoiseBandwidth'),
+                             ({'eye':True},'Rows')):
+            with self.subTest(options=options):
+                device=self.configurationDevice(**options)
+                device['ref']['Visible']=True
+                field=device.configuration.configurationFields[path]
+                field.visible=True
+                drawing.DrawSchematic()
+                picture=device.partPicture.current
+                positions={id(source):drawing.canvas.coords(item)[1]
+                           for source,item in zip(picture.visiblePartPropertySources,
+                                                  picture.visiblePartPropertyItems)}
+                propertyPositions=[positions[id(prop)] for prop in device.propertiesList
+                                   if id(prop) in positions]
+                self.assertEqual(positions[id(device['ref'])],min(propertyPositions))
+                self.assertGreater(positions[id(field)],max(propertyPositions))
+
+    def test_configuration_visibility_inline_binding_and_undo(self):
+        drawing=self.app.Drawing
+        device=self.configurationDevice()
+        configuration=device.configuration
+        field=configuration.configurationFields['WhiteNoise.NoiseBandwidth']
+        self.assertNotIn(field,[source for source,_ in drawing.editableTextItems.values()])
+        field.visible=True
+        drawing.DrawSchematic()
+        self.app.history.Event('show configuration')
+        self.assertIn(field,[source for source,_ in drawing.editableTextItems.values()])
+        editor=self.clickOnText(field)
+        self.assertIn(field.label,[child.cget('text') for child in editor[5].winfo_children()
+                                  if child.winfo_class()=='TLabel'])
+        drawing.CancelTextEdit()
+        self.editText(field,'=x')
+        self.assertEqual(configuration['WhiteNoise.NoiseBandwidth'],2.)
+        self.assertEqual(field.reference,'x')
+        self.assertTrue(any('=x' in drawing.canvas.itemcget(item,'text')
+                            for item in drawing.editableTextItems))
+        self.app.history.Undo()
+        restored=next(d for d in drawing.schematic.deviceList if d['ref'] is not None and d['ref'].GetValue()=='CFG1')
+        self.assertEqual(restored.configuration['WhiteNoise.NoiseBandwidth'],2.e9)
+        self.assertTrue(restored.configuration.configurationFields[field.path].visible)
+
+    def test_configuration_invalid_edit_stays_open_and_inactive_fields_hide(self):
+        drawing=self.app.Drawing
+        device=self.configurationDevice()
+        field=device.configuration.configurationFields['WhiteNoise.NoiseBandwidth']
+        field.visible=True
+        drawing.DrawSchematic()
+        editor=self.clickOnText(field)
+        editor[0].delete(0,tk.END)
+        editor[0].insert(0,'nonsense')
+        with patch('SignalIntegrity.App.MessageBox.showerror') as error:
+            drawing.CommitTextEdit()
+        self.assertIs(drawing.textEditor,editor)
+        self.assertEqual(device.configuration[field.path],2.e9)
+        error.assert_called_once()
+        drawing.CancelTextEdit()
+        device.configuration['Type']='WaveformFile'
+        drawing.DrawSchematic()
+        self.assertNotIn(field,[source for source,_ in drawing.editableTextItems.values()])
+        self.assertTrue(field.visible)
+        device.configuration['Type']='WhiteNoise'
+        drawing.DrawSchematic()
+        self.assertIn(field,[source for source,_ in drawing.editableTextItems.values()])
+
+    def test_configuration_dialog_checkbox_and_enum_validation(self):
+        from SignalIntegrity.App.CalculationPropertiesProject import CalculationPropertyChoices,CalculationPropertyTrueFalseButton
+        from SignalIntegrity.App.ConfigurationPropertiesDialog import ConfigurationPropertiesDialog
+        device=self.configurationDevice()
+        dialog=ConfigurationPropertiesDialog(device.configuration,self.app.Drawing)
+        self.addCleanup(lambda:dialog.destroy() if dialog.winfo_exists() else None)
+        self.app.root.update()
+        path='WhiteNoise.NoiseBandwidth'
+        self.assertIsInstance(dialog.NoiseType.control,CalculationPropertyChoices)
+        self.assertIsInstance(dialog.Enable.control,CalculationPropertyTrueFalseButton)
+        dialog.rows[path].show.invoke()
+        self.assertTrue(device.configuration.configurationFields[path].visible)
+        numeric=dialog.rows[path]
+        numeric.nativeEntry.focus_force()
+        self.app.root.update()
+        numeric.BeginBinding()
+        self.app.root.update()
+        self.assertEqual(numeric.entry,numeric.bindingEntry)
+        self.assertEqual(numeric.focus_get(),numeric.bindingEntry)
+        numeric.Cancel()
+        row=dialog.rows['Type']
+        row.BeginBinding()
+        entry=row.bindingEntry
+        entry.delete(0,tk.END)
+        entry.insert(0,'InvalidMode')
+        row.Commit()
+        self.assertEqual(device.configuration['Type'],'WhiteNoise')
+        self.assertEqual(row.entry,entry)
+        self.assertIn('allowed keywords',dialog.error.cget('text'))
+        entry.delete(0,tk.END)
+        entry.insert(0,'SpectralDensityFile')
+        row.Commit()
+        self.assertEqual(row.entry,row.nativeEntry)
+        self.assertTrue(dialog.rows['SpectralDensityFile.FileName'].shown)
+        self.assertFalse(dialog.rows[path].shown)
+        self.assertTrue(device.configuration.configurationFields[path].visible)
+
+    def test_eye_configuration_binding_and_focus_preserve_row_order(self):
+        from SignalIntegrity.App.ConfigurationPropertiesDialog import ConfigurationPropertiesDialog
+        device=self.configurationDevice(eye=True)
+        dialog=ConfigurationPropertiesDialog(device.configuration,self.app.Drawing)
+        try:
+            self.app.root.update()
+            order=dialog.GeneralFrame.pack_slaves()
+            row=dialog.rows['Color']
+            row.bindingButton.invoke()
+            self.app.root.update()
+            self.assertEqual(dialog.GeneralFrame.pack_slaves(),order)
+            row.Cancel()
+            self.assertEqual(dialog.GeneralFrame.pack_slaves(),order)
+            row.bindingButton.invoke()
+            dialog.SaveToPreferencesButton.focus_force()
+            self.app.root.update()
+            self.assertEqual(dialog.GeneralFrame.pack_slaves(),order)
+        finally:
+            dialog.destroy()
+
+    def test_eye_configuration_mode_changes_restore_rows_in_original_positions(self):
+        from SignalIntegrity.App.ConfigurationPropertiesDialog import ConfigurationPropertiesDialog
+        device=self.configurationDevice(eye=True)
+        configuration=device.configuration
+        configuration['Measure.Measure']=True
+        configuration['Measure.WaveformType']='W'
+        configuration['Measure.RxTx']='Tx'
+        configuration['Measure.TxInputPowerAvailable']=True
+        dialog=ConfigurationPropertiesDialog(configuration,self.app.Drawing)
+        try:
+            self.app.root.update()
+            order=dialog.MeasurementsFrame.pack_slaves()
+            dialog.RxTx.control.Set('Rx')
+            self.assertFalse(dialog.TxInputPowerW.shown)
+            dialog.RxTx.control.Set('Tx')
+            self.assertTrue(dialog.TxInputPowerW.shown)
+            self.assertEqual(dialog.MeasurementsFrame.pack_slaves(),order)
+        finally:
+            dialog.destroy()
+
+    def test_grouped_dialogs_keep_native_controls_except_for_bound_fields(self):
+        import SignalIntegrity.App
+        from SignalIntegrity.App.ConfigurationPropertiesDialog import ConfigurationPropertiesDialog
+        from SignalIntegrity.App.ProjectFile import VariableConfiguration
+        for name,value in [('enabled','False'),('noise_model','WhiteNoise'),('eye_mode','ISI'),('paint','#112233')]:
+            variable=VariableConfiguration()
+            variable['Name'],variable['Value'],variable['Type']=name,value,'string'
+            SignalIntegrity.App.Project['Variables.Items'].append(variable)
+        for options in ({},{'current':True},{'eye':True}):
+            with self.subTest(options=options):
+                device=self.configurationDevice(**options)
+                dialog=ConfigurationPropertiesDialog(device.configuration,self.app.Drawing)
+                try:
+                    self.app.root.update()
+                    self.assertIsInstance(dialog.GeneralFrame,tk.LabelFrame)
+                    if options.get('eye'):
+                        self.assertEqual(dialog.GeneralFrame.master,dialog.LeftFrame)
+                        self.assertEqual(dialog.MeasurementsFrame.master,dialog.RightFrame)
+                        choices=[('Invert','enabled','True'),('Mode','eye_mode','JitterNoise'),('Color','paint','red')]
+                        with patch('SignalIntegrity.App.CalculationPropertiesProject.colorchooser.askcolor',
+                                   return_value=((51,102,153),'#336699')) as picker:
+                            dialog.Color.nativeEntry.invoke()
+                        picker.assert_called_once()
+                        self.assertEqual(device.configuration['Color'],'#336699')
+                    else:
+                        choices=[('Enable','enabled','True'),('Type','noise_model','WhiteNoise')]
+                        dialog.Enable.nativeEntry.invoke()
+                        self.assertFalse(device.configuration['Enable'])
+                        dialog.Enable.nativeEntry.invoke()
+                        self.assertTrue(device.configuration['Enable'])
+                    for path,name,literal in choices:
+                        row=dialog.rows[path]
+                        self.assertEqual(row.entry,row.nativeEntry)
+                        row.BeginBinding()
+                        row.bindingString.set('='+name)
+                        row.Commit()
+                        self.assertEqual(row.field.reference,name)
+                        self.assertEqual(row.bindingString.get(),'='+name)
+                        self.assertEqual(row.entry,row.bindingEntry)
+                        self.assertFalse(row.nativeEntry.winfo_manager())
+                        row.bindingString.set(literal)
+                        row.Commit()
+                        self.assertFalse(row.field.reference)
+                        self.assertEqual(row.entry,row.nativeEntry)
+                        self.assertEqual(row.nativeEntry.winfo_manager(),'pack')
+                finally:
+                    dialog.destroy()
+
+    def test_configuration_dialog_read_only_disables_native_and_visibility_controls(self):
+        from SignalIntegrity.App.ConfigurationPropertiesDialog import ConfigurationPropertiesDialog
+        device=self.configurationDevice(eye=True)
+        with patch.object(self.app,'ReadOnly',return_value=True):
+            dialog=ConfigurationPropertiesDialog(device.configuration,self.app.Drawing)
+        try:
+            row=dialog.rows['Color']
+            value=device.configuration['Color']
+            self.assertEqual(row.nativeEntry.cget('state'),'disabled')
+            self.assertEqual(row.show.cget('state'),'disabled')
+            self.assertEqual(row.bindingButton.cget('state'),'disabled')
+            row.show.invoke()
+            row.bindingButton.invoke()
+            self.assertFalse(row.field.visible)
+            self.assertFalse(row.field.reference)
+            self.assertEqual(device.configuration['Color'],value)
+        finally:
+            dialog.destroy()
+
+    def test_bound_file_in_grouped_dialog_can_browse_without_editing_system_variable(self):
+        import SignalIntegrity.App
+        from SignalIntegrity.App.ConfigurationPropertiesDialog import ConfigurationPropertiesDialog
+        device=self.configurationDevice()
+        device.configuration['Type']='SpectralDensityFile'
+        device.configuration['SpectralDensityFile.FileName']='=channel'
+        dialog=ConfigurationPropertiesDialog(device.configuration,self.app.Drawing)
+        try:
+            row=dialog.rows['SpectralDensityFile.FileName']
+            self.assertEqual(row.entry,row.bindingEntry)
+            with patch('SignalIntegrity.App.FilePicker.AskOpenFileName',return_value=None):
+                row.browseButton.invoke()
+            self.assertEqual(row.field.reference,'channel')
+            with patch('SignalIntegrity.App.FilePicker.AskOpenFileName',
+                       return_value=str(self.targetDir/'noise.csv')) as picker:
+                row.browseButton.invoke()
+            self.assertEqual(picker.call_args.kwargs['initialdir'],str(self.targetDir))
+            self.assertFalse(row.field.reference)
+            self.assertEqual(row.field.Value(),'noise.csv')
+            self.assertEqual(row.entry,row.nativeEntry)
+            self.assertEqual(SignalIntegrity.App.Project['Variables'].VariableByName('channel')['Value'],'shared.s2p')
+        finally:
+            dialog.destroy()
+
+    def test_configuration_spectral_file_browse_cancellation_and_reference_replacement(self):
+        import SignalIntegrity.App
+        drawing=self.app.Drawing
+        device=self.configurationDevice()
+        configuration=device.configuration
+        configuration['Type']='SpectralDensityFile'
+        configuration['SpectralDensityFile.FileName']='=channel'
+        field=configuration.configurationFields['SpectralDensityFile.FileName']
+        field.visible=True
+        drawing.DrawSchematic()
+        editor=self.clickOnText(field)
+        browse=[child for child in editor[5].winfo_children() if hasattr(child,'toolbarElement')]
+        self.assertTrue(browse)
+        browse[0].focus_force()
+        self.app.root.update()
+        self.assertIs(drawing.textEditor,editor)
+        with patch('SignalIntegrity.App.FilePicker.AskOpenFileName',return_value=None):
+            drawing.BrowseTextEditFile()
+        self.assertIs(drawing.textEditor,editor)
+        self.assertEqual(field.reference,'channel')
+        chosen=str(self.targetDir/'noise.csv')
+        with patch('SignalIntegrity.App.FilePicker.AskOpenFileName',return_value=chosen) as picker:
+            drawing.BrowseTextEditFile()
+        self.assertEqual(picker.call_args.kwargs['initialdir'],str(self.targetDir))
+        self.assertFalse(field.reference)
+        self.assertEqual(configuration['SpectralDensityFile.FileName'],'noise.csv')
+        self.assertEqual(SignalIntegrity.App.Project['Variables'].VariableByName('channel')['Value'],'shared.s2p')
+
+    def test_configuration_computed_fields_and_read_only_project(self):
+        drawing=self.app.Drawing
+        device=self.configurationDevice(eye=True)
+        device.configuration['Mode']='JitterNoise'
+        field=device.configuration.configurationFields['JitterNoise.TotalNoise']
+        field.visible=True
+        drawing.DrawSchematic()
+        self.assertNotIn(field,[source for source,_ in drawing.editableTextItems.values()])
+        self.assertIn(field,device.partPicture.current.visiblePartPropertySources)
+        editable=device.configuration.configurationFields['JitterNoise.Noise']
+        editable.visible=True
+        drawing.DrawSchematic()
+        with patch.object(self.app,'ReadOnly',return_value=True):
+            self.clickOnText(editable)
+        self.assertIsNone(drawing.textEditor)
+
+    def test_import_preserves_bound_probe_and_configuration_file_reference(self):
+        import SignalIntegrity.App
+        from SignalIntegrity.App.Device import DeviceOutput
+        from SignalIntegrity.App.ProjectFile import VariableConfiguration
+        probe=DeviceOutput()
+        probe['ref']['Value']='VO1'
+        self.app.Drawing.schematic.deviceList.append(copy.deepcopy(probe))
+        noise=self.configurationDevice()
+        self.app.Drawing.schematic.deviceList.remove(noise)
+        noise.configuration['Type']='Crosstalk'
+        noise.configuration['Crosstalk.ProbeName']='=source_probe'
+        noise.configuration['SpectralDensityFile.FileName']='=source_file'
+        self.app.RebasePageFilePaths(noise.configuration,str(self.sourceDir),str(self.targetDir))
+        variables=[]
+        for name,value in [('source_probe','VO1'),('source_file','noise.csv')]:
+            variable=VariableConfiguration()
+            variable['Name'],variable['Type'],variable['Value']=name,'string',value
+            variables.append(variable)
+        self.assertTrue(self.app.ApplyPageImport([probe,noise],variables,''))
+        self.assertNotEqual(probe['ref'].GetValue(),'VO1')
+        self.assertEqual(noise.configuration['Crosstalk.ProbeName'],probe['ref'].GetValue())
+        self.assertEqual(noise.configuration.configurationFields['Crosstalk.ProbeName'].reference,'source_probe')
+        self.assertEqual(noise.configuration.configurationFields['SpectralDensityFile.FileName'].reference,'source_file')
+        self.assertEqual(SignalIntegrity.App.Project['Variables'].VariableByName('source_probe')['Value'],
+                         probe['ref'].GetValue())
+
+    def test_missing_selector_binding_still_draws_and_dialog_remains_usable(self):
+        from SignalIntegrity.App.ConfigurationPropertiesDialog import ConfigurationPropertiesDialog
+        device=self.configurationDevice()
+        device.configuration['Type']='=missing_noise_model'
+        self.app.Drawing.DrawSchematic()
+        self.assertTrue(any(text.startswith('Invalid:') for text in
+                            device.partPicture.current.visiblePartPropertyList))
+        dialog=ConfigurationPropertiesDialog(device.configuration,self.app.Drawing)
+        self.addCleanup(lambda:dialog.destroy() if dialog.winfo_exists() else None)
+        self.app.root.update()
+        row=dialog.rows['Type']
+        self.assertEqual(row.bindingString.get(),'=missing_noise_model')
+        self.assertIn('missing_noise_model',dialog.error.cget('text'))
+        row.bindingString.set('WhiteNoise')
+        row.Commit()
+        self.assertEqual(device.configuration['Type'],'WhiteNoise')
+
+    def test_variable_rename_preserves_dormant_configuration_binding(self):
+        import SignalIntegrity.App
+        from SignalIntegrity.App.Device import DeviceList
+        from SignalIntegrity.App.VariablesDialog import VariablePropertyDialog
+        device=copy.deepcopy(next(device for device in DeviceList
+                                 if device['partname'].GetValue()=='CurrentStatisticalNoiseSource'))
+        device.configuration['ShotNoise.MeanCurrent']='=x'
+        device.configuration['ShotNoise.CurrentSource']='TimeVarying'
+        self.app.Drawing.schematic.deviceList.append(device)
+        SignalIntegrity.App.Project['Variables'].VariableByName('x')['Name']='renamed_x'
+        dialog=SimpleNamespace(add=False,project={'Name':'renamed_x'},SavedName='x',top=self.app)
+        VariablePropertyDialog.onEnteredName(dialog,None)
+        field=device.configuration.configurationFields['ShotNoise.MeanCurrent']
+        self.assertEqual(field.reference,'renamed_x')
+        device.configuration['ShotNoise.CurrentSource']='Mean'
+        self.app.Drawing.DrawSchematic()
+        self.assertEqual(device.configuration['ShotNoise.MeanCurrent'],2.)
+
+    def test_configuration_context_refreshes_after_nested_project_restore(self):
+        import SignalIntegrity.App
+        from SignalIntegrity.App.ProjectFile import ProjectFile
+        from SignalIntegrity.App.SignalIntegrityAppHeadless import ProjectStack
+        device=self.configurationDevice(eye=True)
+        device.configuration['Rows']='=x'
+        original=SignalIntegrity.App.Project
+        stack=ProjectStack()
+        level=stack.Push()
+        SignalIntegrity.App.Project=ProjectFile()
+        stack.Pull(level)
+        SignalIntegrity.App.Project['Variables'].VariableByName('x')['Value']='64'
+        self.assertEqual(device.configuration['Rows'],2)
+        self.app.Drawing.schematic.CircuitDevices()
+        self.assertEqual(device.configuration['Rows'],64)
+        self.assertEqual(original['Variables'].VariableByName('x')['Value'],'2')
+
+    def test_gui_simulation_reports_specific_configuration_errors(self):
+        from SignalIntegrity.App.ConfigurationProperty import ConfigurationError
+        with patch.object(self.app.SimulateNetworkAnalyzerModelDoer,'active',False), \
+             patch.object(self.app.simulator,'Simulate',side_effect=ConfigurationError('VN1: missing =noise')), \
+             patch('SignalIntegrity.App.SignalIntegrityApp.messagebox.showerror') as error:
+            self.app.onSimulate()
+        self.assertIn('VN1: missing =noise',error.call_args.args)
+
     def test_file_text_editor_browses_for_the_file(self):
         import SignalIntegrity.App
         drawing=self.app.Drawing

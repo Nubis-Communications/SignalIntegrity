@@ -23,7 +23,11 @@ import tkinter as tk
 import os
 import math
 
-from SignalIntegrity.App.CalculationPropertiesProject import PropertiesDialog,CalculationPropertyTrueFalseButton,CalculationPropertyChoices,CalculationPropertySI,CalculationProperty,CalculationPropertyFileName,CalculationPropertySpectralDensityFileName
+from SignalIntegrity.App.ConfigurationPropertiesDialog import (
+    ConfigurationDialog as PropertiesDialog, ConfigurationPropertyTrueFalseButton as CalculationPropertyTrueFalseButton,
+    ConfigurationPropertyChoices as CalculationPropertyChoices, ConfigurationPropertySI as CalculationPropertySI,
+    ConfigurationProperty as CalculationProperty, ConfigurationPropertyFileName as CalculationPropertyFileName,
+    ConfigurationPropertySpectralDensityFileName as CalculationPropertySpectralDensityFileName)
 import SignalIntegrity.App.Project
 from SignalIntegrity.App.Files import FileParts
 
@@ -35,17 +39,17 @@ class CurrentStatisticalNoisePropertiesDialog(PropertiesDialog):
         PropertiesDialog.__init__(self,parent,project,parent.parent,'Current Statistical Noise Properties')
         self.transient(parent)
         fp=FileParts(os.getcwd())
-        self.GeneralFrame=tk.Frame(self.propertyListFrame, relief=tk.RIDGE, borderwidth=5)
+        self.GeneralFrame=tk.LabelFrame(self.propertyListFrame,text='Noise Source',relief=tk.RIDGE,borderwidth=2)
         self.GeneralFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
-        self.WhiteNoiseFrame=tk.Frame(self.propertyListFrame, relief=tk.RIDGE, borderwidth=5)
+        self.WhiteNoiseFrame=tk.LabelFrame(self.propertyListFrame,text='White Noise',relief=tk.RIDGE,borderwidth=2)
         self.WhiteNoiseFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
-        self.SpectralDensityFileFrame=tk.Frame(self.propertyListFrame, relief=tk.RIDGE, borderwidth=5)
+        self.SpectralDensityFileFrame=tk.LabelFrame(self.propertyListFrame,text='Spectral Density File',relief=tk.RIDGE,borderwidth=2)
         self.SpectralDensityFileFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
-        self.WaveformFileFrame=tk.Frame(self.propertyListFrame, relief=tk.RIDGE, borderwidth=5)
+        self.WaveformFileFrame=tk.LabelFrame(self.propertyListFrame,text='Waveform File',relief=tk.RIDGE,borderwidth=2)
         self.WaveformFileFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
-        self.CrosstalkFrame=tk.Frame(self.propertyListFrame, relief=tk.RIDGE, borderwidth=5)
+        self.CrosstalkFrame=tk.LabelFrame(self.propertyListFrame,text='Crosstalk',relief=tk.RIDGE,borderwidth=2)
         self.CrosstalkFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
-        self.ShotNoiseFrame=tk.Frame(self.propertyListFrame, relief=tk.RIDGE, borderwidth=5)
+        self.ShotNoiseFrame=tk.LabelFrame(self.propertyListFrame,text='Shot Noise',relief=tk.RIDGE,borderwidth=2)
         self.ShotNoiseFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
         self.Enable=CalculationPropertyTrueFalseButton(self.GeneralFrame,'Enable Noise',self.onUpdateFromChanges,None,self.project,'Enable',tooltip='Enable noise generation for this device')
         self.NoiseType=CalculationPropertyChoices(self.GeneralFrame,'Noise Type',self.onUpdateFromChanges,None,self.NoiseTypeChoices,self.project,'Type',tooltip="Allowed values: 'WhiteNoise', 'SpectralDensityFile', 'WaveformFile', or 'Crosstalk'.")
@@ -75,47 +79,11 @@ class CurrentStatisticalNoisePropertiesDialog(PropertiesDialog):
         self.SaveToPreferencesButton.pack(side=tk.TOP,expand=tk.YES)
         self.Finish()
     def Finish(self):
-        self.UpdateStrings()
-        PropertiesDialog.Finish(self)
+        self.FinishConfiguration()
     def onUpdateFromChanges(self,_):
         self.UpdateStrings()
     def UpdateStrings(self):
-        enable=self.project['Enable']
-        noiseType=self.project['Type']
-        whiteNoiseType=self.project['WhiteNoise.WhiteNoiseType']
-        shotNoiseCurrentSource=self.project['ShotNoise.CurrentSource']
-        self.WhiteNoiseFrame.pack_forget()
-        self.SpectralDensityFileFrame.pack_forget()
-        self.WaveformFileFrame.pack_forget()
-        self.CrosstalkFrame.pack_forget()
-        self.ShotNoiseFrame.pack_forget()
-        self.SaveToPreferencesFrame.pack_forget()
-        self.NoiseType.Show(enable)
-        self.Lanes.Show(enable)
-        if enable:
-            if noiseType=='WhiteNoise':
-                self.WhiteNoiseFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
-            elif noiseType=='SpectralDensityFile':
-                self.SpectralDensityFileFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
-            elif noiseType=='WaveformFile':
-                self.WaveformFileFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
-            elif noiseType=='Crosstalk':
-                self.CrosstalkFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
-            elif noiseType=='ShotNoise':
-                self.ShotNoiseFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
-        self.SaveToPreferencesFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
-        showWhiteNoiseControls = enable and noiseType=='WhiteNoise'
-        self.WhiteNoiseType.Show(showWhiteNoiseControls)
-        self.NoisedBmPerHz.Show(showWhiteNoiseControls and whiteNoiseType=='dBm/Hz')
-        self.APerRootHz.Show(showWhiteNoiseControls and whiteNoiseType=='A/sqrt(Hz)')
-        self.ASquaredPerGHz.Show(showWhiteNoiseControls and whiteNoiseType=='A^2/GHz')
-        self.ARms.Show(showWhiteNoiseControls and whiteNoiseType=='Arms')
-        self.NoiseBandwidth.Show(showWhiteNoiseControls)
-        showShotNoiseControls = enable and noiseType=='ShotNoise'
-        self.ShotNoiseCurrentSource.Show(showShotNoiseControls)
-        self.ShotNoiseMeanCurrent.Show(showShotNoiseControls)
-        self.ShotNoiseProbeName.Show(showShotNoiseControls and shotNoiseCurrentSource=='TimeVarying')
-        self.ShotNoiseBandwidth.Show(showShotNoiseControls)
+        self.RefreshConfiguration()
     def onSaveToPreferences(self):
         self.parent.device.configuration.SaveToPreferences()
 

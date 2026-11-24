@@ -263,10 +263,20 @@ class Drawing(tk.Frame):
         if sources is None or items is None or len(sources) != len(items):
             return
         for item,source in zip(items,sources):
+            from SignalIntegrity.App.ConfigurationProperty import ConfigurationProperty
+            if isinstance(source,ConfigurationProperty):
+                self.canvas.tag_bind(item,'<Enter>',lambda event,field=source:
+                                     self.parent.statusbar.set(field.Help().replace('\n',' ')))
             if self.IsEditableText(source):
                 self.editableTextItems[item]=(source,device)
     @staticmethod
     def IsEditableText(source):
+        from SignalIntegrity.App.ConfigurationProperty import ConfigurationProperty,ConfigurationError
+        if isinstance(source,ConfigurationProperty):
+            try:
+                return not source.Computed()
+            except ConfigurationError:
+                return False
         from SignalIntegrity.App.ProjectFile import VariableConfiguration
         if isinstance(source,VariableConfiguration):
             return True
@@ -300,9 +310,13 @@ class Drawing(tk.Frame):
         from tkinter import ttk
         import tkinter.font as tkfont
         from SignalIntegrity.App.ProjectFile import VariableConfiguration
+        from SignalIntegrity.App.ConfigurationProperty import ConfigurationProperty
         self.CancelTextEdit()
         isVariable=isinstance(source,VariableConfiguration)
-        if isVariable:
+        isConfiguration=isinstance(source,ConfigurationProperty)
+        if isConfiguration:
+            name,initial,choices=source.label,source.EntryString(),None
+        elif isVariable:
             name,initial,choices=source['Name'],source.EntryString(),None
         else:
             name,initial=source['Keyword'],source.PropertyString(stype='entry')
@@ -324,7 +338,7 @@ class Drawing(tk.Frame):
             width=font.measure(initial)+font.measure('0')*6
         width=max(width,font.measure('0')*12)
         widget.pack(side=tk.LEFT,fill=tk.X,expand=True)
-        if not choices and source['Type'] == 'file':
+        if not choices and (source.type if isConfiguration else source['Type']) == 'file':
             from SignalIntegrity.App.MenuSystemHelpers import ToolBarElement,ToolTip
             browse=ToolBarElement(frame,iconfile=SignalIntegrity.App.IconsDir+'browse-file.gif',
                                   iconsize=16,padx=1,pady=0,borderwidth=1,highlightthickness=0,
@@ -340,6 +354,9 @@ class Drawing(tk.Frame):
         widget.bind('<FocusOut>',lambda event: self.after_idle(self.CommitTextEditIfUnfocused))
         window=self.canvas.create_window(bbox[0],bbox[1],anchor='nw',window=frame,width=width)
         self.textEditor=(widget,window,source,device,initial,frame)
+        if isConfiguration:
+            from SignalIntegrity.App.MenuSystemHelpers import ToolTip
+            ToolTip.createToolTip(widget,source.Help())
         widget.focus_set()
         self.parent.statusbar.set('Editing '+str(name)+': Enter to accept, Escape to cancel')
     def BrowseTextEditFile(self):
@@ -350,7 +367,17 @@ class Drawing(tk.Frame):
         # the file dialog takes the focus, which must not commit or close the editor
         self.textEditBrowsing=True
         try:
-            filename=AskVariableFileName(widget.get(),self.parent.fileparts,self)
+            from SignalIntegrity.App.ConfigurationProperty import ConfigurationProperty,BrowseConfigurationFile,ConfigurationError
+            source=self.textEditor[2]
+            if isinstance(source,ConfigurationProperty):
+                filename=BrowseConfigurationFile(source,widget.get(),self.parent.fileparts,self)
+            else:
+                filename=AskVariableFileName(widget.get(),self.parent.fileparts,self)
+        except ConfigurationError as error:
+            from SignalIntegrity.App import MessageBox as messagebox
+            messagebox.showerror('Configuration',str(error),parent=self)
+            widget.focus_set()
+            return
         finally:
             self.textEditBrowsing=False
         if self.textEditor is None or self.textEditor[0] is not widget:
@@ -366,7 +393,8 @@ class Drawing(tk.Frame):
             widget=self.textEditor[0]
             focus=self.focus_get()
             # a readonly combobox's dropdown list takes the focus while it is open
-            if focus is None or not (str(focus) == str(widget) or str(focus).startswith(str(widget)+'.')
+            frame=self.textEditor[5]
+            if focus is None or not (str(focus) == str(widget) or str(focus).startswith(str(frame)+'.')
                                      or 'popdown' in str(focus)):
                 self.CommitTextEdit()
     def CancelTextEdit(self):
@@ -384,6 +412,35 @@ class Drawing(tk.Frame):
         from SignalIntegrity.App.ProjectFile import VariableConfiguration
         widget,window,source,device,initial,frame=self.textEditor
         string=widget.get()
+        from SignalIntegrity.App.ConfigurationProperty import ConfigurationProperty,ConfigurationError
+        if isinstance(source,ConfigurationProperty):
+            if self.parent.ReadOnly():
+                return self.CancelTextEdit()
+            if string==initial:
+                return self.CancelTextEdit()
+            try:
+                from SignalIntegrity.App.ConfigurationProperty import OfferConfigurationVariable
+                self.textEditBrowsing=True
+                OfferConfigurationVariable(source,string.strip(),self)
+                source.SetEntry(string)
+            except ConfigurationError as error:
+                from SignalIntegrity.App import MessageBox as messagebox
+                self.textEditBrowsing=True
+                try:
+                    messagebox.showerror('Configuration',str(error),parent=self)
+                finally:
+                    self.textEditBrowsing=False
+                widget.focus_set()
+                return 'break'
+            finally:
+                self.textEditBrowsing=False
+            self.CancelTextEdit()
+            device.Wf=None
+            self.schematic.Consolidate()
+            self.DrawSchematic()
+            self.parent.history.Event('edit device configuration')
+            self.parent.statusbar.set('Configuration Modified')
+            return 'break'
         self.CancelTextEdit()
         if string == initial:
             return 'break'

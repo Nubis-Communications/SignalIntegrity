@@ -197,11 +197,16 @@ class EyeDiagramDialog(tk.Toplevel):
         self.parent.parent.onCalculate()
 
     def onRecalculateEyeDiagram(self):
+        from SignalIntegrity.App.ConfigurationProperty import ConfigurationError
         self.statusbar.set('Calculation Started')
         import SignalIntegrity.Lib as si
         progressDialog=ProgressDialog(self.parent.parent,"Eye Diagram Processing",self,self.CalculateEyeDiagram)
         try:
             progressDialog.GetResult()
+        except ConfigurationError as error:
+            self.statusbar.set('Calculation Failed')
+            messagebox.showerror('Eye Diagram',str(error))
+            return
         except si.SignalIntegrityException as e:
             messagebox.showerror('Eye Diagram',e.parameter+': '+e.message)
             return

@@ -309,6 +309,7 @@ class SignalIntegrityAppHeadless(object):
         return Result('s-parameters',result)
 
     def Simulate(self,callback=None,TransferMatricesOnly=False,EyeDiagrams=False):
+        from SignalIntegrity.App.ConfigurationProperty import ConfigurationError
         if not hasattr(self.Drawing,'canCalculate'):
             self.Drawing.DrawSchematic()
         if self.Drawing.canSimulateNetworkAnalyzerModel:
@@ -554,6 +555,8 @@ class SignalIntegrityAppHeadless(object):
                                            outputWaveformLabels,
                                            transferOutputNames,
                                            sourceNames)
+        except ConfigurationError:
+            raise
         except:
             return Result('simulation',None)
 

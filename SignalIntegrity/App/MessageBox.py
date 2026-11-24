@@ -1,6 +1,7 @@
 """Message-box functions retaining Tk's return-value conventions."""
 
-# Copyright (c) 2026 Nubis Communications, Inc.
+# Copyright (c) 2021 Nubis Communications, Inc.
+# Copyright (c) 2018-2020 Teledyne LeCroy, Inc.
 # All rights reserved worldwide.
 #
 # This file is part of SignalIntegrity.

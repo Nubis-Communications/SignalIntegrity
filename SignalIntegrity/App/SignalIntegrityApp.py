@@ -848,6 +848,9 @@ class SignalIntegrityApp(tk.Frame):
             for child in node.dict.values():
                 SignalIntegrityApp.RebasePageFilePaths(child,sourceDir,targetDir)
         elif isinstance(node,XMLProperty):
+            field=getattr(node,'configurationField',None)
+            if field is not None and field.reference:
+                return
             if node.dict.get('type') == 'file':
                 node['value']=rebase(node.GetValue())
             elif isinstance(node.GetValue(),list):
@@ -911,8 +914,13 @@ class SignalIntegrityApp(tk.Frame):
         project=SignalIntegrity.App.Project
         original=project['Variables.Items'][:]
         project['Variables.Items']=original+variables
+        from SignalIntegrity.App.ConfigurationProperty import DeviceConfigurations,BindConfiguration
         try:
-            self.AssignImportedPageIdentifiers(devices)
+            for device in devices:
+                for configuration in DeviceConfigurations(device):
+                    if hasattr(configuration,'configurationFields'):
+                        BindConfiguration(configuration,project['Variables'],device['ref'].GetValue())
+            self.AssignImportedPageIdentifiers(devices,{variable['Name'] for variable in variables})
         except (ValueError,TypeError) as error:
             project['Variables.Items']=original
             messagebox.showerror('Import Page','Could not assign imported identifiers:\n'+str(error),parent=self.root)
@@ -920,9 +928,13 @@ class SignalIntegrityApp(tk.Frame):
         if equations:
             current=project['Equations'].GetTextString()
             project['Equations'].PutTextString(current+'\n'+equations if current else equations)
+        for device in devices:
+            for configuration in DeviceConfigurations(device):
+                if hasattr(configuration,'configurationFields'):
+                    BindConfiguration(configuration,project['Variables'],device['ref'].GetValue())
         return True
 
-    def AssignImportedPageIdentifiers(self,devices):
+    def AssignImportedPageIdentifiers(self,devices,importedVariableNames=None):
         from SignalIntegrity.App.ProjectFileBase import XMLConfiguration,XMLProperty
         existing=self.Drawing.schematic.CircuitDevices()
         refs={device['ref'].GetValue() for device in existing if device['ref'] is not None}
@@ -960,7 +972,22 @@ class SignalIntegrityApp(tk.Frame):
         def updateProbeNames(node):
             if isinstance(node,XMLConfiguration):
                 if 'ProbeName' in node.dict and node['ProbeName'] in renamed:
-                    node['ProbeName']=renamed[node['ProbeName']]
+                    value=renamed[node['ProbeName']]
+                    field=getattr(node.dict['ProbeName'],'configurationField',None)
+                    if field is not None and field.reference:
+                        variables=SignalIntegrity.App.Project['Variables']
+                        name=field.reference
+                        while True:
+                            if importedVariableNames is None or name not in importedVariableNames:
+                                raise field.Error('renaming a bound probe requires importing its system variable ='+name)
+                            variable=variables.VariableByName(name)
+                            entry=variable['Value']
+                            if not entry.startswith('='):
+                                variable['Value']=value
+                                break
+                            name=entry[1:]
+                    else:
+                        node['ProbeName']=value
                 for child in node.dict.values():
                     updateProbeNames(child)
             elif isinstance(node,XMLProperty) and isinstance(node.GetValue(),list):
@@ -1704,16 +1731,26 @@ class SignalIntegrityApp(tk.Frame):
         self.calculationPropertiesDialog.grab_set()
 
     def onSimulate(self,TransferMatricesOnly=False):
+        from SignalIntegrity.App.ConfigurationProperty import ConfigurationError
         self.Drawing.stateMachine.Nothing()
-        if self.SimulateNetworkAnalyzerModelDoer.active:
-            self.networkanalyzersimulator.Simulate()
-        else:
-            self.simulator.Simulate(TransferMatricesOnly=TransferMatricesOnly)
+        try:
+            if self.SimulateNetworkAnalyzerModelDoer.active:
+                self.networkanalyzersimulator.Simulate()
+            else:
+                self.simulator.Simulate(TransferMatricesOnly=TransferMatricesOnly)
+        except ConfigurationError as error:
+            self.statusbar.set('Calculation Failed')
+            messagebox.showerror('Configuration',str(error),parent=self.root)
 
     def onVirtualProbe(self,TransferMatricesOnly=False):
+        from SignalIntegrity.App.ConfigurationProperty import ConfigurationError
         self.Drawing.stateMachine.Nothing()
         if not self.CheckEquations(): return None
-        self.simulator.VirtualProbe(TransferMatricesOnly=TransferMatricesOnly)
+        try:
+            self.simulator.VirtualProbe(TransferMatricesOnly=TransferMatricesOnly)
+        except ConfigurationError as error:
+            self.statusbar.set('Calculation Failed')
+            messagebox.showerror('Configuration',str(error),parent=self.root)
 
 
     def onTransferParameters(self):

@@ -67,6 +67,12 @@ class VariablePropertyDialog(PropertiesDialog):
         if not self.add and (oldVariableName != newVariableName):
             self.SavedName=newVariableName
             for device in self.top.Drawing.schematic.CircuitDevices():
+                from SignalIntegrity.App.ConfigurationProperty import DeviceConfigurations
+                for configuration in DeviceConfigurations(device):
+                    for field in getattr(configuration,'configurationFields',{}).values():
+                        if field.reference==oldVariableName:
+                            field.state.entries[field.path]['reference']=newVariableName
+                            field.state.SetChanged()
                 for prop in device.propertiesList:
                     if prop['Value']==('='+oldVariableName):
                         prop.SetValueFromString('='+newVariableName)

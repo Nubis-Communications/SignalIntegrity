@@ -72,9 +72,15 @@ class Schematic(CallBacker):
                 for index,drawing in enumerate(project.PageDrawings())]
 
     def CircuitDevices(self):
-        if not self.otherPages:
-            return self.deviceList
-        return [device for page,_ in self.CircuitPages() for device in page.deviceList]
+        devices=(self.deviceList if not self.otherPages else
+                 [device for page,_ in self.CircuitPages() for device in page.deviceList])
+        from SignalIntegrity.App.ConfigurationProperty import DeviceConfigurations,BindConfiguration
+        for device in devices:
+            for configuration in DeviceConfigurations(device):
+                if hasattr(configuration,'configurationFields'):
+                    BindConfiguration(configuration,SignalIntegrity.App.Project['Variables'],
+                                      device['ref'].GetValue() if device['ref'] is not None else '')
+        return devices
 
     def NetList(self):
         for page,wires in self.CircuitPages():

@@ -28,6 +28,7 @@ class StatisticalNoiseAnalysis(dict):
                  noise_output_names=None):
 
         dict.__init__(self)
+        from SignalIntegrity.App.ConfigurationProperty import ConfigurationError
 
         try:
             netlist = schematic.NetList()
@@ -134,6 +135,8 @@ class StatisticalNoiseAnalysis(dict):
             if 'output_names' in self:
                 displayNames = netlist.NoiseDisplayOutputNames()
                 self['noise_display_output_names'] = [name for name in self['output_names'] if name in displayNames]
+        except ConfigurationError:
+            raise
         except Exception as e:
             from SignalIntegrity.Lib.Exception import SignalIntegrityExceptionSimulator
             raise SignalIntegrityExceptionSimulator("Error in StatisticalNoiseAnalysis: "+str(e)) from e

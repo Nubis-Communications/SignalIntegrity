@@ -117,6 +117,7 @@ class Simulator(object):
         return self.transferMatriceProcessor.ProcessWaveforms(self.inputWaveformList,
                                                               time_before_0=SignalIntegrity.App.Project['CalculationProperties'].TimeBeforeZero())
     def Simulate(self,TransferMatricesOnly=False):
+        from SignalIntegrity.App.ConfigurationProperty import ConfigurationError
         self.parent.statusbar.set('Simulating')
         netList=self.parent.Drawing.schematic.NetList()
         import SignalIntegrity.Lib as si
@@ -400,6 +401,8 @@ class Simulator(object):
                                            transferOutputNames,
                                            self.sourceNames
                                            )
+        except ConfigurationError:
+            raise
         except:
             self.parent.statusbar.set('Calculation Failed')
             messagebox.showerror('Simulator','Noise analysis failed')

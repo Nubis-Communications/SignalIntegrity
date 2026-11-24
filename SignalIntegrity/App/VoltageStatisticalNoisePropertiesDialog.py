@@ -23,7 +23,11 @@ import tkinter as tk
 import os
 import math
 
-from SignalIntegrity.App.CalculationPropertiesProject import PropertiesDialog,CalculationPropertyTrueFalseButton,CalculationPropertyChoices,CalculationPropertySI,CalculationProperty,CalculationPropertyFileName,CalculationPropertySpectralDensityFileName
+from SignalIntegrity.App.ConfigurationPropertiesDialog import (
+    ConfigurationDialog as PropertiesDialog, ConfigurationPropertyTrueFalseButton as CalculationPropertyTrueFalseButton,
+    ConfigurationPropertyChoices as CalculationPropertyChoices, ConfigurationPropertySI as CalculationPropertySI,
+    ConfigurationProperty as CalculationProperty, ConfigurationPropertyFileName as CalculationPropertyFileName,
+    ConfigurationPropertySpectralDensityFileName as CalculationPropertySpectralDensityFileName)
 import SignalIntegrity.App.Project
 from SignalIntegrity.App.Files import FileParts
 
@@ -34,15 +38,15 @@ class VoltageStatisticalNoisePropertiesDialog(PropertiesDialog):
         PropertiesDialog.__init__(self,parent,project,parent.parent,'Voltage Statistical Noise Properties')
         self.transient(parent)
         fp=FileParts(os.getcwd())
-        self.GeneralFrame=tk.Frame(self.propertyListFrame, relief=tk.RIDGE, borderwidth=5)
+        self.GeneralFrame=tk.LabelFrame(self.propertyListFrame,text='Noise Source',relief=tk.RIDGE,borderwidth=2)
         self.GeneralFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
-        self.WhiteNoiseFrame=tk.Frame(self.propertyListFrame, relief=tk.RIDGE, borderwidth=5)
+        self.WhiteNoiseFrame=tk.LabelFrame(self.propertyListFrame,text='White Noise',relief=tk.RIDGE,borderwidth=2)
         self.WhiteNoiseFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
-        self.SpectralDensityFileFrame=tk.Frame(self.propertyListFrame, relief=tk.RIDGE, borderwidth=5)
+        self.SpectralDensityFileFrame=tk.LabelFrame(self.propertyListFrame,text='Spectral Density File',relief=tk.RIDGE,borderwidth=2)
         self.SpectralDensityFileFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
-        self.WaveformFileFrame=tk.Frame(self.propertyListFrame, relief=tk.RIDGE, borderwidth=5)
+        self.WaveformFileFrame=tk.LabelFrame(self.propertyListFrame,text='Waveform File',relief=tk.RIDGE,borderwidth=2)
         self.WaveformFileFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
-        self.CrosstalkFrame=tk.Frame(self.propertyListFrame, relief=tk.RIDGE, borderwidth=5)
+        self.CrosstalkFrame=tk.LabelFrame(self.propertyListFrame,text='Crosstalk',relief=tk.RIDGE,borderwidth=2)
         self.CrosstalkFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
         self.Enable=CalculationPropertyTrueFalseButton(self.GeneralFrame,'Enable Noise',self.onUpdateFromChanges,None,self.project,'Enable',tooltip='Enable noise generation for this device')
         self.NoiseType=CalculationPropertyChoices(self.GeneralFrame,'Noise Type',self.onUpdateFromChanges,None,self.NoiseTypeChoices,self.project,'Type',tooltip="Allowed values: 'WhiteNoise', 'SpectralDensityFile', 'WaveformFile', or 'Crosstalk'.")
@@ -60,7 +64,7 @@ class VoltageStatisticalNoisePropertiesDialog(PropertiesDialog):
         self.SNRdB=CalculationPropertySI(self.WhiteNoiseFrame,'SNR',self.onComTxParameterChanged,None,self.project,'WhiteNoise.SNR.COM_TX.SNRdB','dB',round=6,tooltip='COM TX signal-to-noise ratio in dB used to derive noise.')
         self.Risetime=CalculationPropertySI(self.WhiteNoiseFrame,'Risetime (20-80)',self.onUpdateFromChanges,None,self.project,'WhiteNoise.SNR.COM_TX.Risetime','s',tooltip='COM TX transmitter 20-80 risetime in seconds used for Gaussian spectral shaping.')
         self.NoiseBandwidth=CalculationPropertySI(self.WhiteNoiseFrame,'Noise Bandwidth',self.onNoiseBandwidthChanged,None,self.project,'WhiteNoise.NoiseBandwidth','Hz',tooltip='Noise bandwidth in Hz used for Vrms integration and white-noise support.')
-        self.JohnsonNoiseFrame=tk.Frame(self.WhiteNoiseFrame)
+        self.JohnsonNoiseFrame=tk.LabelFrame(self.WhiteNoiseFrame,text='Johnson Noise')
         self.Temperature=CalculationPropertySI(self.JohnsonNoiseFrame,'Temperature (K)',self.onJohnsonParameterChanged,None,self.project,'WhiteNoise.Johnson.Temperature_Kelvin','K',round=3,tooltip='Temperature in Kelvin (default: 25 C).')
         self.Resistance=CalculationPropertySI(self.JohnsonNoiseFrame,'Resistance (ohm)',self.onJohnsonParameterChanged,None,self.project,'WhiteNoise.Johnson.Resistance','ohm',round=3,tooltip='Resistance in ohms (default: 50 ohms).')
         self.SpectralDensityFilePerLaneLabel = tk.Label(self.SpectralDensityFileFrame, text='Per lane:')
@@ -76,48 +80,11 @@ class VoltageStatisticalNoisePropertiesDialog(PropertiesDialog):
         self.SaveToPreferencesButton.pack(side=tk.TOP,expand=tk.YES)
         self.Finish()
     def Finish(self):
-        self.UpdateStrings()
-        PropertiesDialog.Finish(self)
+        self.FinishConfiguration()
     def onUpdateFromChanges(self,_):
         self.UpdateStrings()
     def UpdateStrings(self):
-        enable=self.project['Enable']
-        noiseType=self.project['Type']
-        whiteNoiseType=self.project['WhiteNoise.WhiteNoiseType']
-        self.WhiteNoiseFrame.pack_forget()
-        self.SpectralDensityFileFrame.pack_forget()
-        self.WaveformFileFrame.pack_forget()
-        self.CrosstalkFrame.pack_forget()
-        self.JohnsonNoiseFrame.pack_forget()
-        self.SaveToPreferencesFrame.pack_forget()
-        self.NoiseType.Show(enable)
-        self.Lanes.Show(enable)
-        if enable:
-            if noiseType=='WhiteNoise':
-                self.WhiteNoiseFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
-                if whiteNoiseType=='Johnson':
-                    self.JohnsonNoiseFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
-            elif noiseType=='SpectralDensityFile':
-                self.SpectralDensityFileFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
-            elif noiseType=='WaveformFile':
-                self.WaveformFileFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
-            elif noiseType=='Crosstalk':
-                self.CrosstalkFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
-        self.SaveToPreferencesFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
-        showWhiteNoiseControls = enable and noiseType=='WhiteNoise'
-        self.WhiteNoiseType.Show(showWhiteNoiseControls)
-        self.NoisedBmPerHz.Show(showWhiteNoiseControls and whiteNoiseType=='dBm/Hz')
-        self.VPerRootHz.Show(showWhiteNoiseControls and whiteNoiseType=='V/sqrt(Hz)')
-        self.VSquaredPerGHz.Show(showWhiteNoiseControls and whiteNoiseType=='V^2/GHz')
-        self.VRms.Show(showWhiteNoiseControls and whiteNoiseType=='Vrms')
-        self.ENOB.Show(showWhiteNoiseControls and whiteNoiseType=='ENOB')
-        self.Vpp.Show(showWhiteNoiseControls and whiteNoiseType in ['ENOB','COM TX'])
-        self.H0.Show(showWhiteNoiseControls and whiteNoiseType=='COM TX')
-        self.SNRdB.Show(showWhiteNoiseControls and whiteNoiseType=='COM TX')
-        self.Risetime.Show(showWhiteNoiseControls and whiteNoiseType=='COM TX')
-        self.Temperature.Show(showWhiteNoiseControls and whiteNoiseType=='Johnson')
-        self.Resistance.Show(showWhiteNoiseControls and whiteNoiseType=='Johnson')
-        self.NoiseBandwidth.Show(showWhiteNoiseControls)
+        self.RefreshConfiguration()
     def onSaveToPreferences(self):
         self.parent.device.configuration.SaveToPreferences()
     def _noiseVrmsFromENOB(self):

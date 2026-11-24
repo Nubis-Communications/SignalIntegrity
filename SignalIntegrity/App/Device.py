@@ -97,7 +97,40 @@ class Device(object):
                     displayString = displayString[:textLimit]+'...'
                 visiblePartPropertyList.insert(0,displayString)
                 visiblePartPropertySources.insert(0,variable)
-        self.partPicture.current.InsertVisiblePartProperties(visiblePartPropertyList,visiblePartPropertySources)
+        from SignalIntegrity.App.ConfigurationProperty import DeviceConfigurations,BindConfiguration,ConfigurationError,ValidateConfiguration,UpdateConfiguration
+        configurationPropertyList=[]
+        configurationPropertySources=[]
+        for configuration in DeviceConfigurations(self):
+            if not hasattr(configuration,'configurationFields'):
+                continue
+            if SignalIntegrity.App.Project is not None:
+                BindConfiguration(configuration,SignalIntegrity.App.Project['Variables'],
+                                  self['ref'].GetValue() if self['ref'] is not None else '')
+            invalid=None
+            if any(field.reference for field in configuration.configurationFields.values()):
+                try:
+                    ValidateConfiguration(configuration)
+                    UpdateConfiguration(configuration)
+                except ConfigurationError as error:
+                    invalid=error.field
+                    text='Invalid: '+str(error)
+                    configurationPropertyList.append(text[:textLimit]+'...' if len(text)>textLimit else text)
+                    configurationPropertySources.append(invalid)
+            for field in configuration.configurationFields.values():
+                if not field.visible or field is invalid:
+                    continue
+                try:
+                    active=field.Active()
+                except ConfigurationError:
+                    active=True
+                if active:
+                    text=field.DisplayString()
+                    configurationPropertyList.append(text[:textLimit]+'...' if len(text)>textLimit else text)
+                    configurationPropertySources.append(field)
+        # Part pictures draw these lists from bottom to top.
+        self.partPicture.current.InsertVisiblePartProperties(
+            configurationPropertyList+visiblePartPropertyList,
+            configurationPropertySources+visiblePartPropertySources)
     def SetWaveform(self,wf):
         self.Wf=wf
     def Waveform(self,callback=None):
@@ -409,10 +442,11 @@ class DeviceFromProject(object):
         else:
             self.result.partPicture=PartPictureFromProject(partPictureList,deviceProject['PartPicture'],ports).result
         if not self.result.configuration is None:
+            from SignalIntegrity.App.ConfigurationProperty import BindConfiguration,DeviceConfigurations,ConfigurationFieldState
             if isinstance(self.result.configuration,list):
                 for c in range(len(self.result.configuration)):
                     if self.result.configuration[c].name in deviceProject.dict.keys():
-                        self.result.configuration[c].dict = deviceProject[self.result.configuration[c].name]
+                        self.result.configuration[c].dict = deviceProject[self.result.configuration[c].name].dict
             else:
                 if self.result.configuration.name in deviceProject.dict.keys():
                     self.result.configuration.dict = deviceProject[self.result.configuration.name].dict
@@ -420,6 +454,12 @@ class DeviceFromProject(object):
                     # backwards compatibility: read config saved under a legacy XML tag name
                     self.result.configuration.dict = deviceProject[self.result.configuration.legacyName].dict
                 self.result.configuration.HandleBackwardsCompatibility()
+            for configuration in DeviceConfigurations(self.result):
+                if hasattr(configuration,'configurationFields'):
+                    if configuration.name not in deviceProject.dict and getattr(configuration,'legacyName',None) not in deviceProject.dict:
+                        configuration.dict['ConfigurationFields']=ConfigurationFieldState()
+                    BindConfiguration(configuration,SignalIntegrity.App.Project['Variables'],
+                                      self.result['ref'].GetValue())
 
 class DeviceFileNetListLine(DeviceNetListLine):
     def __init__(self,devicename=None,partname=None,showReference=True,showports=True,values=None):
@@ -2191,6 +2231,8 @@ class DeviceVoltageStatisticalNoiseSource(Device):
                         partPicture,
                         configuration=VoltageStatisticalNoiseConfiguration())
     def SpectralDensity(self, output_waveforms=None, output_waveform_names=None, output_types=None):
+        from SignalIntegrity.App.ConfigurationProperty import BindConfiguration
+        BindConfiguration(self.configuration,SignalIntegrity.App.Project['Variables'],self['ref'].GetValue())
         return self.configuration.SpectralDensity(
             SignalIntegrity.App.Project['CalculationProperties']['EndFrequency'],
             SignalIntegrity.App.Project['CalculationProperties']['FrequencyPoints'],
@@ -2235,6 +2277,8 @@ class DeviceCurrentStatisticalNoiseSource(Device):
                         partPicture,
                         configuration=CurrentStatisticalNoiseConfiguration())
     def SpectralDensity(self, output_waveforms=None, output_waveform_names=None, output_types=None):
+        from SignalIntegrity.App.ConfigurationProperty import BindConfiguration
+        BindConfiguration(self.configuration,SignalIntegrity.App.Project['Variables'],self['ref'].GetValue())
         return self.configuration.SpectralDensity(
             SignalIntegrity.App.Project['CalculationProperties']['EndFrequency'],
             SignalIntegrity.App.Project['CalculationProperties']['FrequencyPoints'],

@@ -149,10 +149,19 @@ class Archive(list):
                         # keeps the device, so its referenced files must still be archived
                         if device['element_state'] != None and device.PartPropertyByKeyword('element_state').GetValue() in ['disabled','thru','thru_wires']:
                             continue
-                        for property in device.propertiesList:
-                            if property['Type']=='file':
-                                filename=os.path.abspath(property.GetValue())
-                                if len(os.path.basename(filename).split('.')) != 2:
+                        from SignalIntegrity.App.ConfigurationProperty import DeviceConfigurations,BindConfiguration,ConfigurationProperty
+                        properties=list(device.propertiesList)
+                        for configuration in DeviceConfigurations(device):
+                            if hasattr(configuration,'configurationFields'):
+                                BindConfiguration(configuration,SignalIntegrity.App.Project['Variables'],device['ref'].GetValue())
+                                properties.extend(field for field in configuration.configurationFields.values()
+                                                  if field.type=='file' and field.Active() and field.Value())
+                        for property in properties:
+                            configured=isinstance(property,ConfigurationProperty)
+                            if (property.type if configured else property['Type'])=='file':
+                                filename=os.path.abspath(property.Value() if configured else property.GetValue())
+                                keyword='Configuration:'+property.configuration.name+'.'+property.path if configured else property['Keyword']
+                                if (not os.path.splitext(filename)[1] if configured else len(os.path.basename(filename).split('.')) != 2):
                                     continue # file name does not have an extension
                                 # a mangled copy in this project's directory always wins,
                                 # whether or not the original location can be reached
@@ -161,7 +170,7 @@ class Archive(list):
                                     element={'file':thisFile,
                                              'descended':True,
                                              'devices':[{'Ref':device['ref']['Value'],
-                                                         'Keyword':property['Keyword'],
+                                                         'Keyword':keyword,
                                                          'File':filename,
                                                          'args':args}],
                                              'args':fileargs}
@@ -172,7 +181,7 @@ class Archive(list):
                                     except NameError:
                                         element=self[[fileelement['file'] for fileelement in self].index(thisFile)]
                                     element['devices'].append({'Ref':device['ref']['Value'],
-                                                               'Keyword':property['Keyword'],
+                                                               'Keyword':keyword,
                                                                'File':filename,
                                                                'args':args})
                                 if not filename in [fileelement['file'] for fileelement in self]:

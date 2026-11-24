@@ -196,12 +196,16 @@ class XMLProperty(object):
         else:
             return self
     def GetValue(self,path=None):
+        if hasattr(self,'configurationField'):
+            return self.configurationField.Value()
         if isinstance(self.GetPropertyValue('value'),list):
             return self.GetPropertyValue('value')
         else:
             return self.value
 
     def SetValue(self,path,value):
+        if hasattr(self,'configurationField'):
+            return self.configurationField.Assign(value)
         if isinstance(value, list):
             self.dict['value']=value
         else:
@@ -299,7 +303,13 @@ class XMLConfiguration(object):
         return self
 
     def InitFromXML(self,element):
+        if 'ConfigurationFields' in self.dict:
+            self.dict['ConfigurationFields'].entries={}
+            self.dict['ConfigurationFields'].SetChanged(False)
         for child in element:
+            if child.tag=='ConfigurationFields' and child.tag in self.dict:
+                self.dict[child.tag].InitFromXML(child)
+                continue
             try:
                 name=child.tag
                 if name[len(name)-len('Configuration'):]=='Configuration':
@@ -354,7 +364,8 @@ class XMLConfiguration(object):
         return self.SetValue(path,value)
 
     def ToDictionary(self):
-        return {key:self.dict[key].ToDictionary() for key in self.dict}
+        return {key:self.dict[key].ToDictionary() for key in self.dict
+                if not getattr(self.dict[key],'presentationOnly',False)}
 
 class ProjectFileBase(object):
     indent='\t'

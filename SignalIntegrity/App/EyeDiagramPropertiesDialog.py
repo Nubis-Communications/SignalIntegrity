@@ -22,7 +22,10 @@ import tkinter as tk
 
 import math
 
-from SignalIntegrity.App.CalculationPropertiesProject import PropertiesDialog,CalculationPropertyTrueFalseButton,CalculationPropertyChoices,CalculationPropertySI,CalculationProperty,CalculationPropertyColor
+from SignalIntegrity.App.ConfigurationPropertiesDialog import (
+    ConfigurationDialog as PropertiesDialog, ConfigurationPropertyTrueFalseButton as CalculationPropertyTrueFalseButton,
+    ConfigurationPropertyChoices as CalculationPropertyChoices, ConfigurationPropertySI as CalculationPropertySI,
+    ConfigurationProperty as CalculationProperty, ConfigurationPropertyColor as CalculationPropertyColor)
 import SignalIntegrity.App.Project
 
 class EyeDiagramPropertiesDialog(PropertiesDialog):
@@ -40,38 +43,36 @@ class EyeDiagramPropertiesDialog(PropertiesDialog):
     def __init__(self,project,parent):
         PropertiesDialog.__init__(self,parent,project,parent.parent,'Eye Diagram Properties')
         self.transient(parent)
-        self.pixelsX=int(self.project['UI']*self.project['Columns']*self.project['ScaleX']/100.)
-        self.pixelsY=int(self.project['Rows']*self.project['ScaleY']/100.)
         self.LeftFrame=tk.Frame(self.propertyListFrame)
         self.LeftFrame.pack(side=tk.LEFT,fill=tk.X,expand=tk.NO,anchor=tk.NW)
         self.RightFrame=tk.Frame(self.propertyListFrame)
         self.RightFrame.pack(side=tk.LEFT,fill=tk.X,expand=tk.NO,anchor=tk.NW)
-        self.GeneralFrame=tk.Frame(self.LeftFrame, relief=tk.RIDGE, borderwidth=5)
+        self.GeneralFrame=tk.LabelFrame(self.LeftFrame,text='Eye Image',relief=tk.RIDGE,borderwidth=2)
         self.GeneralFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
-        self.ClockRecoveryFrame=tk.Frame(self.LeftFrame, relief=tk.RIDGE, borderwidth=5)
+        self.ClockRecoveryFrame=tk.LabelFrame(self.LeftFrame,text='Clock Recovery',relief=tk.RIDGE,borderwidth=2)
         self.ClockRecoveryFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
-        self.EnhancedPrecisionFrame=tk.Frame(self.LeftFrame, relief=tk.RIDGE, borderwidth=5)
+        self.EnhancedPrecisionFrame=tk.LabelFrame(self.LeftFrame,text='Precision',relief=tk.RIDGE,borderwidth=2)
         self.EnhancedPrecisionFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
-        self.YAxisFrame=tk.Frame(self.LeftFrame, relief=tk.RIDGE, borderwidth=5)
+        self.YAxisFrame=tk.LabelFrame(self.LeftFrame,text='Y Axis',relief=tk.RIDGE,borderwidth=2)
         self.YAxisFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
-        self.JitterNoiseFrame=tk.Frame(self.LeftFrame, relief=tk.RIDGE, borderwidth=5)
+        self.JitterNoiseFrame=tk.LabelFrame(self.LeftFrame,text='Jitter and Noise',relief=tk.RIDGE,borderwidth=2)
         self.JitterNoiseFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
-        self.LogIntensityFrame=tk.Frame(self.LeftFrame, relief=tk.RIDGE, borderwidth=5)
+        self.LogIntensityFrame=tk.LabelFrame(self.LeftFrame,text='Intensity',relief=tk.RIDGE,borderwidth=2)
         self.LogIntensityFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
-        self.InvertFrame=tk.Frame(self.LeftFrame, relief=tk.RIDGE, borderwidth=5)
+        self.InvertFrame=tk.LabelFrame(self.LeftFrame,text='Plot Appearance',relief=tk.RIDGE,borderwidth=2)
         self.InvertFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
-        self.AutoAlignFrame=tk.Frame(self.LeftFrame, relief=tk.RIDGE, borderwidth=5)
+        self.AutoAlignFrame=tk.LabelFrame(self.LeftFrame,text='Eye Alignment',relief=tk.RIDGE,borderwidth=2)
         self.AutoAlignFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
-        self.MeasurementsFrame=tk.Frame(self.RightFrame, relief=tk.RIDGE, borderwidth=5)
+        self.MeasurementsFrame=tk.LabelFrame(self.RightFrame,text='Measurements',relief=tk.RIDGE,borderwidth=2)
         self.MeasurementsFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
         self.Levels=CalculationProperty(self.GeneralFrame,'Number of Levels',self.onUpdateFromChanges,None,self.project,'Alignment.Levels',tooltip='The number of levels per symbol\nThe PAM of the waveform')
         self.Color=CalculationPropertyColor(self.GeneralFrame,'Color',self.onUpdateFromChanges,None,self.project,'Color',tooltip='The color of the eye in the eye diagram if Invert is True,\notherwise is the background color')
-        self.UIFrame=CalculationProperty(self.GeneralFrame,'Number of UI',self.onUpdateUI,None,self.project,'UI',tooltip='The number of unit intervals that will be shown in the eye diagram plot generated')
-        self.RowsFrame=CalculationProperty(self.GeneralFrame,'Number of Rows',self.onUpdateRows,None,self.project,'Rows',tooltip='The number of pixels vertically in the raw eye diagram.\nThis is scaled by the factor in \'Scale X\'')
-        self.ColsFrame=CalculationProperty(self.GeneralFrame,'Number of Columns',self.onUpdateCols,None,self.project,'Columns',tooltip='The number of pixels horixontally in one UI in the raw eye diagram.\nThis is scaled by the factor in \'Scale Y\'')
+        self.UIFrame=CalculationProperty(self.GeneralFrame,'Number of UI',self.onUpdateFromChanges,None,self.project,'UI',tooltip='The number of unit intervals that will be shown in the eye diagram plot generated')
+        self.RowsFrame=CalculationProperty(self.GeneralFrame,'Number of Rows',self.onUpdateFromChanges,None,self.project,'Rows',tooltip='The number of pixels vertically in the raw eye diagram.\nThis is scaled by the factor in \'Scale X\'')
+        self.ColsFrame=CalculationProperty(self.GeneralFrame,'Number of Columns',self.onUpdateFromChanges,None,self.project,'Columns',tooltip='The number of pixels horixontally in one UI in the raw eye diagram.\nThis is scaled by the factor in \'Scale Y\'')
         self.SaturationFrame=CalculationPropertySI(self.GeneralFrame,'Saturation',self.onUpdateFromChanges,None,self.project,'Saturation','%')
-        self.ScaleXFrame=CalculationPropertySI(self.GeneralFrame,'Scale X',self.onUpdateScaleX,None,self.project,'ScaleX','%')
-        self.ScaleYFrame=CalculationPropertySI(self.GeneralFrame,'Scale Y',self.onUpdateScaleY,None,self.project,'ScaleY','%')
+        self.ScaleXFrame=CalculationPropertySI(self.GeneralFrame,'Scale X',self.onUpdateFromChanges,None,self.project,'ScaleX','%')
+        self.ScaleYFrame=CalculationPropertySI(self.GeneralFrame,'Scale Y',self.onUpdateFromChanges,None,self.project,'ScaleY','%')
         self.UpsampleMethod=CalculationPropertyChoices(self.ClockRecoveryFrame,'Upsample Method',self.onUpdateFromChanges,None,self.UpsampleMethodChoices,self.project,'UpsampleMethod')
         self.RecoverClock=CalculationPropertyTrueFalseButton(self.ClockRecoveryFrame,'Recover Clock',self.onUpdateFromChanges,None,self.project,'ClockRecovery.Recover')
         self.RecoverClockTrimLeftRight=CalculationProperty(self.ClockRecoveryFrame,'Points to Trim From Both Sides',self.onUpdateFromChanges,None,self.project,'ClockRecovery.TrimLeftRight')
@@ -88,23 +89,23 @@ class EyeDiagramPropertiesDialog(PropertiesDialog):
         self.TxInputPowerdBm=CalculationPropertySI(self.MeasurementsFrame,'Input Power (dBm)',self.onUpdateInputPowerdBm,None,self.project,'Measure.TxInputPowerdBm','dBm')
         self.BERForMeasure=CalculationProperty(self.MeasurementsFrame,'BER Exponent for Measure',self.onUpdateFromChanges,None,self.project,'Measure.BERForMeasure')
         self.DecisionMode=CalculationPropertyChoices(self.MeasurementsFrame,'Decision Level',self.onUpdateFromChanges,None,self.DecisionChoices,self.project,'Decision.Mode')
-        self.BathtubFrame=tk.Frame(self.MeasurementsFrame,relief=tk.RIDGE, borderwidth=5)
+        self.BathtubFrame=tk.LabelFrame(self.MeasurementsFrame,text='Bathtub Curves',relief=tk.RIDGE,borderwidth=2)
         self.BathtubFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
         self.BathtubCurves=CalculationPropertyTrueFalseButton(self.BathtubFrame,'Measure Bathtub Curves',self.onUpdateFromChanges,None,self.project,'Bathtub.Measure')
         self.DecadesFromJoin=CalculationProperty(self.BathtubFrame,'Decades Above for Fit',self.onUpdateFromChanges,None,self.project,'Bathtub.DecadesFromJoinForFit')
         self.MinPointsForFit=CalculationProperty(self.BathtubFrame,'Minimum Points for Fit',self.onUpdateFromChanges,None,self.project,'Bathtub.MinPointsForFit')
-        self.AnnotateFrame=tk.Frame(self.MeasurementsFrame,relief=tk.RIDGE, borderwidth=5)
+        self.AnnotateFrame=tk.LabelFrame(self.MeasurementsFrame,text='Annotations',relief=tk.RIDGE,borderwidth=2)
         self.AnnotateFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
         self.Annotate=CalculationPropertyTrueFalseButton(self.AnnotateFrame,'Annotate Eye with Measurements',self.onUpdateFromChanges,None,self.project,'Annotation.Annotate')
         self.AnnotationColor=CalculationPropertyColor(self.AnnotateFrame,'Annotation Color',self.onUpdateFromChanges,None,self.project,'Annotation.Color')
-        self.MeanLevelsFrame=tk.Frame(self.AnnotateFrame, relief=tk.RIDGE, borderwidth=5)
+        self.MeanLevelsFrame=tk.LabelFrame(self.AnnotateFrame,text='Mean Levels',relief=tk.RIDGE,borderwidth=2)
         self.MeanLevelsFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
         self.AnnotateMeanLevels=CalculationPropertyTrueFalseButton(self.MeanLevelsFrame,'Annotate Mean Levels',self.onUpdateFromChanges,None,self.project,'Annotation.MeanLevels')
         self.LabelMeanLevels=CalculationPropertyTrueFalseButton(self.MeanLevelsFrame,'Label Mean Levels',self.onUpdateFromChanges,None,self.project,'Annotation.LabelMeanLevels')
         self.AnnotateLevelExtents=CalculationPropertyTrueFalseButton(self.AnnotateFrame,'Annotate Level Extents',self.onUpdateFromChanges,None,self.project,'Annotation.LevelExtents')
         self.AnnotateEyeWidth=CalculationPropertyTrueFalseButton(self.AnnotateFrame,'Annotate Eye Width',self.onUpdateFromChanges,None,self.project,'Annotation.EyeWidth')
         self.AnnotateEyeHeight=CalculationPropertyTrueFalseButton(self.AnnotateFrame,'Annotate Eye Height',self.onUpdateFromChanges,None,self.project,'Annotation.EyeHeight')
-        self.ContoursFrame=tk.Frame(self.AnnotateFrame, relief=tk.RIDGE, borderwidth=5)
+        self.ContoursFrame=tk.LabelFrame(self.AnnotateFrame,text='Contours',relief=tk.RIDGE,borderwidth=2)
         self.ContoursFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
         self.AnnotateContour=CalculationPropertyTrueFalseButton(self.ContoursFrame,'Annotate Contour',self.onUpdateFromChanges,None,self.project,'Annotation.Contours.Show')
         self.ContourMode=CalculationPropertyChoices(self.ContoursFrame,'Which Contours to Show',self.onUpdateFromChanges,None,self.ContourChoices,self.project,'Annotation.Contours.Which')
@@ -114,8 +115,7 @@ class EyeDiagramPropertiesDialog(PropertiesDialog):
         self.MaxYFrame=CalculationPropertySI(self.YAxisFrame,'Maximum Y',self.onUpdateFromChanges,None,self.project,'YAxis.Max','V')
         self.MinYFrame=CalculationPropertySI(self.YAxisFrame,'Minimum Y',self.onUpdateFromChanges,None,self.project,'YAxis.Min','V')
         self.Mode=CalculationPropertyChoices(self.JitterNoiseFrame,'Eye Mode',self.onUpdateFromChanges,None,self.ModeChoices,self.project,'Mode')
-        verticalUnit=self.project['Measure.WaveformType']
-        noiseUnit = {'V':'Vrms','A':'Arms','W':'Wrms','FW':'','AW':'Arms','VW':'Vrms'}[verticalUnit]
+        noiseUnit=None
         self.JitterSeconds=CalculationPropertySI(self.JitterNoiseFrame,'Random Jitter (s)',self.onUpdateFromChanges,None,self.project,'JitterNoise.JitterS','s')
         self.JitterDeterministicPkS=CalculationPropertySI(self.JitterNoiseFrame,'Deterministic Jitter (s, pk)',self.onUpdateFromChanges,None,self.project,'JitterNoise.JitterDeterministicPkS','s')
         self.Noise=CalculationPropertySI(self.JitterNoiseFrame,'Inherent Noise',self.onUpdateNoise,None,self.project,'JitterNoise.Noise',noiseUnit)
@@ -132,29 +132,12 @@ class EyeDiagramPropertiesDialog(PropertiesDialog):
         self.SaveToPreferencesFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
         self.SaveToPreferencesButton = tk.Button(self.SaveToPreferencesFrame,text='Save Properties to Global Preferences',command=self.onSaveToPreferences,width=CalculationProperty.labelWidth)
         self.SaveToPreferencesButton.pack(side=tk.TOP,expand=tk.YES)
-        self.onUpdateNoise(None)
         self.Finish()
     def Finish(self):
-        self.UpdateStrings()
-        PropertiesDialog.Finish(self)
+        self.FinishConfiguration()
     def onUpdateInputPowerdBm(self,_):
         self.project['Measure.TxInputPowerW']=10.**(self.project['Measure.TxInputPowerdBm']/10.)*1e-3
         self.TxInputPowerW.UpdateStrings()
-        self.UpdateStrings()
-    def onUpdateUI(self,_):
-        self.project['ScaleX']=self.pixelsX/(self.project['UI']*self.project['Columns'])*100.
-        self.UpdateStrings()
-    def onUpdateRows(self,_):
-        self.project['ScaleY']=self.pixelsY/self.project['Rows']*100.
-        self.UpdateStrings()
-    def onUpdateCols(self,_):
-        self.project['ScaleX']=self.pixelsX/(self.project['UI']*self.project['Columns'])*100.
-        self.UpdateStrings()
-    def onUpdateScaleX(self,_):
-        self.pixelsX=int(self.project['UI']*self.project['Columns']*self.project['ScaleX']/100.)
-        self.UpdateStrings()
-    def onUpdateScaleY(self,_):
-        self.pixelsY=int(self.project['Rows']*self.project['ScaleY']/100.)
         self.UpdateStrings()
     def onUpdateNoise(self,_):
         import numpy as np
@@ -163,83 +146,6 @@ class EyeDiagramPropertiesDialog(PropertiesDialog):
     def onUpdateFromChanges(self,_):
         self.UpdateStrings()
     def UpdateStrings(self):
-        try:
-            self.project['Measure.TxInputPowerdBm']=max(-3000,10.*math.log10(self.project['Measure.TxInputPowerW']/1e-3))
-        except ValueError:
-            self.project['Measure.TxInputPowerdBm']=-3000.
-        self.TxInputPowerdBm.UpdateStrings()
-        showEye=True
-        autoAlign=self.project['Alignment.AutoAlign']
-        auto=(self.project['YAxis.Mode']=='Auto' and showEye)
-        showEnhancedPrecisionSteps = (self.project['EnhancedPrecision.Mode'] == 'Fixed')
-        measure=self.project['Measure.Measure']
-        annotate=self.project['Annotation.Annotate']
-        annotateMeanLevels=self.project['Annotation.MeanLevels']
-        contours=self.project['Annotation.Contours.Show']
-        bathtub=self.project['Bathtub.Measure']
-        tx=measure and self.project['Measure.RxTx']=='Tx' and ('W' in self.project['Measure.WaveformType'])
-        txPower=tx and self.project['Measure.TxInputPowerAvailable']
-        self.BathtubFrame.pack_forget()
-        self.AnnotateFrame.pack_forget()
-        self.MeanLevelsFrame.pack_forget()
-        self.WaveformType.Show(measure)
-        self.RxTx.Show(measure)
-        self.TxInputPowerAvailable.Show(tx)
-        self.TxInputPowerW.Show(txPower)
-        self.TxInputPowerdBm.Show(txPower)
-        self.DecisionMode.Show(measure)
-        self.BERForMeasure.Show(measure)
-        if measure:
-            self.BathtubFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
-            self.AnnotateFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
-        self.BathtubCurves.Show(measure)
-        self.DecadesFromJoin.Show(measure and bathtub)
-        self.MinPointsForFit.Show(measure and bathtub)
-        self.Annotate.Show(measure)
-        self.ContoursFrame.pack_forget()
-        self.AnnotationColor.Show(measure and annotate)
-        self.AnnotateMeanLevels.Show(measure and annotate)
-        self.LabelMeanLevels.Show(measure and annotate and annotateMeanLevels)
-        self.AnnotateLevelExtents.Show(measure and annotate)
-        self.AnnotateEyeWidth.Show(measure and annotate)
-        self.AnnotateEyeHeight.Show(measure and annotate)
-        if measure and annotate:
-            self.MeanLevelsFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
-            self.ContoursFrame.pack(side=tk.TOP,fill=tk.X,expand=tk.NO)
-        self.AnnotateContour.Show(measure and annotate)
-        self.ContourMode.Show(measure and annotate and contours)
-        self.BERExponent.Show(autoAlign)
-        self.AlignmentMode.Show(autoAlign)
-        self.VerticalAlignmentMode.Show(autoAlign and (self.project['Alignment.Mode']=='Vertical'))
-        self.HorizontalAlignmentMode.Show(autoAlign and (self.project['Alignment.Mode']=='Horizontal'))
-        self.EnhancedPrecisionSteps.Show(showEnhancedPrecisionSteps)
-        self.MaxYFrame.Show(not auto and showEye)
-        self.MinYFrame.Show(not auto and showEye)
-        self.UIFrame.Show(showEye)
-        self.RowsFrame.Show(showEye)
-        self.ColsFrame.Show(showEye)
-        self.SaturationFrame.Show(showEye)
-        self.ScaleXFrame.Show(showEye)
-        self.ScaleYFrame.Show(showEye)
-        self.YAxisModeFrame.Show(showEye)
-        self.UIFrame.UpdateStrings()
-        self.RowsFrame.UpdateStrings()
-        self.ColsFrame.UpdateStrings()
-        self.SaturationFrame.UpdateStrings()
-        self.ScaleXFrame.UpdateStrings()
-        self.ScaleYFrame.UpdateStrings()
-        jitterNoiseMode=(self.project['Mode'] == 'JitterNoise')
-        self.JitterSeconds.Show(jitterNoiseMode)
-        self.JitterDeterministicPkS.Show(jitterNoiseMode)
-        self.Noise.Show(jitterNoiseMode)
-        self.ExternalNoise.Show(jitterNoiseMode)
-        self.TotalNoise.Show(jitterNoiseMode)
-        self.TotalNoise.UpdateStrings()
-        self.MaxWindowWidthHeightPixels.Show(jitterNoiseMode)
-        logIntensity=self.project['JitterNoise.LogIntensity.LogIntensity']
-        self.MinExponent.Show(logIntensity)
-        self.MaxExponent.Show(logIntensity)
-        showClockRecovery=self.project['ClockRecovery.Recover']
-        self.RecoverClockTrimLeftRight.Show(showClockRecovery)
+        self.RefreshConfiguration()
     def onSaveToPreferences(self):
         self.parent.device.configuration.SaveToPreferences()
