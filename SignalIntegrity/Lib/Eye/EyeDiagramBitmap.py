@@ -200,7 +200,7 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
         self.RowsSpecified=Rows
         self.Cols=Cols
         self.BaudRate=BaudRate
-        self.prbswf=prbswf # saved only for generating hash value
+        self.prbswf=prbswf # needed for the cache hash and optical average power
         self.EnhancementMode=EnhancementMode
         self.EnhancementSteps=EnhancementSteps
         self.Levels=Levels
@@ -347,6 +347,7 @@ class EyeDiagramBitmap(CallBacker,ResultsCache):
         # don't cache the waveform
         del self.prbswf
         self.CacheResult()
+        self.prbswf=prbswf
 
     def Bitmap(self):
         """Returns the raw bitmap

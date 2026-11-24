@@ -185,7 +185,7 @@ class Schematic(CallBacker):
                         import SignalIntegrity.App.Project
                         if SignalIntegrity.App.Preferences['Calculation.IgnoreMissingOtherWaveforms']:
                             otherWaveformList.append(None)
-                            break
+                            continue
                         else:
                             raise
                     if not wf is None:

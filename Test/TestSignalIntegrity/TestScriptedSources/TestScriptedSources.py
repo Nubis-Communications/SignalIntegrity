@@ -25,6 +25,44 @@ import os
 import math
 import shutil
 import tempfile
+from unittest.mock import MagicMock, patch
+
+
+class TestOtherWaveformsTest(unittest.TestCase):
+    def waveformDevice(self,partname,result=None,error=None,state='on'):
+        device=MagicMock()
+        properties={'partname':{'Value':partname},'state':{'Value':state}}
+        device.__getitem__.side_effect=properties.__getitem__
+        device.Waveform.return_value=result
+        device.Waveform.side_effect=error
+        return device
+
+    def testMissingWaveformsDoNotHideLaterWaveforms(self):
+        import SignalIntegrity.App
+        from SignalIntegrity.App.Schematic import Schematic
+        missing=self.waveformDevice('Waveform',error=FileNotFoundError('missing.txt'))
+        waveform=si.td.wf.Waveform(si.td.wf.TimeDescriptor(0,2,1),[1.,2.])
+        valid=self.waveformDevice('Waveform',result=waveform)
+        missingEye=self.waveformDevice('EyeWaveform',error=FileNotFoundError('missing-eye.txt'))
+        eye=self.waveformDevice('EyeWaveform',result=waveform)
+        disabled=self.waveformDevice('Waveform',error=FileNotFoundError('disabled.txt'),state='off')
+        with patch.object(SignalIntegrity.App,'Preferences',{'Calculation.IgnoreMissingOtherWaveforms':True},create=True), \
+                patch.object(Schematic,'CircuitDevices',return_value=[missing,valid,disabled,missingEye,eye]):
+            self.assertEqual(Schematic().OtherWaveforms(),[None,waveform,None,waveform])
+        disabled.Waveform.assert_not_called()
+
+    def testMissingWaveformRaisesWhenNotIgnored(self):
+        import SignalIntegrity.App
+        from SignalIntegrity.App.Schematic import Schematic
+        error=FileNotFoundError('missing.txt')
+        missing=self.waveformDevice('Waveform',error=error)
+        later=self.waveformDevice('EyeWaveform')
+        with patch.object(SignalIntegrity.App,'Preferences',{'Calculation.IgnoreMissingOtherWaveforms':False},create=True), \
+                patch.object(Schematic,'CircuitDevices',return_value=[missing,later]):
+            with self.assertRaises(FileNotFoundError) as raised:
+                Schematic().OtherWaveforms()
+        self.assertIs(raised.exception,error)
+        later.Waveform.assert_not_called()
 
 class TestScriptedSourcesTest(unittest.TestCase,
         si.test.SParameterCompareHelper,si.test.SignalIntegrityAppTestHelper):

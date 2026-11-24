@@ -21,4 +21,4 @@ __init__.py
 
 from __future__ import absolute_import
 
-from .TestScriptedSources import TestScriptedSourcesTest
+from .TestScriptedSources import TestScriptedSourcesTest,TestOtherWaveformsTest

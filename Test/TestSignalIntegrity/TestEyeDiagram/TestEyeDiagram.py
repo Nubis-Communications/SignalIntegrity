@@ -127,6 +127,34 @@ class TestEyeDiagramTest(unittest.TestCase,
             np.testing.assert_array_equal(cached.Bitmap(),linear.Bitmap())
             self.assertEqual(cached.aprbswf,linear.aprbswf)
 
+    def testOpticalMeasurementsOnFreshAndCachedEyes(self):
+        import tempfile
+        from unittest.mock import patch
+        from SignalIntegrity.Lib.Eye.EyeDiagramBitmap import EyeDiagramBitmap
+        from SignalIntegrity.Lib.ResultsCache import ResultsCache
+
+        waveform=si.td.wf.Waveform(si.td.wf.TimeDescriptor(0.,1024,4.e9),
+                                 np.repeat(np.random.default_rng(42).choice(
+                                     [1.e-3,2.e-3,3.e-3,4.e-3],256),4).tolist())
+        with tempfile.TemporaryDirectory() as directory,patch.object(ResultsCache,'enabled',True):
+            filename=os.path.join(directory,'optical-eye')
+            def makeEye(cacheFileName):
+                return EyeDiagramBitmap(cacheFileName=cacheFileName,Rows=64,Cols=16,
+                                        BaudRate=1.e9,prbswf=waveform,Levels=4,
+                                        EnhancementMode='None',UpsampleMethod='Linear')
+            eyes=[makeEye(None),makeEye(filename)]
+            with patch.object(si.td.wf.Waveform,'Adapt',
+                              side_effect=AssertionError('rerun should use cached bitmap')):
+                eyes.append(makeEye(filename))
+            for run,eye in enumerate(eyes):
+                with self.subTest(run=run):
+                    eye.Measure(WaveformType='W')
+                    eye.OpticalMeasure('W',PinW=.01)
+                    self.assertAlmostEqual(eye.measDict['Optical']['Pavg']['Linear']['Value'],
+                                           float(np.mean(waveform)))
+                    self.assertEqual(eye.measDict['Optical']['Pin']['Linear']['Value'],.01)
+            self.assertEqual(eyes[1].measDict['Optical'],eyes[2].measDict['Optical'])
+
     def testEyeUpsampleMethodConfigurationAndGeneration(self):
         import xml.etree.ElementTree as ET
         from unittest.mock import patch
