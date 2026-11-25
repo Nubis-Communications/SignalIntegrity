@@ -511,6 +511,141 @@ class TestDeviceParser(unittest.TestCase,si.test.ResponseTesterHelper):
         self.Tester(self.id(),'ctle',2,gdc='-2',gdc2='0',fz='2.3e9',flf='70e6',fp1='2.3e9',fp2='5.6e9')
     def testFFE(self):
         self.Tester(self.id(),'ffe',2,default='[-0.1,1.3,-0.2]',td='100e-12',pre='1')
+    def testCTLEStandard(self):
+        import numpy as np
+
+        f=[0.,1.e9,12.e9,28.e9,56.e9]
+        for baud in [56.e9,112.e9]:
+            for divisors,gains in [((2.5,80.,2.5,1.),(-2.,0.)),
+                                   ((3.,100.,4.,1.5),(-6.,-1.))]:
+                with self.subTest(baud=baud,divisors=divisors):
+                    expected=si.sp.dev.CTLE(f,*gains,*(baud/d for d in divisors),Z0=75.)
+                    if divisors==(2.5,80.,2.5,1.):
+                        standard=si.sp.dev.CTLE_standard(f,baud,Z0=75.)
+                        args=['ctle_std','br',str(baud)]
+                    else:
+                        standard=si.sp.dev.CTLE_standard(f,baud,*gains,*divisors,Z0=75.)
+                        args=['ctle_std','br',str(baud),'gdc',str(gains[0]),'gdc2',str(gains[1])]
+                        for keyword,value in zip(
+                                ['fz_divisor','flf_divisor','fp1_divisor','fp2_divisor'],divisors):
+                            args.extend([keyword,str(value)])
+                    self.assertIsInstance(standard,si.sp.dev.CTLE)
+                    np.testing.assert_allclose(list(standard),list(expected),rtol=1.e-13,atol=1.e-14)
+                    parser=si.p.SystemSParametersNumericParser(f,Z0=75.)
+                    parser.AddLines(['device E1 2 '+' '.join(args),'port 1 E1 1 2 E1 2'])
+                    np.testing.assert_allclose(list(parser.SParameters()),list(expected),rtol=1.e-13,atol=1.e-14)
+    def testFFEStandard(self):
+        import numpy as np
+
+        for f in [[0.,1.e9,12.e9,28.e9,56.e9],
+                  si.fd.EvenlySpacedFrequencyList(56.e9,32)]:
+            for baud in [56.e9,112.e9]:
+                for taps,pre,tapsPerUI in [([1.],0,1),([-.1,1.3,-.2],1,1),
+                                            ([.2,1.,-.1],1,2)]:
+                    with self.subTest(baud=baud,taps=taps,tapsPerUI=tapsPerUI):
+                        expected=si.sp.dev.FFE(f,1./baud/tapsPerUI,taps,pre,Z0=75.)
+                        if taps==[1.]:
+                            standard=si.sp.dev.FFE_standard(f,baud,Z0=75.)
+                            args=['ffe_std','br',str(baud)]
+                        else:
+                            standard=si.sp.dev.FFE_standard(f,baud,taps,pre,tapsPerUI,Z0=75.)
+                            args=['ffe_std',repr(taps).replace(' ',''),'br',str(baud),
+                                  'pre',str(pre),'taps_per_ui',str(tapsPerUI)]
+                        self.assertIsInstance(standard,si.sp.dev.FFE)
+                        self.assertEqual(standard.Td,1./baud/tapsPerUI)
+                        np.testing.assert_allclose(list(standard),list(expected),rtol=1.e-13,atol=1.e-14)
+                        parser=si.p.SystemSParametersNumericParser(f,Z0=75.)
+                        parser.AddLines(['device E1 2 '+' '.join(args),'port 1 E1 1 2 E1 2'])
+                        np.testing.assert_allclose(list(parser.SParameters()),list(expected),rtol=1.e-13,atol=1.e-14)
+    def testStandardEqualizersRejectInvalidParameters(self):
+        for baud in [0.,-1.,float('inf'),float('nan')]:
+            for equalizer in [si.sp.dev.CTLE_standard,si.sp.dev.FFE_standard]:
+                with self.subTest(equalizer=equalizer,baud=baud):
+                    with self.assertRaises(ValueError):
+                        equalizer([0.],baud)
+        for keyword in ['fz_divisor','flf_divisor','fp1_divisor','fp2_divisor']:
+            for value in [0.,-1.,float('inf'),float('nan')]:
+                with self.subTest(keyword=keyword,value=value):
+                    with self.assertRaises(ValueError):
+                        si.sp.dev.CTLE_standard([0.],56.e9,**{keyword:value})
+        for tapsPerUI in [0,-1,1.5,1.,True]:
+            with self.subTest(tapsPerUI=tapsPerUI):
+                with self.assertRaises(ValueError):
+                    si.sp.dev.FFE_standard([0.],56.e9,tapsPerUI=tapsPerUI)
+        invalidArgs=[['ctle_std'],['ffe_std']]
+        for name in ['ctle_std','ffe_std']:
+            invalidArgs.extend([[name,'br',value] for value in ['0','-1','inf','nan']])
+        invalidArgs.extend([['ffe_std','br','56e9','taps_per_ui',value]
+                            for value in ['0','-1','1.5','1.0']])
+        invalidArgs.extend([['ctle_std','br','56e9',keyword,'0']
+                            for keyword in ['fz_divisor','flf_divisor','fp1_divisor','fp2_divisor']])
+        for args in invalidArgs:
+            with self.subTest(args=args):
+                factory=si.p.dev.DeviceFactory()
+                with self.assertRaises(si.SignalIntegrityException) as cm:
+                    factory.MakeDevice(2,None,args,[0.])
+                self.assertEqual(cm.exception.parameter,'DeviceParser')
+    def testStandardEqualizerApplicationRoundTrip(self):
+        import tempfile
+        from unittest.mock import patch
+        import numpy as np
+        import SignalIntegrity.App.Preferences
+        from SignalIntegrity.App.PreferencesFile import PreferencesFile
+        from SignalIntegrity.App.ProjectFile import ProjectFile
+        from SignalIntegrity.App.ProjectFileBase import ProjectFileBase
+        from SignalIntegrity.App.Device import (
+            DeviceCTLE,DeviceFFE,DeviceCTLEStandard,DeviceFFEStandard,DeviceFromProject,DeviceList)
+
+        devices=[DeviceCTLE(),DeviceCTLEStandard(),DeviceFFE(),DeviceFFEStandard()]
+        devices[1]['br']['Value']=56.e9
+        devices[1]['gdc']['Value']=-5.
+        devices[1]['fp2_divisor']['Value']=1.5
+        devices[3]['br']['Value']=56.e9
+        devices[3]['taps']['Value']='[-0.1,1.3,-0.2]'
+        devices[3]['pre']['Value']=1
+        devices[3]['taps_per_ui']['Value']=2
+        devices[2]['td']['Value']=1./56.e9
+        for index,device in enumerate(devices):
+            device['ref']['Value']='E'+str(index+1)
+            device.partPicture.current.SetOrigin((17,23))
+            device.partPicture.current.ApplyOrientation('90',True,False)
+        self.assertEqual(devices[1].partPicture.partPictureClassList,devices[0].partPicture.partPictureClassList)
+        self.assertEqual(devices[3].partPicture.partPictureClassList,devices[2].partPicture.partPictureClassList)
+        self.assertEqual(devices[3]['taps_per_ui']['Type'],'int')
+        equalizers=[device for device in DeviceList if 'Equalizers' in device.Categories()]
+        self.assertEqual([device['partname'].GetValue() for device in equalizers],
+                         ['CTLE','CTLE (Standard)','FFE','FFE (Standard)'])
+        legacy=[device for device in equalizers if type(device) in [DeviceCTLE,DeviceFFE]]
+        enabled=[device.enabled for device in legacy]
+        try:
+            DeviceList.Enable('CTLE',False)
+            DeviceList.Enable('FFE',False)
+            self.assertEqual([device['desc'].GetValue() for device in equalizers if device.enabled],
+                             ['Standard Defined CTLE','Standard Defined FFE'])
+            with patch('SignalIntegrity.App.Preferences',PreferencesFile()),tempfile.TemporaryDirectory() as directory:
+                project=ProjectFile()
+                ProjectFile.WritePageDevices(project['Drawing'],devices)
+                filename=os.path.join(directory,'StandardEqualizers.si')
+                ProjectFileBase.Write(project,filename)
+                loaded=ProjectFile().Read(filename)
+                restored=[DeviceFromProject(device).result for device in loaded['Drawing.Schematic.Devices']]
+            f=[0.,1.e9,12.e9,28.e9]
+            for original,device in zip(devices,restored):
+                self.assertIs(type(device),type(original))
+                self.assertEqual(device.NetListLine(),original.NetListLine())
+                self.assertEqual(device.partPicture.current.origin,(17,23))
+                self.assertEqual(device.partPicture.current.orientation,'90')
+                self.assertTrue(device.partPicture.current.mirroredHorizontally)
+                if type(device) in [DeviceCTLEStandard,DeviceFFEStandard]:
+                    parser=si.p.SystemSParametersNumericParser(f)
+                    parser.AddLines([device.NetListLine(),'port 1 '+device['ref'].GetValue()+' 1 2 '+device['ref'].GetValue()+' 2'])
+                    expected=(si.sp.dev.CTLE(f,-5.,0.,56.e9/2.5,56.e9/80.,56.e9/2.5,56.e9/1.5)
+                              if type(device) is DeviceCTLEStandard else
+                              si.sp.dev.FFE(f,1./56.e9/2,[-.1,1.3,-.2],1))
+                    np.testing.assert_allclose(list(parser.SParameters()),list(expected),rtol=1.e-13,atol=1.e-14)
+        finally:
+            for device,enable in zip(legacy,enabled):
+                device.enabled=enable
     def testRelay2OpenTermOpen(self):
         self.Tester(self.id(),'relay',2,default='0')
     def testRelay2ClosedTermOpen(self):
@@ -527,7 +662,7 @@ class TestDeviceParser(unittest.TestCase,si.test.ResponseTesterHelper):
         self.Tester(self.id(),'relay',3,default='2',term='50.')
     def testlen(self):
         L=len(si.p.dev.DeviceFactory())
-        self.assertEqual(L,60)
+        self.assertEqual(L,62)
     def testMakeDeviceNoArgs(self):
         df=si.p.dev.DeviceFactory()
         self.assertFalse(df.MakeDevice(2,None,[],[1,2,3]))

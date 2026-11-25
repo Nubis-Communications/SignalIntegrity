@@ -18,6 +18,7 @@
 # If not, see <https://www.gnu.org/licenses/>
 
 from SignalIntegrity.Lib.SParameters.SParameters import SParameters
+import math
 
 class CTLE(SParameters):
     """Continuous time linear equalizer"""
@@ -45,3 +46,27 @@ class CTLE(SParameters):
         return N/D
     def __getitem__(self,n):
         return [[1.,0],[2.*self._Evaluate(self.m_f[n]),-1.]]
+
+class CTLE_standard(CTLE):
+    """CTLE with zero and pole frequencies defined as baud-rate fractions."""
+    def __init__(self,f,baudRate,gDC=-2.,gDC2=0.,fz_divisor=2.5,
+                 flf_divisor=80.,fp1_divisor=2.5,fp2_divisor=1.,Z0=50.):
+        """Constructor
+        @param f list of float frequencies
+        @param baudRate float positive baud rate
+        @param gDC float DC gain in dB (defaults to -2)
+        @param gDC2 float DC gain at peaking point in dB (defaults to 0)
+        @param fz_divisor float positive scaled-zero divisor (defaults to 2.5)
+        @param flf_divisor float positive LF divisor (defaults to 80)
+        @param fp1_divisor float positive first-pole divisor (defaults to 2.5)
+        @param fp2_divisor float positive second-pole divisor (defaults to 1)
+        @param Z0 float reference impedance (defaults to 50)
+        """
+        if not math.isfinite(baudRate) or baudRate<=0:
+            raise ValueError('baud rate must be positive and finite')
+        for name,value in [('fz_divisor',fz_divisor),('flf_divisor',flf_divisor),
+                           ('fp1_divisor',fp1_divisor),('fp2_divisor',fp2_divisor)]:
+            if not math.isfinite(value) or value<=0:
+                raise ValueError(name+' must be positive and finite')
+        CTLE.__init__(self,f,gDC,gDC2,baudRate/fz_divisor,baudRate/flf_divisor,
+                      baudRate/fp1_divisor,baudRate/fp2_divisor,Z0)

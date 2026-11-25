@@ -1825,6 +1825,44 @@ class DeviceFFE(Device):
                          PartPropertyFfeTd(0.)],
                          PartPictureVariableFFE())
 
+class DeviceCTLEStandard(Device):
+    def __init__(self):
+        netlist=DeviceNetListLine(partname='ctle_std',values=[('br',True),('gdc',True),('gdc2',True),
+            ('fz_divisor',True),('flf_divisor',True),('fp1_divisor',True),('fp2_divisor',True)])
+        Device.__init__(self,
+                        netlist,
+                        [PartPropertyDescription('Standard Defined CTLE'),
+                         PartPropertyPorts(2),
+                         PartPropertyCategory('Equalizers'),
+                         PartPropertyPartName('CTLE (Standard)'),
+                         PartPropertyHelp('device:CTLE'),
+                         PartPropertyDefaultReferenceDesignator('F?'),
+                         PartPropertyBaudRate(),
+                         PartPropertyCtleDCGain1(-2.),
+                         PartPropertyCtleDCGain2(0.),
+                         PartPropertyCtlefzDivisor(),
+                         PartPropertyCtleflfDivisor(),
+                         PartPropertyCtlefp1Divisor(),
+                         PartPropertyCtlefp2Divisor()],
+                         PartPictureVariableCTLE())
+
+class DeviceFFEStandard(Device):
+    def __init__(self):
+        netlist=DeviceNetListLine(partname='ffe_std',values=[('taps',False),('br',True),('taps_per_ui',True),('pre',True)])
+        Device.__init__(self,
+                        netlist,
+                        [PartPropertyDescription('Standard Defined FFE'),
+                         PartPropertyPorts(2),
+                         PartPropertyCategory('Equalizers'),
+                         PartPropertyPartName('FFE (Standard)'),
+                         PartPropertyHelp('device:FFE'),
+                         PartPropertyDefaultReferenceDesignator('F?'),
+                         PartPropertyBaudRate(),
+                         PartPropertyFfeTaps(),
+                         PartPropertyFfePre(),
+                         PartPropertyFfeTapsPerUI()],
+                         PartPictureVariableFFE())
+
 class DeviceRaisedCosineRisetimeFilter(Device):
     def __init__(self):
         netlist=DeviceNetListLine(partname='raisedcosinerisetimefilter',values=[('rt',False),('rt_type',True)])
@@ -2416,7 +2454,9 @@ DeviceList=Devices([
                 DeviceNetworkAnalyzerStimulus(),
                 DeviceNetworkAnalyzerDeviceUnderTest(),
                 DeviceCTLE(),
+                DeviceCTLEStandard(),
                 DeviceFFE(),
+                DeviceFFEStandard(),
                 DeviceBesselLpFilter(),
                 DeviceButterworthLpFilter(),
                 DeviceLaplace(),
@@ -2451,6 +2491,11 @@ DeviceList=Devices([
                 DeviceCurrentStatisticalNoiseSourceProject([PartPropertyDescription('Two Port Current Statistical Noise Generator Project'),PartPropertyPorts(2),PartPropertyMode('single-ended')],PartPictureVariableCurrentSourceNoiseSourceTwoPort()),
                 DeviceCurrentStatisticalNoiseSourceProject([PartPropertyDescription('Differential Current Statistical Noise Generator Project'),PartPropertyPorts(4),PartPropertyMode('differential-mode')],PartPictureVariableDifferentialCurrentNoiseSource()),
                 DeviceCurrentStatisticalNoiseSourceProject([PartPropertyDescription('Common-mode Current Statistical Noise Generator Project'),PartPropertyPorts(4),PartPropertyMode('common-mode')],PartPictureVariableDifferentialCurrentNoiseSource()),])
+# Hiding these picker entries leaves both devices available when loading schematics.
+ShowLegacyEqualizersInPicker=True
+DeviceList.Enable('CTLE',ShowLegacyEqualizersInPicker)
+DeviceList.Enable('FFE',ShowLegacyEqualizersInPicker)
+
 DeviceListUnknown = Devices([
                 DeviceUnknown([PartPropertyDescription('One Port Unknown'),PartPropertyPorts(1)],PartPictureVariableUnknown(1)),
                 DeviceUnknown([PartPropertyDescription('Two Port Unknown'),PartPropertyPorts(2)],PartPictureVariableUnknown(2)),

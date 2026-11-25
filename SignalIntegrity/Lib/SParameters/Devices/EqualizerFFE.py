@@ -20,6 +20,8 @@
 from SignalIntegrity.Lib.SParameters.SParameters import SParameters
 
 import cmath
+import math
+from numbers import Integral
 import numpy as np
 
 class FFE(SParameters):
@@ -91,3 +93,21 @@ class FFE(SParameters):
         return H
     def __getitem__(self,n):
         return [[1.,0],[2.*complex(self._ResponseVector()[n]),-1.]]
+
+class FFE_standard(FFE):
+    """FFE with tap spacing defined by the baud rate and integer taps per UI."""
+    def __init__(self,f,baudRate,taps=(1.0,),numPreCursorTaps=0,tapsPerUI=1,Z0=50.):
+        """Constructor
+        @param f list of float frequencies
+        @param baudRate float positive baud rate
+        @param taps sequence of float tap values (defaults to a unity tap)
+        @param numPreCursorTaps integer number of precursor taps (defaults to 0)
+        @param tapsPerUI positive integer taps per unit interval (defaults to 1)
+        @param Z0 float reference impedance (defaults to 50)
+        @remark Tap delay is 1 / (baudRate * tapsPerUI).
+        """
+        if not math.isfinite(baudRate) or baudRate<=0:
+            raise ValueError('baud rate must be positive and finite')
+        if isinstance(tapsPerUI,bool) or not isinstance(tapsPerUI,Integral) or tapsPerUI<=0:
+            raise ValueError('taps per UI must be a positive integer')
+        FFE.__init__(self,f,1./baudRate/tapsPerUI,taps,numPreCursorTaps,Z0)

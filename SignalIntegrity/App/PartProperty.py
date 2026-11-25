@@ -577,6 +577,22 @@ class PartPropertyCtlefp2(PartProperty):
     def __init__(self,fp2=0.):
         PartProperty.__init__(self,'fp2',type='float',unit='Hz',keyword='fp2',description='pole frequency 2 (Hz)',value=fp2,visible=True,keywordVisible=True)
 
+class PartPropertyCtlefzDivisor(PartProperty):
+    def __init__(self,divisor=2.5):
+        PartProperty.__init__(self,'fz_divisor',type='float',unit='',keyword='fz_divisor',description='baud rate / scaled zero frequency',value=divisor,visible=False)
+
+class PartPropertyCtleflfDivisor(PartProperty):
+    def __init__(self,divisor=80.):
+        PartProperty.__init__(self,'flf_divisor',type='float',unit='',keyword='flf_divisor',description='baud rate / lf pole/scaled zero frequency',value=divisor,visible=False)
+
+class PartPropertyCtlefp1Divisor(PartProperty):
+    def __init__(self,divisor=2.5):
+        PartProperty.__init__(self,'fp1_divisor',type='float',unit='',keyword='fp1_divisor',description='baud rate / pole frequency 1',value=divisor,visible=False)
+
+class PartPropertyCtlefp2Divisor(PartProperty):
+    def __init__(self,divisor=1.):
+        PartProperty.__init__(self,'fp2_divisor',type='float',unit='',keyword='fp2_divisor',description='baud rate / pole frequency 2',value=divisor,visible=False)
+
 class PartPropertyFfeTaps(PartProperty):
     def __init__(self,taps='[1.0]'):
         PartProperty.__init__(self,'taps',type='string',unit=None,keyword='taps',description='tap values []',value=taps,visible=True,keywordVisible=True)
@@ -588,6 +604,10 @@ class PartPropertyFfePre(PartProperty):
 class PartPropertyFfeTd(PartProperty):
     def __init__(self,delay=0.0):
         PartProperty.__init__(self,'td',type='float',unit='s',keyword='td',description='tap delay (s)',value=delay,visible=True, keywordVisible=True)
+
+class PartPropertyFfeTapsPerUI(PartProperty):
+    def __init__(self,tapsPerUI=1):
+        PartProperty.__init__(self,'taps_per_ui',type='int',unit=None,keyword='taps_per_ui',description='taps per unit interval',value=tapsPerUI,visible=False)
 
 class PartPropertyFilterOrder(PartProperty):
     def __init__(self,order=0.):

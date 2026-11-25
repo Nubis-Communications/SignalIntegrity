@@ -23,7 +23,7 @@ import copy
 
 class ParserDevice(object):
     """class defining how to parse devices"""
-    def __init__(self,devicename,ports,arginname,defaults,frequencyDependent,func):
+    def __init__(self,devicename,ports,arginname,defaults,frequencyDependent,func,optionalArgument=False):
         """Constructor
         @param devicename string name of device
         @param ports integer or string number of ports in device or None.  If a string, then the string
@@ -37,10 +37,12 @@ class ParserDevice(object):
         then one arguments keyword will be the empty string ''.
         @param frequencyDependent boolean whether the device is frequency dependent.
         @param func string that when evaluated will be the device.  
+        @param optionalArgument boolean whether a positional argument may be omitted before keywords.
         """
         self.devicename=devicename
         self.ports=ports
         self.arginname=arginname
+        self.optionalArgument=optionalArgument
         defaults['z0']=50.
         self.defaults=defaults
         self.frequencyDependent=frequencyDependent
@@ -97,7 +99,9 @@ class DeviceFactory(list):
         |bessellp                               |2    |False    |order=4 fc=None                                                                                | True                |sp.dev.BesselLowPassFilter(f,order,fc,50.)                                                       |
         |butterworthlp                          |2    |False    |order=4 fc=None                                                                                | True                |sp.dev.BesselLowPassFilter(f,order,fc,50.)                                                       |
         |ctle                                   |2    |False    |gdc=None gdc2=None fz=None flf=None fp1=None fp2=None                                          | True                |sp.dev.CTLE(f,gdc,gdc2,fz,flf,fp1,fp2,50.)                                                       |
+        |ctle_std                               |2    |False    |br=None gdc=-2 gdc2=0 fz_divisor=2.5 flf_divisor=80 fp1_divisor=2.5 fp2_divisor=1                 | True                |sp.dev.CTLE_standard(f,br,gdc,gdc2,fz_divisor,flf_divisor,fp1_divisor,fp2_divisor,50.)              |
         |ffe                                    |2    |True     |taps='[1.0]' td=None pre=0                                                                     | True                |sp.dev.FFE(f,td,taps,pre,50.)                                                                    |
+        |ffe_std                                |2    |True     |taps='[1.0]' br=None pre=0 taps_per_ui=1                                                        | True                |sp.dev.FFE_standard(f,br,taps,pre,taps_per_ui,50.)                                               |
         |laplace                                |2    |True     |eq                                                                                             | True                |sp.dev.Laplace(f,eq)                                                                             |
         |tlineequation                          |2    |True     |eq zc=50                                                                                       | True                |sp.dev.TransmissionLineEquation(f,eq,Z0=zc).SetReferenceImpedance(z0)                            |
         |relay                                  |2-16 |True     |pos=0 term=1e9 Z0=50                                                                           | False               |dev.IdealRelay(ports,pos,term,z0)                                                                |
@@ -258,8 +262,16 @@ class DeviceFactory(list):
             'fp1':None,'fp2':None},True,"CTLE(f,float(arg['gdc']),float(arg['gdc2']),\
             float(arg['fz']),float(arg['flf']),float(arg['fp1']),float(arg['fp2']),\
             Z0=float(arg['z0']))"),
+        ParserDevice('ctle_std',2,False,{'br':None,'gdc':-2.,'gdc2':0.,
+            'fz_divisor':2.5,'flf_divisor':80.,'fp1_divisor':2.5,'fp2_divisor':1.},
+            True,"CTLE_standard(f,float(arg['br']),float(arg['gdc']),float(arg['gdc2']),\
+            float(arg['fz_divisor']),float(arg['flf_divisor']),float(arg['fp1_divisor']),\
+            float(arg['fp2_divisor']),Z0=float(arg['z0']))"),
         ParserDevice('ffe',2,True,{'':'[1.0]','td':None,'pre':0},True,"FFE(f,\
             float(arg['td']),eval(arg['']),eval(arg['pre']),Z0=float(arg['z0']))"),
+        ParserDevice('ffe_std',2,True,{'':'[1.0]','br':None,'pre':0,'taps_per_ui':1},
+            True,"FFE_standard(f,float(arg['br']),eval(arg['']),int(arg['pre']),\
+            int(arg['taps_per_ui']),Z0=float(arg['z0']))",optionalArgument=True),
         ParserDevice('laplace',2,True,{'':''},True,"Laplace(f,str(arg['']),\
             Z0=float(arg['z0']))"),
         ParserDevice('tlineequation',2,True,{'':'','zc':50.},True,
@@ -364,8 +376,8 @@ class DeviceFactory(list):
         from SignalIntegrity.Lib.SParameters.Devices.WElement import WElementFile
         from SignalIntegrity.Lib.SParameters.Devices.ClassicalFilter import ButterworthLowPassFilter,BesselLowPassFilter
         from SignalIntegrity.Lib.SParameters.Devices.Laplace import Laplace
-        from SignalIntegrity.Lib.SParameters.Devices.EqualizerFFE import FFE
-        from SignalIntegrity.Lib.SParameters.Devices.EqualizerCTLE import CTLE
+        from SignalIntegrity.Lib.SParameters.Devices.EqualizerFFE import FFE,FFE_standard
+        from SignalIntegrity.Lib.SParameters.Devices.EqualizerCTLE import CTLE,CTLE_standard
         from SignalIntegrity.Lib.SParameters.Devices.ImpulseResponseFilter import ImpulseResponseFilter
         from SignalIntegrity.Lib.SParameters.Devices.FrequencyResponseFilter import FrequencyResponseFilter
         from SignalIntegrity.Lib.SParameters.Devices.Parallel import Parallel
@@ -402,7 +414,7 @@ class DeviceFactory(list):
             if device.devicename != name: continue
             # this is the device, try to make it
             if device.arginname:
-                if len(argsList) > 0:
+                if len(argsList) > 0 and (not device.optionalArgument or argsList[0] not in device.defaults):
                     argsList=['']+argsList
             # pragma: silent exclude
             if len(argsList)//2*2 != len(argsList): # must be keyword value pairs
