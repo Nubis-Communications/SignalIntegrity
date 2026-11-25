@@ -700,6 +700,22 @@ class TestTheme(unittest.TestCase):
                                                   label.cget('background')), 4.5)
             tooltip.hidetip()
 
+    def test_tall_tooltip_near_screen_top_stays_below_control(self):
+        dialog = tk.Toplevel(self.root)
+        dialog.geometry('+40+0')
+        button = tk.Button(dialog, text='True')
+        button.pack()
+        tooltip = ToolTip(button)
+        try:
+            dialog.update()
+            tooltip.showtip('First line\nSecond line\nThird line')
+            dialog.update()
+            self.assertGreaterEqual(tooltip.tipwindow.winfo_rooty(),
+                                    button.winfo_rooty() + button.winfo_height())
+        finally:
+            tooltip.hidetip()
+            dialog.destroy()
+
     def test_enabled_and_disabled_toolbar_colors_match_palette_without_changing_commands(self):
         calls = []
         doer = Doer(lambda: calls.append('clicked'))

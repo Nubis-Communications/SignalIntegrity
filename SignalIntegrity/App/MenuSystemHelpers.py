@@ -134,14 +134,11 @@ class ToolTip(object):
         self.text = text
         if self.tipwindow or not self.text:
             return
-        x, y, _, _ = self.widget.bbox("insert")
-        x = x + self.widget.winfo_rootx() + 27
-        y = y + self.widget.winfo_rooty() - 27
         self.tipwindow = tw = tk.Toplevel(self.widget)
+        tw.withdraw()
         tw.wm_overrideredirect(1)
         tw.transient(self.widget.winfo_toplevel())
         tw.attributes('-topmost', True)
-        tw.wm_geometry("+%d+%d" % (x, y))
         try:
             # For Mac OS
             tw.tk.call("::tk::unsupported::MacWindowStyle",
@@ -155,6 +152,13 @@ class ToolTip(object):
         label = tk.Label(tw, text=self.text, justify=tk.LEFT,
                          background=background, foreground=foreground, relief=tk.SOLID, borderwidth=1)
         label.pack(ipadx=1)
+        tw.update_idletasks()
+        x = self.widget.winfo_rootx() + 27
+        y = self.widget.winfo_rooty() - tw.winfo_reqheight() - 4
+        if y < 0:
+            y = self.widget.winfo_rooty() + self.widget.winfo_height() + 4
+        tw.wm_geometry("+%d+%d" % (x, y))
+        tw.deiconify()
         tw.lift()
 
     def hidetip(self):

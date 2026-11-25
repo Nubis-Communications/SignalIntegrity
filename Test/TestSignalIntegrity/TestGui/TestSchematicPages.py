@@ -655,6 +655,31 @@ class TestSchematicPages(unittest.TestCase):
                 finally:
                     dialog.destroy()
 
+    def test_boolean_tooltip_does_not_cover_button(self):
+        from SignalIntegrity.App.ConfigurationPropertiesDialog import ConfigurationPropertiesDialog
+        for options in ({},{'current':True},{'eye':True}):
+            with self.subTest(options=options):
+                device=self.configurationDevice(**options)
+                dialog=ConfigurationPropertiesDialog(device.configuration,self.app.Drawing)
+                try:
+                    self.app.root.update()
+                    row=dialog.RecoverClock if options.get('eye') else dialog.Enable
+                    button=row.nativeEntry
+                    x,y=button.winfo_width()//2,button.winfo_height()//2
+                    initial=device.configuration[row.projectPath]
+                    button.event_generate('<Enter>',x=x,y=y)
+                    self.app.root.update()
+                    self.assertIs(button.winfo_containing(button.winfo_rootx()+x,button.winfo_rooty()+y),button)
+                    for expected in (not initial,initial):
+                        button.event_generate('<ButtonPress-1>',x=x,y=y)
+                        self.app.root.update()
+                        button.event_generate('<ButtonRelease-1>',x=x,y=y)
+                        self.app.root.update()
+                        self.assertEqual(device.configuration[row.projectPath],expected)
+                        self.assertEqual(button.cget('text'),str(expected))
+                finally:
+                    dialog.destroy()
+
     def test_configuration_dialog_read_only_disables_native_and_visibility_controls(self):
         from SignalIntegrity.App.ConfigurationPropertiesDialog import ConfigurationPropertiesDialog
         device=self.configurationDevice(eye=True)
