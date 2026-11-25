@@ -23,7 +23,8 @@ import copy
 
 class ParserDevice(object):
     """class defining how to parse devices"""
-    def __init__(self,devicename,ports,arginname,defaults,frequencyDependent,func,optionalArgument=False):
+    def __init__(self,devicename,ports,arginname,defaults,frequencyDependent,func,
+                 optionalArgument=False):
         """Constructor
         @param devicename string name of device
         @param ports integer or string number of ports in device or None.  If a string, then the string
@@ -414,7 +415,8 @@ class DeviceFactory(list):
             if device.devicename != name: continue
             # this is the device, try to make it
             if device.arginname:
-                if len(argsList) > 0 and (not device.optionalArgument or argsList[0] not in device.defaults):
+                if len(argsList) > 0 and (not device.optionalArgument or
+                                          argsList[0] not in device.defaults):
                     argsList=['']+argsList
             # pragma: silent exclude
             if len(argsList)//2*2 != len(argsList): # must be keyword value pairs

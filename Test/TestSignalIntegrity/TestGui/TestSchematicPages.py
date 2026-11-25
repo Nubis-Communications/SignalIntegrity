@@ -19,6 +19,7 @@
 
 import copy
 import os
+import re
 import tempfile
 import tkinter as tk
 import unittest
@@ -667,9 +668,23 @@ class TestSchematicPages(unittest.TestCase):
                     button=row.nativeEntry
                     x,y=button.winfo_width()//2,button.winfo_height()//2
                     initial=device.configuration[row.projectPath]
-                    button.event_generate('<Enter>',x=x,y=y)
-                    self.app.root.update()
-                    self.assertIs(button.winfo_containing(button.winfo_rootx()+x,button.winfo_rooty()+y),button)
+                    positions=[]
+                    geometry=tk.Toplevel.wm_geometry
+                    def recordGeometry(window,value=None):
+                        if value is not None and window.master is button:
+                            positions.append((window,value))
+                        return geometry(window,value)
+                    with patch.object(tk.Toplevel,'wm_geometry',autospec=True,side_effect=recordGeometry):
+                        button.event_generate('<Enter>',x=x,y=y)
+                        self.app.root.update()
+                    self.assertEqual(len(positions),1)
+                    tooltip,position=positions[0]
+                    match=re.fullmatch(r'\+(-?\d+)\+(-?\d+)',position)
+                    self.assertIsNotNone(match)
+                    tipY=int(match.group(2))
+                    buttonY=button.winfo_rooty()
+                    self.assertTrue(tipY+tooltip.winfo_reqheight() <= buttonY or
+                                    tipY >= buttonY+button.winfo_height())
                     for expected in (not initial,initial):
                         button.event_generate('<ButtonPress-1>',x=x,y=y)
                         self.app.root.update()

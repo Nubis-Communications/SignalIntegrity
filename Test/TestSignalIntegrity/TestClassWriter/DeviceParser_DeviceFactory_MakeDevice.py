@@ -26,7 +26,8 @@ class DeviceFactory(list):
             if device.devicename != name: continue
             # this is the device, try to make it
             if device.arginname:
-                if len(argsList) > 0:
+                if len(argsList) > 0 and (not device.optionalArgument or
+                                          argsList[0] not in device.defaults):
                     argsList=['']+argsList
             argsProvidedDict = {argsList[i]:argsList[i+1]
                                 for i in range(0,len(argsList),2)}
